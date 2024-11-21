@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dfcacd2599878c4cb4794e53d034f27, type: 3}
+  m_Name: DamageEventsGenerator
+  m_EditorClassIdentifier: 
+  eventsToGenerate:
+  - eventName: TakenDmg
+    documentation: 
+    parameters:
+    - parameterType: 1
+      nativeType: 0
+      monoScript: {fileID: 11500000, guid: 7ee13b82d97cfb145ab578401835b5db, type: 3}
+    isGenerated: 0
+  - eventName: PreDmg
+    documentation: 
+    parameters:
+    - parameterType: 1
+      nativeType: 0
+      monoScript: {fileID: 11500000, guid: f3bb5c627a850a74a9ba45fdf0a8b1dd, type: 3}
+    - parameterType: 1
+      nativeType: 0
+      monoScript: {fileID: 11500000, guid: 39f37772fc10564479c048779944d172, type: 3}
+    isGenerated: 0
+  baseSaveLocation: Packages/com.electricdrill.simple-rpg-core/Runtime/ElectricDrill/SimpleRpgCore/Events
+  previousSaveLocation: Packages/com.electricdrill.simple-rpg-core/Runtime/ElectricDrill/SimpleRpgCore/Events

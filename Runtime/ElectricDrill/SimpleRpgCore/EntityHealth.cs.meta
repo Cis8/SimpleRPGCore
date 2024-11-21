@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d2d0622dc6a2ac347812d35d5c67273a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healAmountModifier: {fileID: 11400000, guid: 0ef590f41d40c675a8483582c22e443d, type: 2}
+  - onDeathStrategy: {fileID: 11400000, guid: bc13007e6d3283b96b4b5f866e2a4107, type: 2}
+  - preDmgInfoEvent: {instanceID: 0}
+  - takenDmgInfoEvent: {instanceID: 0}
+  - healedEvent: {instanceID: 0}
+  - gainedHealthEvent: {instanceID: 0}
+  - lostHealthEvent: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
