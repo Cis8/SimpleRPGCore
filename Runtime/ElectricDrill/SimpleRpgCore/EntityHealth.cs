@@ -169,7 +169,8 @@ namespace ElectricDrill.SimpleRpgCore
         }
         
         private void OnLevelUp(int level) {
-            maxHp.Value = _entityClass.Class.GetMaxHpAt(level);
+            if (useClassMaxHp)
+                maxHp.Value = _entityClass.Class.GetMaxHpAt(level);
             // todo add flag to decide if health should be restored on level-up
         }
         

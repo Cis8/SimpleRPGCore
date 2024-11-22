@@ -12,8 +12,6 @@ using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore
 {
-    // requires EntityLevel and EntityStats
-    [RequireComponent(typeof(EntityStats))]
     public class EntityCore : MonoBehaviour
     {
         [SerializeField] private EntityLevel _level;
@@ -28,7 +26,8 @@ namespace ElectricDrill.SimpleRpgCore
         }
 
         protected virtual void Start() {
-            _stats = GetComponent<EntityStats>();
+            if (!TryGetComponent(out _stats))
+                _stats = gameObject.AddComponent<EntityStats>();
         }
 
         protected virtual void Update() {
