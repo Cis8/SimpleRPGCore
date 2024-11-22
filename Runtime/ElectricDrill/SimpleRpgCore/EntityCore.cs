@@ -20,14 +20,14 @@ namespace ElectricDrill.SimpleRpgCore
         private EntityStats _stats;
 
         public EntityLevel Level => _level;
-        public EntityStats Stats => _stats;
+        public EntityStats Stats => _stats ? _stats : GetComponent<EntityStats>();
 
         protected virtual void Awake() {
         }
 
         protected virtual void Start() {
-            if (!TryGetComponent(out _stats))
-                _stats = gameObject.AddComponent<EntityStats>();
+            if (!_stats)
+                _stats = GetComponent<EntityStats>();
         }
 
         protected virtual void Update() {

@@ -7,7 +7,6 @@ namespace ElectricDrill.SimpleRpgCore
     {
         public override void Die(EntityHealth entityHealth)
         {
-            Debug.Log("Destroying " + entityHealth.gameObject.name);
             Destroy(entityHealth.gameObject);
         }
     }

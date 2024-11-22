@@ -17,12 +17,12 @@ namespace ElectricDrill.SimpleRpgCore {
         [SerializeField] private long constantAtLvl1;
         [SerializeField] private List<LevelGrowthFormulaPair> levelToGrowthFormulas;
         [SerializeField] private IntVar maxLevel;
-        [SerializeField] private long[] growthFoValues;
-        public long[] GrowthFoValues => growthFoValues;
+        [SerializeField] private double[] growthFoValues;
+        public double[] GrowthFoValues => growthFoValues;
 
         public long GetGrowthValue(int level) {
             Assert.IsTrue(level <= maxLevel.Value, "Level is greater than max level");
-            return growthFoValues[level - 1];
+            return (long)growthFoValues[level - 1];
         }
         
         private void OnValidate() {
@@ -59,7 +59,7 @@ namespace ElectricDrill.SimpleRpgCore {
                     "Growth formulas are overlapping");
             }
             
-            growthFoValues = new long[maxLevel];
+            growthFoValues = new double[maxLevel];
             
             if (useConstantAtLvl1) {
                 growthFoValues[0] = constantAtLvl1;
@@ -71,9 +71,14 @@ namespace ElectricDrill.SimpleRpgCore {
             for (; lvl < maxLevel; lvl++) {
                 var level = lvl + 1;
                 var lvlRelatedGrowthFo = ReplaceKeywordsInExpression(level);
+                lvlRelatedGrowthFo = SanitizeExpression(lvlRelatedGrowthFo, level);
                 ExpressionEvaluator.Evaluate(lvlRelatedGrowthFo, out double computedValue);
-                growthFoValues[lvl] = (long) computedValue;
+                growthFoValues[lvl] = computedValue;
             }
+        }
+
+        private string SanitizeExpression(string formula, int level) {
+            return formula.Replace(',', '.');
         }
 
         private string ReplaceKeywordsInExpression(int level) {
