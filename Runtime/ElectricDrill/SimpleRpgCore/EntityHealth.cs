@@ -32,10 +32,10 @@ namespace ElectricDrill.SimpleRpgCore
         // Events
         [SerializeField] private PreDmgGameEvent preDmgInfoEvent;
         [SerializeField] private TakenDmgGameEvent takenDmgInfoEvent;
-        [SerializeField] private HealedGameEvent healedEvent;
-        [SerializeField] private GainedHealthGameEvent gainedHealthEvent;
-        [SerializeField] private LostHealthGameEvent lostHealthEvent;
-        [SerializeField] private DiedGameEvent entityDiedEvent;
+        [SerializeField] private EntityHealedGameEvent healedEvent;
+        [SerializeField] private EntityGainedHealthGameEvent gainedHealthEvent;
+        [SerializeField] private EntityLostHealthGameEvent lostHealthEvent;
+        [SerializeField] private EntityDiedGameEvent entityDiedEvent;
 
         public long MAX_HP => maxHp;
         public long HP => hp;
@@ -68,16 +68,16 @@ namespace ElectricDrill.SimpleRpgCore
 
         public virtual void TakeDamage(PreDmgInfo preDmg) {
             Assert.IsTrue(preDmg.Amount >= 0, "Damage amount must be greater than or equal to 0");
-            
+
             preDmgInfoEvent?.Raise(preDmg, _core);
-            
+
             // get stats from the entity
-            var defensiveStat = _stats.Get(preDmg.Type.ReducedBy);
-            var piercingStat = preDmg.Dealer.Stats.Get(preDmg.Type.DefensiveStatPiercedBy);
-            
+            var defensiveStat = preDmg.Type.ReducedBy != null ? _stats.Get(preDmg.Type.ReducedBy) : 0;
+            var piercingStat = preDmg.Type.DefensiveStatPiercedBy != null ? preDmg.Dealer.Stats.Get(preDmg.Type.DefensiveStatPiercedBy) : 0;
+
             // calculate the reduced defensive stat and the reduced amount of damage
-            var reducedDefensiveStat = preDmg.Type.DefReductionFn.ReducedDef(piercingStat, defensiveStat);
-            var dmgToBeTaken = preDmg.Type.DmgReduction.ReducedDmg(preDmg.Amount, reducedDefensiveStat);
+            var reducedDefensiveStat = preDmg.Type.DefReductionFn != null ? preDmg.Type.DefReductionFn.ReducedDef(piercingStat, defensiveStat) : defensiveStat;
+            var dmgToBeTaken = preDmg.Type.DmgReductionFn != null ? preDmg.Type.DmgReductionFn.ReducedDmg(preDmg.Amount, reducedDefensiveStat) : preDmg.Amount;
 
             var barrierReducedDmgToBeTaken = dmgToBeTaken;
             if (!preDmg.Type.IgnoresBarrier)
@@ -88,13 +88,17 @@ namespace ElectricDrill.SimpleRpgCore
                     RemoveBarrier(dmgToBeTaken);
                 }
             }
-            
+
             // subtract the barrier-reduced dmg to be taken to the entity's health
             RemoveHealth(barrierReducedDmgToBeTaken);
-            
+
             // the amount of damage taken is the amount of damage reduced by the defensive stat, but not by the barrier
             var takenDmgInfo = new TakenDmgInfo(dmgToBeTaken, preDmg, _core);
             takenDmgInfoEvent?.Raise(takenDmgInfo);
+            if (IsDead()) {
+                entityDiedEvent.Raise(this, takenDmgInfo);
+                onDeathStrategy.Die(this);
+            }
         }
 
         public void AddBarrier(long amount) {
@@ -135,12 +139,6 @@ namespace ElectricDrill.SimpleRpgCore
             }
             hp.Value = newHp;
             lostHealthEvent?.Raise(this, previousHp - hp);
-            
-            if (hp <= 0)
-            {
-                entityDiedEvent.Raise(this);
-                onDeathStrategy.Die(this);
-            }
         }
         
         public void Heal(long amount)

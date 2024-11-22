@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealthEventsGenerator
   m_EditorClassIdentifier: 
   eventsToGenerate:
-  - eventName: GainedHealth
+  - eventName: EntityGainedHealth
     documentation: 
     parameters:
     - parameterType: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
       nativeType: 1
       monoScript: {fileID: 0}
     isGenerated: 1
-  - eventName: LostHealth
+  - eventName: EntityLostHealth
     documentation: 
     parameters:
     - parameterType: 1
@@ -33,7 +33,7 @@ MonoBehaviour:
       nativeType: 1
       monoScript: {fileID: 0}
     isGenerated: 1
-  - eventName: Healed
+  - eventName: EntityHealed
     documentation: 
     parameters:
     - parameterType: 1
@@ -43,12 +43,15 @@ MonoBehaviour:
       nativeType: 1
       monoScript: {fileID: 0}
     isGenerated: 1
-  - eventName: Died
+  - eventName: EntityDied
     documentation: 
     parameters:
     - parameterType: 1
       nativeType: 1
       monoScript: {fileID: 11500000, guid: d2d0622dc6a2ac347812d35d5c67273a, type: 3}
+    - parameterType: 1
+      nativeType: 1
+      monoScript: {fileID: 11500000, guid: 7ee13b82d97cfb145ab578401835b5db, type: 3}
     isGenerated: 1
   baseSaveLocation: Packages/com.electricdrill.simple-rpg-core/Runtime/ElectricDrill/SimpleRpgCore/Events
   previousSaveLocation: Packages/com.electricdrill.simple-rpg-core/Runtime/ElectricDrill/SimpleRpgCore/Events

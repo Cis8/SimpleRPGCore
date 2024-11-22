@@ -9,7 +9,7 @@ namespace ElectricDrill.SimpleRpgCore.Damage
     public class DmgType : ScriptableObject
     {
         [SerializeField] private Stat dmgReducedBy;
-        [SerializeField] private DmgReductionFn dmgReductionFn;
+        [FormerlySerializedAs("dmgReductionFn")] [SerializeField] private DmgReductionFn dmgReductionFnFn;
         [SerializeField] private Stat defensiveStatPiercedBy;
         [SerializeField] private DefReductionFn defReductionFn;
         [SerializeField] private bool ignoresBarrier = false;
@@ -17,7 +17,7 @@ namespace ElectricDrill.SimpleRpgCore.Damage
         public Stat ReducedBy { get => dmgReducedBy; protected set => dmgReducedBy = value; }
         public Stat DefensiveStatPiercedBy => defensiveStatPiercedBy;
         public DefReductionFn DefReductionFn => defReductionFn;
-        public DmgReductionFn DmgReduction { get => dmgReductionFn; protected set => dmgReductionFn = value; }
+        public DmgReductionFn DmgReductionFn { get => dmgReductionFnFn; protected set => dmgReductionFnFn = value; }
         public bool IgnoresBarrier => ignoresBarrier;
 
         public override string ToString() {

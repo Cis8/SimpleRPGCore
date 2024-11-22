@@ -6,7 +6,7 @@ namespace ElectricDrill.SimpleRpgCore.Events
     /// <summary>
     /// 
     /// </summary>
-    public class LostHealthGameEventListener : GameEventListenerGeneric2<EntityHealth, long>
+    public class EntityLostHealthGameEventListener : GameEventListenerGeneric2<EntityHealth, long>
     {
     }
 }

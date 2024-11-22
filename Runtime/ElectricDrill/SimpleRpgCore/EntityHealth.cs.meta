@@ -4,13 +4,14 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - healAmountModifier: {fileID: 11400000, guid: 0ef590f41d40c675a8483582c22e443d, type: 2}
+  - healAmountModifier: {instanceID: 0}
   - onDeathStrategy: {fileID: 11400000, guid: bc13007e6d3283b96b4b5f866e2a4107, type: 2}
-  - preDmgInfoEvent: {instanceID: 0}
-  - takenDmgInfoEvent: {instanceID: 0}
-  - healedEvent: {instanceID: 0}
-  - gainedHealthEvent: {instanceID: 0}
-  - lostHealthEvent: {instanceID: 0}
+  - preDmgInfoEvent: {fileID: 11400000, guid: c9b480133f52314479a8ab710ef9902f, type: 2}
+  - takenDmgInfoEvent: {fileID: 11400000, guid: 59721a5d7960ab7429dda3a084ca434e, type: 2}
+  - healedEvent: {fileID: 11400000, guid: e47cca1a873e80388984eb1662d9ee3b, type: 2}
+  - gainedHealthEvent: {fileID: 11400000, guid: b248b1314a9a5176ba39e7e53e1f366d, type: 2}
+  - lostHealthEvent: {fileID: 11400000, guid: 2619aa80662e09b30b0332c2bfd8db7a, type: 2}
+  - entityDiedEvent: {fileID: 11400000, guid: f0f412290c6825518b5500666c03d56c, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

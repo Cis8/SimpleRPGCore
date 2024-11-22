@@ -6,7 +6,7 @@ namespace ElectricDrill.SimpleRpgCore.Events
     /// <summary>
     /// 
     /// </summary>
-    public class DiedGameEventListener : GameEventListenerGeneric1<EntityHealth>
+    public class EntityHealedGameEventListener : GameEventListenerGeneric2<EntityHealth, long>
     {
     }
 }

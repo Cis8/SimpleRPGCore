@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7bec73f3c7c3cc6b8cb2734718e6129, type: 3}
-  m_Name: On Entity Healed
+  m_Script: {fileID: 11500000, guid: b1254f68d29faee1daa8c1f7ee600fef, type: 3}
+  m_Name: Entity Died
   m_EditorClassIdentifier: 

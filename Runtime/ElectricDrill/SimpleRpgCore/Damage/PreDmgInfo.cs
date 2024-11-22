@@ -11,7 +11,7 @@ namespace ElectricDrill.SimpleRpgCore.Damage {
         public EntityCore Dealer { get; }
         public bool IsCritical { get; }
 
-        public static DmgInfoAmount Builder => PreDmgInfoStepBuilder.Builder;
+        public static DmgInfoAmount Builder => new PreDmgInfoStepBuilder();
 
         private PreDmgInfo(long amount, DmgType type, DmgSource source, EntityCore dealer, bool isCritical = false) {
             Amount = amount;
@@ -48,8 +48,6 @@ namespace ElectricDrill.SimpleRpgCore.Damage {
             private DmgSource source;
             private EntityCore dealer;
             private bool isCritical;
-            
-            public static DmgInfoAmount Builder => new PreDmgInfoStepBuilder();
             
             public DmgInfoType WithAmount(long amount)
             {
