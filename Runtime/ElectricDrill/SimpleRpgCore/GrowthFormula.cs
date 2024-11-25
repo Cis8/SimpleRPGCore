@@ -25,6 +25,7 @@ namespace ElectricDrill.SimpleRpgCore {
             return (long)growthFoValues[level - 1];
         }
         
+        
         private void OnValidate() {
             // sort growthFormulas by FromLevel
             /*levelToGrowthFormulas.Sort((a, b) =>

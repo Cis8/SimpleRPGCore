@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ElectricDrill.SimpleRpgCore.Characteristics;
 using UnityEngine;
 using ElectricDrill.SimpleRpgCore.Damage;
 using ElectricDrill.SimpleRpgCore.Events;
@@ -18,9 +19,11 @@ namespace ElectricDrill.SimpleRpgCore
         
         // mainly here for enhancing the performance while reading stats with scaling formulas
         private EntityStats _stats;
+        private EntityCharacteristics _characteristics;
 
         public EntityLevel Level => _level;
         public EntityStats Stats => _stats ? _stats : GetComponent<EntityStats>();
+        public EntityCharacteristics Characteristics => _characteristics ? _characteristics : GetComponent<EntityCharacteristics>();
 
         protected virtual void Awake() {
         }
@@ -28,6 +31,9 @@ namespace ElectricDrill.SimpleRpgCore
         protected virtual void Start() {
             if (!_stats)
                 _stats = GetComponent<EntityStats>();
+            
+            // this can be null since it is not required
+            _characteristics = GetComponent<EntityCharacteristics>();
         }
 
         protected virtual void Update() {

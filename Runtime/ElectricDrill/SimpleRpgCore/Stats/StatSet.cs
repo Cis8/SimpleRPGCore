@@ -10,7 +10,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
     {
         [SerializeField] private SerializableHashSet<Stat> _stats = new();
 
-        public SerializableHashSet<Stat> Stats => _stats;
+        public IReadOnlyList<Stat> Stats => _stats.ToList();
 
         public Stat Get(Stat stat) {
             return _stats.First(s => s == stat);

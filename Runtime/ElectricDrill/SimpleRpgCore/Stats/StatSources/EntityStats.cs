@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ElectricDrill.SimpleRpgCore.Characteristics;
 using ElectricDrill.SimpleRpgCore.Damage;
 using ElectricDrill.SimpleRpgCore.Events;
 using ElectricDrill.SimpleRpgCore.Utils;
@@ -35,7 +36,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         
         // Fixed stats
         [SerializeField] private StatSet fixedBaseStatsStatSet;
-        [SerializeField] private List<StatValuePair<long>> _inspectorReservedFixedBaseStats;
+        [SerializeField] private List<SerKeyValPair<Stat, long>> _inspectorReservedFixedBaseStats;
         private StatSetInstance _fixedBaseStats;
         
         // todo evaluate if finalStats cache shall be added
@@ -77,15 +78,18 @@ namespace ElectricDrill.SimpleRpgCore.Stats
 
         // READ STATS
         public long GetBase(Stat stat) {
-            Assert.IsTrue(StatSet.Stats.Contains(stat), $"Stat {stat.name} is not in the {name}'s StatSet ({StatSet.name})");
-            if (_useClassBaseStats)
-                return stat.Clamp(_baseClassStats.Get(stat));
+            Assert.IsTrue(StatSet.Contains(stat), $"Stat {stat.name} is not in the {name}'s StatSet ({StatSet.name})");
+            if (_useClassBaseStats) {
+                var baseValue = _baseClassStats.Get(stat);
+                baseValue += stat.CharacteristicsScaling?.CalculateValue(_entityCore) ?? 0;
+                return stat.Clamp(baseValue);
+            }
             
-            return _fixedBaseStats[stat];
+            return stat.Clamp(_fixedBaseStats[stat]);
         }
         
         public long Get(Stat stat) {
-            Assert.IsTrue(StatSet.Stats.Contains(stat), $"Stat {stat.name} is not in the {name}'s StatSet ({StatSet.name})");
+            Assert.IsTrue(StatSet.Contains(stat), $"Stat {stat.name} is not in the {name}'s StatSet ({StatSet.name})");
             return stat.Clamp(CalculateFinalStat(stat));
         }
         
@@ -209,32 +213,8 @@ namespace ElectricDrill.SimpleRpgCore.Stats
 
         private void OnValidate() {
             if (!_useClassBaseStats) {
-                if (fixedBaseStatsStatSet != null) {
-                    _inspectorReservedFixedBaseStats = fixedBaseStatsStatSet.Stats.Select(stat => {
-                        if (_inspectorReservedFixedBaseStats == null) {
-                            return new StatValuePair<long> {
-                                Stat = stat,
-                                Value = 0
-                            };
-                        }
-                        else {
-                            var existingStat =
-                                _inspectorReservedFixedBaseStats.FirstOrDefault(s => s.Stat.name == stat.name);
-                            if (existingStat.Stat == null) {
-                                return new StatValuePair<long> {
-                                    Stat = stat,
-                                    Value = 0
-                                };
-                            }
-
-                            return existingStat;
-                        }
-                    }).ToList();
-                    InitializeFixedBaseStats();
-                }
-                else {
-                    _inspectorReservedFixedBaseStats = null;
-                }
+                InitializationUtils.RefreshInspectorReservedValues(ref _inspectorReservedFixedBaseStats, fixedBaseStatsStatSet?.Stats);
+                InitializeFixedBaseStats();
             }
         }
 
@@ -251,7 +231,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             if (!_useClassBaseStats) {
                 _fixedBaseStats = new StatSetInstance(fixedBaseStatsStatSet);
                 foreach (var statValuePair in _inspectorReservedFixedBaseStats) {
-                    _fixedBaseStats.AddValue(statValuePair.Stat, statValuePair.Value);
+                    _fixedBaseStats.AddValue(statValuePair.Key, statValuePair.Value);
                 }
             }
         }

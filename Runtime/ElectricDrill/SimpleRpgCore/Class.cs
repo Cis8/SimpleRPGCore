@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ElectricDrill.SimpleRpgCore.Characteristics;
 using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEditor;
@@ -17,8 +18,15 @@ namespace ElectricDrill.SimpleRpgCore
         [SerializeField] protected GrowthFormula _maxHpGrowthFormula;
 
         [SerializeField] protected StatSet _statSet;
+        
+        // can be null
+        [SerializeField] protected CharacteristicSet _characteristicSet;
+        [SerializeField] private List<SerKeyValPair<Characteristic, GrowthFormula>> characteristicGrowthFormulas = new();
 
+        // todo change and us List<RPGKeyValuePair<Stat, GrowthFormula>>
         [SerializeField] protected StatGrowthFnPair[] _statGrowthFnPairs = Array.Empty<StatGrowthFnPair>();
+        
+        public CharacteristicSet CharacteristicSet => _characteristicSet;
         public StatSet StatSet => _statSet;
 
         public long GetMaxHpAt(int level) {
@@ -35,6 +43,17 @@ namespace ElectricDrill.SimpleRpgCore
             }
 
             return statSetInstance;
+        }
+        
+        public CharacteristicSetInstance CreateCharacteristicSetInstanceAt(int level) {
+            var characteristicSetInstance = new CharacteristicSetInstance(_characteristicSet);
+            foreach (var characteristicGrowthFormula in characteristicGrowthFormulas) {
+                characteristicSetInstance.AddValue(
+                    characteristicGrowthFormula.Key,
+                    characteristicGrowthFormula.Value.GetGrowthValue(level));
+            }
+
+            return characteristicSetInstance;
         }
 
         [Serializable]
@@ -68,6 +87,24 @@ namespace ElectricDrill.SimpleRpgCore
             }
             else {
                 _statGrowthFnPairs = Array.Empty<StatGrowthFnPair>();
+            }
+            
+            if (_characteristicSet != null) {
+                characteristicGrowthFormulas = _characteristicSet.Characteristics.Select(characteristic => {
+                    if (characteristicGrowthFormulas == null) {
+                        return new SerKeyValPair<Characteristic, GrowthFormula>(characteristic, null);
+                    }
+                    else {
+                        var existingCharacteristic = characteristicGrowthFormulas.FirstOrDefault(s => s.Key.name == characteristic.name);
+                        if (existingCharacteristic.Key == null) {
+                            return new SerKeyValPair<Characteristic, GrowthFormula>(characteristic, null);
+                        }
+                        return existingCharacteristic;
+                    }
+                }).ToList();
+            }
+            else {
+                characteristicGrowthFormulas = new List<SerKeyValPair<Characteristic, GrowthFormula>>();
             }
         }
 
