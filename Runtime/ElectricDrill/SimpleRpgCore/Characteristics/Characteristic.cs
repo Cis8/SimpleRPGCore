@@ -8,6 +8,9 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
     public class Characteristic : BoundedValue
     {
         private bool Equals(Characteristic other) {
+#if UNITY_EDITOR
+            return GetHashCode() == other.GetHashCode();
+#endif
             return name == other.name;
         }
         

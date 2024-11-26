@@ -9,7 +9,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
     [Serializable]
     public class AvailableCharacteristicPoints
     {
-        [SerializeField] int available;
+        /*[SerializeField] int available;
         // this is internal so that the object that holds this class can initialize it in OnValidate or other methods
         [SerializeField] internal List<SerKeyValPair<Characteristic, int>> inspectorReservedSpentCharacteristicPoints;
         private CharacteristicSetInstance _spentCharacteristicPoints;
@@ -26,6 +26,15 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
             foreach (var statValuePair in inspectorReservedSpentCharacteristicPoints) {
                 _spentCharacteristicPoints.AddValue(statValuePair.Key, statValuePair.Value);
             }
+        }*/
+        
+        [SerializeField] int available;
+        [SerializeField] SerializableDictionary<Characteristic, int> spentCharacteristicPoints = new();
+        
+        public SerializableDictionary<Characteristic, int> SpentCharacteristicPoints => spentCharacteristicPoints;
+
+        public void Add(int amount) {
+            available += amount;
         }
     }
 }
