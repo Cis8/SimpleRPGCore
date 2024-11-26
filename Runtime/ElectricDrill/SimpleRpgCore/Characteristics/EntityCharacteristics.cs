@@ -15,14 +15,13 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         private EntityCore _entityCore;
         
         [SerializeField] private bool useClassBaseCharacteristics;
+
+        [SerializeField] private IntRef charPointsPerLevel;
+        [SerializeField] AvailableCharacteristicPoints availableCharPoints;
         
         // dynamic characteristics
         private EntityClass _entityClass;
-        [SerializeField] private IntRef _charPointsPerLevel;
-        [SerializeField] private IntRef availableCharPoints;
         private CharacteristicSetInstance _classCharacteristics;
-        [SerializeField] private List<SerKeyValPair<Characteristic, int>> inspectorReservedSpentCharacteristicPoints;
-        private CharacteristicSetInstance _spentCharacteristicPoints;
         
         // Fixed base characteristics
         [SerializeField] private CharacteristicSet fixedBaseCharacteristicCharSet;
@@ -67,14 +66,14 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
                 finalValue += _fixedBaseCharacteristics[characteristic];
             }
             // Add spent points
-            finalValue += _spentCharacteristicPoints[characteristic];
+            finalValue += availableCharPoints.SpentCharacteristicPoints[characteristic];
 
             return finalValue;
         }
 
         // EVENTS and EDITOR
         private void OnLevelUp(int _) {
-            availableCharPoints.Value += _charPointsPerLevel;
+            availableCharPoints.Add(charPointsPerLevel);
         }
         
         private void OnValidate() {
@@ -84,8 +83,8 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
                 InitializeFixedBaseCharacteristics();
             }
             
-            InitializationUtils.RefreshInspectorReservedValues(ref inspectorReservedSpentCharacteristicPoints, CharacteristicSet?.Characteristics);
-            InitializeSpentCharacteristicPoints();
+            InitializationUtils.RefreshInspectorReservedValues(ref availableCharPoints.inspectorReservedSpentCharacteristicPoints, CharacteristicSet?.Characteristics);
+            availableCharPoints.InitializeSpentCharacteristicPoints(CharacteristicSet);
 #endif
         }
 
@@ -133,13 +132,6 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
                 foreach (var statValuePair in inspectorReservedFixedBaseCharacteristics) {
                     _fixedBaseCharacteristics.AddValue(statValuePair.Key, statValuePair.Value);
                 }
-            }
-        }
-        
-        private void InitializeSpentCharacteristicPoints() {
-            _spentCharacteristicPoints = new CharacteristicSetInstance(CharacteristicSet);
-            foreach (var statValuePair in inspectorReservedSpentCharacteristicPoints) {
-                _spentCharacteristicPoints.AddValue(statValuePair.Key, statValuePair.Value);
             }
         }
     }

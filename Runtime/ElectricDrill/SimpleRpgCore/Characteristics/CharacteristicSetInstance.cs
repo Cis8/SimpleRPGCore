@@ -6,7 +6,7 @@ using ElectricDrill.SimpleRpgCore.Characteristics;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine;
 
-namespace ElectricDrill.SimpleRpgCore.Stats {
+namespace ElectricDrill.SimpleRpgCore.Characteristics {
     public class CharacteristicSetInstance : IEnumerable<KeyValuePair<Characteristic, long>>, ICharacteristicContainer
     {
         private Dictionary<Characteristic, long> _characteristics = new();
@@ -26,14 +26,14 @@ namespace ElectricDrill.SimpleRpgCore.Stats {
                 _characteristics[characteristic] += value;
         }
         
-        public long Get(Characteristic cahracteristic) {
-            return _characteristics[cahracteristic];
+        public long Get(Characteristic characteristic) {
+            return _characteristics[characteristic];
         }
         
         // overload of the [] operator
-        public long this[Characteristic stat] {
-            get => Get(stat);
-            set => AddValue(stat, value);
+        public long this[Characteristic characteristic] {
+            get => Get(characteristic);
+            set => AddValue(characteristic, value);
         }
         
         public CharacteristicSetInstance Clone() {

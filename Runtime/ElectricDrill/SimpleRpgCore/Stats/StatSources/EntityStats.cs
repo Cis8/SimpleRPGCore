@@ -18,7 +18,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
     {
         private EntityCore _entityCore;
 
-        [FormerlySerializedAs("_useFixedBaseStats")] [SerializeField] private bool _useClassBaseStats = true;
+        [SerializeField] private bool _useClassBaseStats = true;
 
         // todo hide fixed or dynamic stats based on the value of _useFixedStats
         
