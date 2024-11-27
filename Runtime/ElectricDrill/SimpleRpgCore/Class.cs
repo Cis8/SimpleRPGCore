@@ -5,6 +5,7 @@ using System.Linq;
 using ElectricDrill.SimpleRpgCore.Characteristics;
 using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
+using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.TerrainTools;
 using UnityEngine;
@@ -16,14 +17,13 @@ namespace ElectricDrill.SimpleRpgCore
     public class Class : ScriptableObject
     {
         [SerializeField] protected GrowthFormula _maxHpGrowthFormula;
-
-        [SerializeField] protected StatSet _statSet;
         
         // can be null
         [SerializeField] protected CharacteristicSet _characteristicSet;
-        [SerializeField] private List<SerKeyValPair<Characteristic, GrowthFormula>> characteristicGrowthFormulas = new();
+        [SerializeField] private SerializableDictionary<Characteristic, GrowthFormula> characteristicGrowthFormulas = new();
 
         // todo change and us List<RPGKeyValuePair<Stat, GrowthFormula>>
+        [SerializeField] protected StatSet _statSet;
         [SerializeField] protected StatGrowthFnPair[] _statGrowthFnPairs = Array.Empty<StatGrowthFnPair>();
         
         public CharacteristicSet CharacteristicSet => _characteristicSet;
@@ -46,6 +46,9 @@ namespace ElectricDrill.SimpleRpgCore
         }
         
         public CharacteristicSetInstance CreateCharacteristicSetInstanceAt(int level) {
+            foreach (var characteristicGrowthFormula in characteristicGrowthFormulas) {
+                Assert.IsNotNull(characteristicGrowthFormula.Value, $"GrowthFormula for {characteristicGrowthFormula.Key} is null");
+            }
             var characteristicSetInstance = new CharacteristicSetInstance(_characteristicSet);
             foreach (var characteristicGrowthFormula in characteristicGrowthFormulas) {
                 characteristicSetInstance.AddValue(
@@ -92,19 +95,21 @@ namespace ElectricDrill.SimpleRpgCore
             if (_characteristicSet != null) {
                 characteristicGrowthFormulas = _characteristicSet.Characteristics.Select(characteristic => {
                     if (characteristicGrowthFormulas == null) {
-                        return new SerKeyValPair<Characteristic, GrowthFormula>(characteristic, null);
+                        return new KeyValuePair<Characteristic, GrowthFormula>(characteristic, null);
                     }
                     else {
                         var existingCharacteristic = characteristicGrowthFormulas.FirstOrDefault(s => s.Key.name == characteristic.name);
                         if (existingCharacteristic.Key == null) {
-                            return new SerKeyValPair<Characteristic, GrowthFormula>(characteristic, null);
+                            return new KeyValuePair<Characteristic, GrowthFormula>(characteristic, null);
                         }
                         return existingCharacteristic;
                     }
-                }).ToList();
+                }).ToDictionary(
+                    pair => pair.Key,
+                    pair => pair.Value);
             }
             else {
-                characteristicGrowthFormulas = new List<SerKeyValPair<Characteristic, GrowthFormula>>();
+                characteristicGrowthFormulas = new();
             }
         }
 

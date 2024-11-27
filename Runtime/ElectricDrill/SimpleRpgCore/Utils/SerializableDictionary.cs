@@ -1,94 +1,108 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore.Utils
 {
     [Serializable]
-    public class SerializableDictionary<TKey, TValue> : ISerializationCallbackReceiver
+    public class SerializableDictionary<TKey, TValue> : ISerializationCallbackReceiver, IEnumerable<KeyValuePair<TKey, TValue>>
     {
-        [SerializeField] private List<SerKeyValPair<TKey, TValue>> inspectorReservedPairs = new();
-        
-        // holds the key-value pairs with no key to be shown in the inspector. Once the key is added, the pair is moved to the dictionary
-        [SerializeField, HideInInspector] bool missingKeyPair;
+        [SerializeField] internal List<SerKeyValPair<TKey, TValue>> inspectorReservedPairs = new();
 
-        private Dictionary<TKey, TValue> dictionary = new();
+        [SerializeField, HideInInspector] private bool missingKeyPair;
 
-        public void OnBeforeSerialize()
-        {
-            /*Debug.Log("Before OnBeforeSerialize: " +
-                      $"inspectorReservedPairs: {inspectorReservedPairs.Count}\n" +
-                      $"missingKeyPairs: {missingKeyPairs.Count}\n" +
-                      $"dictionary: {dictionary.Count}");*/
-            if (inspectorReservedPairs.Count == 2) Debug.Log("2");
-            if (inspectorReservedPairs.Exists(p => p.Key == null))
-                missingKeyPair = true;
-                
-            inspectorReservedPairs.Clear();
-            foreach (var kvp in dictionary)
-            {
-                inspectorReservedPairs.Add(new SerKeyValPair<TKey, TValue>(kvp.Key, kvp.Value));
+        [NonSerialized] private Dictionary<TKey, TValue> _dictionary = new();
+
+        public void OnBeforeSerialize() {
+            lock (this) {
+                if (inspectorReservedPairs.Exists(p => p.Key == null))
+                    missingKeyPair = true;
+
+                inspectorReservedPairs.Clear();
+                foreach (var kvp in _dictionary) {
+                    inspectorReservedPairs.Add(new SerKeyValPair<TKey, TValue>(kvp.Key, kvp.Value));
+                }
+
+                if (missingKeyPair) {
+                    inspectorReservedPairs.Add(new SerKeyValPair<TKey, TValue>());
+                }   
             }
-            
-            if (missingKeyPair)
-            {
-                inspectorReservedPairs.Add(new SerKeyValPair<TKey, TValue>());
-            }
-            /*Debug.Log("After OnBeforeSerialize: " +
-                      $"inspectorReservedPairs: {inspectorReservedPairs.Count}\n" +
-                      $"missingKeyPairs: {missingKeyPairs.Count}\n" +
-                      $"dictionary: {dictionary.Count}");*/
         }
 
-        public void OnAfterDeserialize()
-        {
-            /*Debug.Log("Before OnAfterDeserialize: " +
-                      $"inspectorReservedPairs: {inspectorReservedPairs.Count}\n" +
-                      $"missingKeyPairs: {missingKeyPairs.Count}\n" +
-                      $"dictionary: {dictionary.Count}");*/
-            
-            dictionary = new Dictionary<TKey, TValue>();
-            foreach (var pair in inspectorReservedPairs) {
-                if (pair.Key != null) {
-                    dictionary.Add(pair.Key, pair.Value);
+        public void OnAfterDeserialize() {
+            lock (this) {
+                _dictionary = new Dictionary<TKey, TValue>();
+
+                if (inspectorReservedPairs == null)
+                    inspectorReservedPairs = new List<SerKeyValPair<TKey, TValue>>();
+
+                if (inspectorReservedPairs.FindAll(p => p.Key == null).Count > 1) {
+                    missingKeyPair = true;
+                    inspectorReservedPairs.RemoveAll(p => p.Key == null);
+                    Debug.LogWarning("Assign a valid key to the pair with null key before adding another pair");
                 }
                 else {
-                    missingKeyPair = true;
+                    var nullKvpIndex = inspectorReservedPairs.FindIndex(p => p.Key == null);
+                    if (nullKvpIndex != -1) {
+                        missingKeyPair = true;
+                        inspectorReservedPairs.RemoveAt(nullKvpIndex);
+                    }
+                    else {
+                        missingKeyPair = false;
+                    }
                 }
-                // else {
-                //     missingKeyPairs = new List<SerKeyValPair<TKey, TValue>>();
-                //     missingKeyPairs.Add(pair);
-                // }
+
+                foreach (var pair in inspectorReservedPairs) {
+                    if (pair.Key != null) {
+                        _dictionary[pair.Key] = pair.Value;
+                    }
+                }   
             }
-            
-            if (!inspectorReservedPairs.Exists(p => p.Key == null)) {
-                missingKeyPair = false;
-            }
-            
-            /*Debug.Log("After OnAfterDeserialize: " +
-                      $"inspectorReservedPairs: {inspectorReservedPairs.Count}\n" +
-                      $"missingKeyPairs: {missingKeyPairs.Count}\n" +
-                      $"dictionary: {dictionary.Count}");*/
         }
 
-        public void Add(TKey key, TValue value)
-        {
-            dictionary.Add(key, value);
+        public void Add(TKey key, TValue value) {
+            _dictionary.Add(key, value);
         }
 
-        public bool TryGetValue(TKey key, out TValue value)
-        {
-            return dictionary.TryGetValue(key, out value);
+        public bool TryGetValue(TKey key, out TValue value) {
+            return _dictionary.TryGetValue(key, out value);
         }
 
-        public TValue this[TKey key]
-        {
-            get => dictionary[key];
-            set => dictionary[key] = value;
+        public TValue this[TKey key] {
+            get => _dictionary[key];
+            set => _dictionary[key] = value;
         }
 
-        public Dictionary<TKey, TValue>.KeyCollection Keys => dictionary.Keys;
-        public Dictionary<TKey, TValue>.ValueCollection Values => dictionary.Values;
-    }    
+        public Dictionary<TKey, TValue>.KeyCollection Keys => _dictionary.Keys;
+        public Dictionary<TKey, TValue>.ValueCollection Values => _dictionary.Values;
+        
+        // implicit conversion from SerializableDictionary to Dictionary
+        public static implicit operator Dictionary<TKey, TValue>(SerializableDictionary<TKey, TValue> serializableDictionary) {
+            return serializableDictionary._dictionary;
+        }
+        
+        // implicit conversion from Dictionary to SerializableDictionary
+        public static implicit operator SerializableDictionary<TKey, TValue>(Dictionary<TKey, TValue> dictionary) {
+            return new SerializableDictionary<TKey, TValue> {_dictionary = dictionary};
+        }
+        
+        public void Clear() {
+            missingKeyPair = false;
+            inspectorReservedPairs.Clear();
+            _dictionary.Clear();
+        }
+        
+        public bool ContainsKey(TKey key) {
+            return _dictionary.ContainsKey(key);
+        }
+
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() {
+            return _dictionary.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
+    }
 }
