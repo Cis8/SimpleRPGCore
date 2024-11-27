@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore.Characteristics
 {
@@ -17,7 +12,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         [SerializeField] private bool useClassBaseCharacteristics;
 
         [SerializeField] private IntRef charPointsPerLevel;
-        [SerializeField] AvailableCharacteristicPoints availableCharPoints;
+        [SerializeField] CharacteristicPointsTracker charPointsTracker;
         
         // dynamic characteristics
         private EntityClass _entityClass;
@@ -25,8 +20,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         
         // Fixed base characteristics
         [SerializeField] private CharacteristicSet fixedBaseCharacteristicCharSet;
-        [SerializeField] private List<SerKeyValPair<Characteristic, int>> inspectorReservedFixedBaseCharacteristics;
-        private CharacteristicSetInstance _fixedBaseCharacteristics;
+        [SerializeField] private SerializableDictionary<Characteristic, long> fixedBaseCharacteristics;
 
         public CharacteristicSet CharacteristicSet {
             get {
@@ -63,30 +57,31 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
                 finalValue += _classCharacteristics[characteristic];
             }
             else {
-                finalValue += _fixedBaseCharacteristics[characteristic];
+                finalValue += fixedBaseCharacteristics[characteristic];
             }
             // Add spent points
-            finalValue += availableCharPoints.SpentCharacteristicPoints[characteristic];
+            finalValue += charPointsTracker.SpentCharacteristicPoints[characteristic];
 
             return finalValue;
         }
 
         // EVENTS and EDITOR
         private void OnLevelUp(int _) {
-            availableCharPoints.Add(charPointsPerLevel);
+            charPointsTracker.Add(charPointsPerLevel);
         }
         
         private void OnValidate() {
 #if UNITY_EDITOR
-            if (!useClassBaseCharacteristics) {
-                InitializationUtils.RefreshInspectorReservedValues(ref inspectorReservedFixedBaseCharacteristics, fixedBaseCharacteristicCharSet?.Characteristics);
-                InitializeFixedBaseCharacteristics();
+            lock (fixedBaseCharacteristics) {
+                InitializationUtils.RefreshInspectorReservedValues(
+                    ref fixedBaseCharacteristics.inspectorReservedPairs,
+                    fixedBaseCharacteristicCharSet?.Characteristics);
+                fixedBaseCharacteristics.OnAfterDeserialize();
             }
 
-            lock (availableCharPoints.SpentCharacteristicPoints.inspectorReservedPairs)
-            {
-                InitializationUtils.RefreshInspectorReservedValues(ref availableCharPoints.SpentCharacteristicPoints.inspectorReservedPairs, CharacteristicSet?.Characteristics);
-                availableCharPoints.SpentCharacteristicPoints.OnAfterDeserialize();
+            lock (charPointsTracker.SpentCharacteristicPoints.inspectorReservedPairs) {
+                InitializationUtils.RefreshInspectorReservedValues(ref charPointsTracker.SpentCharacteristicPoints.inspectorReservedPairs, CharacteristicSet?.Characteristics);
+                charPointsTracker.SpentCharacteristicPoints.OnAfterDeserialize();
             }
 #endif
         }
@@ -95,8 +90,6 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
             _entityCore = GetComponent<EntityCore>();
             CheckInitializeClassBaseCharacteristics();
             _entityCore.Level.OnLevelUp += OnLevelUp;
-            if (!useClassBaseCharacteristics)
-                InitializeFixedBaseCharacteristics();
 #if UNITY_EDITOR
             OnValidate();
 #endif
@@ -126,15 +119,6 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         private void CheckInitializeEntityCoreRef() {
             if (!_entityCore) {
                 _entityCore = GetComponent<EntityCore>();
-            }
-        }
-
-        private void InitializeFixedBaseCharacteristics() {
-            if (!useClassBaseCharacteristics) {
-                _fixedBaseCharacteristics = new CharacteristicSetInstance(fixedBaseCharacteristicCharSet);
-                foreach (var statValuePair in inspectorReservedFixedBaseCharacteristics) {
-                    _fixedBaseCharacteristics.AddValue(statValuePair.Key, statValuePair.Value);
-                }
             }
         }
     }

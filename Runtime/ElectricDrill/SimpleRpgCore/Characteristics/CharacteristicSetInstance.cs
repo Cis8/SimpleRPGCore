@@ -68,5 +68,27 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics {
             }
             return result;
         }
+        
+        // explicit conversion from SerializableDictionary<Characteristic, long> to CharacteristicSetInstance
+        public static explicit operator CharacteristicSetInstance(SerializableDictionary<Characteristic, long> dictionary) {
+            return dictionary.ToCharacteristicSetInstance(null);
+        }
+    }
+    
+    // extension method for SerializableDictionary<Characteristic, long> to create a CharacteristicSetInstance
+    public static class CharacteristicSetInstanceExtensions {
+        public static CharacteristicSetInstance ToCharacteristicSetInstance(this SerializableDictionary<Characteristic, long> dictionary, CharacteristicSet characteristicSet) {
+            // Assert that the dictionary contains all the characteristics in the characteristicSet
+            foreach (var characteristic in characteristicSet.Characteristics) {
+                if (!dictionary.ContainsKey(characteristic)) {
+                    Debug.LogError($"Dictionary does not contain the characteristic {characteristic} from the CharacteristicSet {characteristicSet}");
+                }
+            }
+            var charSetInstance = new CharacteristicSetInstance(characteristicSet);
+            foreach (var pair in dictionary) {
+                charSetInstance.AddValue(pair.Key, pair.Value);
+            }
+            return charSetInstance;
+        }
     }
 }

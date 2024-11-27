@@ -9,7 +9,6 @@ namespace ElectricDrill.SimpleRpgCore
     public class SerializableDictionaryDrawer : PropertyDrawer
     {
         private const float ButtonWidth = 18f;
-        private const float ValueWidth = 100f; // Adjust this value to resize the value box
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -31,9 +30,10 @@ namespace ElectricDrill.SimpleRpgCore
                     var valueProperty = pairProperty.FindPropertyRelative("Value");
 
                     position.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
-                    var keyRect = new Rect(position.x, position.y, position.width - ButtonWidth - ValueWidth, position.height);
-                    var valueRect = new Rect(position.x + position.width - ButtonWidth - ValueWidth, position.y, ValueWidth, position.height);
-                    var removeButtonRect = new Rect(position.x + position.width - ButtonWidth, position.y, ButtonWidth, position.height);
+                    var fieldWidth = (position.width - ButtonWidth) / 2;
+                    var keyRect = new Rect(position.x, position.y, fieldWidth, position.height);
+                    var valueRect = new Rect(position.x + fieldWidth, position.y, fieldWidth, position.height);
+                    var removeButtonRect = new Rect(position.x + 2 * fieldWidth, position.y, ButtonWidth, position.height);
 
                     EditorGUI.PropertyField(keyRect, keyProperty, GUIContent.none);
                     EditorGUI.PropertyField(valueRect, valueProperty, GUIContent.none);

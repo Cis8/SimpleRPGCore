@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 namespace ElectricDrill.SimpleRpgCore.Characteristics
 {
     [Serializable]
-    public class AvailableCharacteristicPoints
+    public class CharacteristicPointsTracker
     {
         /*[SerializeField] int available;
         // this is internal so that the object that holds this class can initialize it in OnValidate or other methods
