@@ -78,6 +78,9 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         
         private void OnValidate() {
 #if UNITY_EDITOR
+            charPointsTracker.Init(charPointsPerLevel * GetComponent<EntityCore>().Level);
+            charPointsTracker.Validate();
+            
             lock (fixedBaseCharacteristics) {
                 InitializationUtils.RefreshInspectorReservedValues(
                     ref fixedBaseCharacteristics.inspectorReservedPairs,

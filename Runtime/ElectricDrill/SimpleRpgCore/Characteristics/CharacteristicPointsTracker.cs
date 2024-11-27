@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,11 +14,15 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
 
         public int Available => available;
 
-        [SerializeField, HideInInspector] private SerializableDictionary<Characteristic, long> spentCharacteristicPoints = new();
+        [SerializeField, HideInInspector] private SerializableDictionary<Characteristic, int> spentCharacteristicPoints = new();
         
-        internal SerializableDictionary<Characteristic, long> SpentCharacteristicPoints => spentCharacteristicPoints;
-        public Dictionary<Characteristic, long>.KeyCollection SpentCharacteristics => spentCharacteristicPoints.Keys;
+        internal SerializableDictionary<Characteristic, int> SpentCharacteristicPoints => spentCharacteristicPoints;
+        public Dictionary<Characteristic, int>.KeyCollection SpentCharacteristics => spentCharacteristicPoints.Keys;
 
+        internal void Init(int availablePoints) {
+            available = availablePoints - spentCharacteristicPoints.Values.Sum();
+        }
+        
         public void AddPoints(int amount) {
             available += amount;
         }
@@ -35,5 +40,56 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
             available -= amount;
             spentCharacteristicPoints[characteristic] += amount;
         }
+        
+        public void Refund(Characteristic characteristic, int amount) {
+            if (!spentCharacteristicPoints.ContainsKey(characteristic)) {
+                Debug.LogError($"The characteristic {characteristic} is not spent yet");
+                return;
+            }
+            var refundedAmount = Mathf.Min(spentCharacteristicPoints[characteristic], amount);
+            available += refundedAmount;
+            spentCharacteristicPoints[characteristic] -= refundedAmount;
+        }
+        
+        public void Refund(Characteristic characteristic) {
+            if (!spentCharacteristicPoints.ContainsKey(characteristic)) {
+                Debug.LogError($"The characteristic {characteristic} is not spent yet");
+                return;
+            }
+            available += spentCharacteristicPoints[characteristic];
+            spentCharacteristicPoints[characteristic] = 0;
+        }
+        
+        public void RefundAll() {
+            foreach (var characteristic in spentCharacteristicPoints.Keys.ToList()) {
+                Refund(characteristic);
+            }
+        }
+        
+        private int GetSpentPoints() {
+            return spentCharacteristicPoints.Values.Sum();
+        }
+        
+#if UNITY_EDITOR
+        internal void Validate() {
+            var spentPoints = GetSpentPoints();
+            
+            if (spentPoints < 0) {
+                Debug.LogError($"Spent characteristic points is negative: {spentPoints}");
+            }
+            
+            if (spentPoints <= available) {
+                return;
+            }
+            
+            RefundAll();
+            
+            spentCharacteristicPoints.OnBeforeSerialize();
+            
+            if (available < 0) {
+                Debug.LogError($"Available characteristic points is negative: {available}");
+            }
+        }  
+#endif
     }
 }
