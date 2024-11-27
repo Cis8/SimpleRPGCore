@@ -7,7 +7,7 @@ namespace ElectricDrill.SimpleRpgCore.Utils
     [Serializable]
     public class SerializableDictionary<TKey, TValue> : ISerializationCallbackReceiver
     {
-        [SerializeField] private List<SerKeyValPair<TKey, TValue>> inspectorReservedPairs = new();
+        [SerializeField] internal List<SerKeyValPair<TKey, TValue>> inspectorReservedPairs = new();
 
         [SerializeField, HideInInspector] private bool missingKeyPair;
 
@@ -15,54 +15,60 @@ namespace ElectricDrill.SimpleRpgCore.Utils
 
         public void OnBeforeSerialize()
         {
-            if (inspectorReservedPairs.Exists(p => p.Key == null))
-                missingKeyPair = true;
-
-            inspectorReservedPairs.Clear();
-            foreach (var kvp in _dictionary)
+            lock (this)
             {
-                inspectorReservedPairs.Add(new SerKeyValPair<TKey, TValue>(kvp.Key, kvp.Value));
-            }
+                if (inspectorReservedPairs.Exists(p => p.Key == null))
+                    missingKeyPair = true;
 
-            if (missingKeyPair)
-            {
-                inspectorReservedPairs.Add(new SerKeyValPair<TKey, TValue>());
+                inspectorReservedPairs.Clear();
+                foreach (var kvp in _dictionary)
+                {
+                    inspectorReservedPairs.Add(new SerKeyValPair<TKey, TValue>(kvp.Key, kvp.Value));
+                }
+
+                if (missingKeyPair)
+                {
+                    inspectorReservedPairs.Add(new SerKeyValPair<TKey, TValue>());
+                }   
             }
         }
 
         public void OnAfterDeserialize()
         {
-            _dictionary = new Dictionary<TKey, TValue>();
-
-            if (inspectorReservedPairs == null)
-                inspectorReservedPairs = new List<SerKeyValPair<TKey, TValue>>();
-
-            if (inspectorReservedPairs.FindAll(p => p.Key == null).Count > 1)
+            lock (this)
             {
-                missingKeyPair = true;
-                inspectorReservedPairs.RemoveAll(p => p.Key == null);
-                Debug.LogWarning("Assign a valid key to the pair with null key before adding another pair");
-            }
-            else
-            {
-                var nullKvpIndex = inspectorReservedPairs.FindIndex(p => p.Key == null);
-                if (nullKvpIndex != -1)
+                _dictionary = new Dictionary<TKey, TValue>();
+
+                if (inspectorReservedPairs == null)
+                    inspectorReservedPairs = new List<SerKeyValPair<TKey, TValue>>();
+
+                if (inspectorReservedPairs.FindAll(p => p.Key == null).Count > 1)
                 {
                     missingKeyPair = true;
-                    inspectorReservedPairs.RemoveAt(nullKvpIndex);
+                    inspectorReservedPairs.RemoveAll(p => p.Key == null);
+                    Debug.LogWarning("Assign a valid key to the pair with null key before adding another pair");
                 }
                 else
                 {
-                    missingKeyPair = false;
+                    var nullKvpIndex = inspectorReservedPairs.FindIndex(p => p.Key == null);
+                    if (nullKvpIndex != -1)
+                    {
+                        missingKeyPair = true;
+                        inspectorReservedPairs.RemoveAt(nullKvpIndex);
+                    }
+                    else
+                    {
+                        missingKeyPair = false;
+                    }
                 }
-            }
 
-            foreach (var pair in inspectorReservedPairs)
-            {
-                if (pair.Key != null)
+                foreach (var pair in inspectorReservedPairs)
                 {
-                    _dictionary[pair.Key] = pair.Value;
-                }
+                    if (pair.Key != null)
+                    {
+                        _dictionary[pair.Key] = pair.Value;
+                    }
+                }   
             }
         }
 

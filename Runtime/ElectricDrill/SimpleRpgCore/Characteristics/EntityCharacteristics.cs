@@ -82,9 +82,12 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
                 InitializationUtils.RefreshInspectorReservedValues(ref inspectorReservedFixedBaseCharacteristics, fixedBaseCharacteristicCharSet?.Characteristics);
                 InitializeFixedBaseCharacteristics();
             }
-            
-            /*InitializationUtils.RefreshInspectorReservedValues(ref availableCharPoints.inspectorReservedSpentCharacteristicPoints, CharacteristicSet?.Characteristics);
-            availableCharPoints.InitializeSpentCharacteristicPoints(CharacteristicSet);*/
+
+            lock (availableCharPoints.SpentCharacteristicPoints.inspectorReservedPairs)
+            {
+                InitializationUtils.RefreshInspectorReservedValues(ref availableCharPoints.SpentCharacteristicPoints.inspectorReservedPairs, CharacteristicSet?.Characteristics);
+                availableCharPoints.SpentCharacteristicPoints.OnAfterDeserialize();
+            }
 #endif
         }
 

@@ -29,7 +29,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         }*/
         
         [SerializeField] int available;
-        [SerializeField] SerializableDictionary<Characteristic, int> spentCharacteristicPoints = new();
+        [SerializeField] private SerializableDictionary<Characteristic, int> spentCharacteristicPoints = new();
         
         public SerializableDictionary<Characteristic, int> SpentCharacteristicPoints => spentCharacteristicPoints;
 
