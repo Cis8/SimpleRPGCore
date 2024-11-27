@@ -1,4 +1,6 @@
+using System;
 using ElectricDrill.SimpleRpgCore.Utils;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -9,10 +11,12 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
     {
         private EntityCore _entityCore;
         
-        [SerializeField] private bool useClassBaseCharacteristics;
-
         [SerializeField] private IntRef charPointsPerLevel;
+        // todo add check to stabilize the value of available points considering the spent points, the points per level, and the level
         [SerializeField] CharacteristicPointsTracker charPointsTracker;
+
+
+        [SerializeField] private bool useClassBaseCharacteristics;
         
         // dynamic characteristics
         private EntityClass _entityClass;
@@ -22,6 +26,8 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         [SerializeField] private CharacteristicSet fixedBaseCharacteristicCharSet;
         [SerializeField] private SerializableDictionary<Characteristic, long> fixedBaseCharacteristics;
 
+        public CharacteristicPointsTracker CharPointsTracker => charPointsTracker;
+        
         public CharacteristicSet CharacteristicSet {
             get {
                 // Assert that the CharacteristicSet is not null
@@ -49,7 +55,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
                 return useClassBaseCharacteristics ? _entityClass.Class.CharacteristicSet : fixedBaseCharacteristicCharSet;
             }
         }
-        
+
         public long Get(Characteristic characteristic) {
             Assert.IsTrue(CharacteristicSet.Contains(characteristic), $"Characteristic {characteristic} is not in the {name}'s CharacteristicSet ({CharacteristicSet.name})");
             long finalValue = 0;
@@ -60,14 +66,14 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
                 finalValue += fixedBaseCharacteristics[characteristic];
             }
             // Add spent points
-            finalValue += charPointsTracker.SpentCharacteristicPoints[characteristic];
+            finalValue += charPointsTracker.GetSpentOn(characteristic);
 
             return finalValue;
         }
 
         // EVENTS and EDITOR
         private void OnLevelUp(int _) {
-            charPointsTracker.Add(charPointsPerLevel);
+            charPointsTracker.AddPoints(charPointsPerLevel);
         }
         
         private void OnValidate() {
@@ -92,6 +98,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
             _entityCore.Level.OnLevelUp += OnLevelUp;
 #if UNITY_EDITOR
             OnValidate();
+            Selection.selectionChanged += OnSelectionChanged;
 #endif
         }
         
@@ -99,10 +106,19 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
             _entityCore.Level.OnLevelUp -= OnLevelUp;
 #if UNITY_EDITOR
             OnValidate();
+            Selection.selectionChanged -= OnSelectionChanged;
 #endif
         }
         
         // UTILS
+#if UNITY_EDITOR
+        private void OnSelectionChanged() {
+            Debug.Log($"Selection changed, active object: {Selection.activeObject}");
+            if (Selection.activeObject == this) {
+                OnValidate();
+            }
+        }
+#endif
 
         private void CheckInitializeClassBaseCharacteristics() {
             CheckInitializeEntityCoreRef();

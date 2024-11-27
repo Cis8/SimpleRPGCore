@@ -9,32 +9,31 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
     [Serializable]
     public class CharacteristicPointsTracker
     {
-        /*[SerializeField] int available;
-        // this is internal so that the object that holds this class can initialize it in OnValidate or other methods
-        [SerializeField] internal List<SerKeyValPair<Characteristic, int>> inspectorReservedSpentCharacteristicPoints;
-        private CharacteristicSetInstance _spentCharacteristicPoints;
-        
-        public int Available => available;
-        public CharacteristicSetInstance SpentCharacteristicPoints => _spentCharacteristicPoints;
+        [SerializeField, HideInInspector] int available;
 
-        public void Add(int amount) {
+        public int Available => available;
+
+        [SerializeField, HideInInspector] private SerializableDictionary<Characteristic, long> spentCharacteristicPoints = new();
+        
+        internal SerializableDictionary<Characteristic, long> SpentCharacteristicPoints => spentCharacteristicPoints;
+        public Dictionary<Characteristic, long>.KeyCollection SpentCharacteristics => spentCharacteristicPoints.Keys;
+
+        public void AddPoints(int amount) {
             available += amount;
         }
         
-        public void InitializeSpentCharacteristicPoints(CharacteristicSet characteristicSet) {
-            _spentCharacteristicPoints = new CharacteristicSetInstance(characteristicSet);
-            foreach (var statValuePair in inspectorReservedSpentCharacteristicPoints) {
-                _spentCharacteristicPoints.AddValue(statValuePair.Key, statValuePair.Value);
+        public long GetSpentOn(Characteristic characteristic) {
+            return spentCharacteristicPoints[characteristic];
+        }
+        
+        public void SpendOn(Characteristic characteristic, int amount) {
+            if (available < amount) {
+                Debug.LogError($"Not enough characteristic points to spend. You have {available} points, " +
+                               $"but you want to spend {amount} points on {characteristic}");
+                return;
             }
-        }*/
-        
-        [SerializeField] int available;
-        [SerializeField] private SerializableDictionary<Characteristic, int> spentCharacteristicPoints = new();
-        
-        public SerializableDictionary<Characteristic, int> SpentCharacteristicPoints => spentCharacteristicPoints;
-
-        public void Add(int amount) {
-            available += amount;
+            available -= amount;
+            spentCharacteristicPoints[characteristic] += amount;
         }
     }
 }
