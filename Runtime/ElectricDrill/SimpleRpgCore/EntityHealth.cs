@@ -16,6 +16,7 @@ namespace ElectricDrill.SimpleRpgCore
     public class EntityHealth : MonoBehaviour, IDamageable, IHealable
     {
         [SerializeField] private bool healthCanBeNegative = false;
+        [SerializeField] private LongVar deathThreshold;
         // if true, the max hp will be taken from the class and assigned to _maxHp, overriding any value set in the inspector
         // if false, the value set in the inspector will be used
         [SerializeField] private bool useClassMaxHp = false;
@@ -48,6 +49,7 @@ namespace ElectricDrill.SimpleRpgCore
             Assert.IsNotNull(healedEvent, $"HealedGameEvent is missing for {gameObject.name}");
             Assert.IsFalse(maxHp <= 0, $"Max HP of an Entity must be greater than 0. {name}'s Max HP was {MAX_HP}");
             Assert.IsFalse(hp < 0, $"HP of an Entity must be greater than or equal to 0. {name}'s HP was {HP}");
+            Assert.IsFalse(deathThreshold < 0 && healthCanBeNegative == false, "If health cannot be negative, the death threshold must be greater than or equal to 0");
             Assert.IsNotNull(onDeathStrategy, $"OnDeathStrategy is missing for {gameObject.name}");
             Assert.IsNotNull(entityDiedEvent, $"DiedGameEvent is missing for {gameObject.name}");
         }
@@ -157,7 +159,7 @@ namespace ElectricDrill.SimpleRpgCore
         /// </summary>
         /// <returns>true if current health is <= 0, false otherwise</returns>
         public bool IsDead() {
-            return hp <= 0;
+            return hp <= deathThreshold;
         }
 
         /// <summary>
@@ -177,11 +179,28 @@ namespace ElectricDrill.SimpleRpgCore
         private void OnEnable() {
             _core = GetComponent<EntityCore>();
             _core.Level.OnLevelUp += OnLevelUp;
+#if UNITY_EDITOR
+            Selection.selectionChanged += OnSelectionChanged;
+#endif
         }
 
 
         private void OnDisable() {
             _core.Level.OnLevelUp -= OnLevelUp;
+#if UNITY_EDITOR
+            Selection.selectionChanged -= OnSelectionChanged;
+#endif
         }
+
+        private void OnValidate() {
+        }
+        
+#if UNITY_EDITOR
+        private void OnSelectionChanged() {
+            if (Selection.activeGameObject == gameObject) {
+                OnValidate();
+            }
+        }
+#endif
     }
 }

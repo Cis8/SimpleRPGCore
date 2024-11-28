@@ -4,6 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - deathThreshold: {fileID: 11400000, guid: 177201b6c3cacd3b097a72e6cb709bfd, type: 2}
   - healAmountModifier: {instanceID: 0}
   - onDeathStrategy: {fileID: 11400000, guid: bc13007e6d3283b96b4b5f866e2a4107, type: 2}
   - preDmgInfoEvent: {fileID: 11400000, guid: c9b480133f52314479a8ab710ef9902f, type: 2}
