@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore.Characteristics
@@ -10,6 +11,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
     [Serializable]
     public class CharacteristicPointsTracker
     {
+        [SerializeField, HideInInspector] int total; 
         [SerializeField, HideInInspector] int available;
 
         public int Available => available;
@@ -19,8 +21,9 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         internal SerializableDictionary<Characteristic, int> SpentCharacteristicPoints => spentCharacteristicPoints;
         public Dictionary<Characteristic, int>.KeyCollection SpentCharacteristics => spentCharacteristicPoints.Keys;
 
-        internal void Init(int availablePoints) {
-            available = availablePoints - spentCharacteristicPoints.Values.Sum();
+        internal void Init(int totalPoints) {
+            total = totalPoints;
+            available = total - spentCharacteristicPoints.Values.Sum();
         }
         
         public void AddPoints(int amount) {
@@ -64,6 +67,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
             foreach (var characteristic in spentCharacteristicPoints.Keys.ToList()) {
                 Refund(characteristic);
             }
+            Assert.IsTrue(total == available && spentCharacteristicPoints.Values.Sum() == 0, $"RefundAll failed. Spent points: {spentCharacteristicPoints.Values.Sum()}, available: {available}, total: {total}");
         }
         
         private int GetSpentPoints() {
@@ -78,7 +82,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
                 Debug.LogError($"Spent characteristic points is negative: {spentPoints}");
             }
             
-            if (spentPoints <= available) {
+            if (spentPoints + available <= total) {
                 return;
             }
             

@@ -12,7 +12,6 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         private EntityCore _entityCore;
         
         [SerializeField] private IntRef charPointsPerLevel;
-        // todo add check to stabilize the value of available points considering the spent points, the points per level, and the level
         [SerializeField] CharacteristicPointsTracker charPointsTracker;
 
 
