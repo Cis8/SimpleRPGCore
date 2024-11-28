@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using ElectricDrill.SimpleRpgCore.Damage;
+using ElectricDrill.SimpleRpgCore.Health;
 using ElectricDrill.SimpleRpgCore.Events;
 using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
@@ -33,10 +33,11 @@ namespace ElectricDrill.SimpleRpgCore
         // Events
         [SerializeField] private PreDmgGameEvent preDmgInfoEvent;
         [SerializeField] private TakenDmgGameEvent takenDmgInfoEvent;
-        [SerializeField] private EntityHealedGameEvent healedEvent;
         [SerializeField] private EntityGainedHealthGameEvent gainedHealthEvent;
         [SerializeField] private EntityLostHealthGameEvent lostHealthEvent;
         [SerializeField] private EntityDiedGameEvent entityDiedEvent;
+        [SerializeField] private PreHealGameEvent preHealEvent;
+        [SerializeField] private EntityHealedGameEvent entityHealedEvent;
 
         public long MAX_HP => maxHp;
         public long HP => hp;
@@ -136,21 +137,25 @@ namespace ElectricDrill.SimpleRpgCore
             lostHealthEvent?.Raise(this, previousHp - hp);
         }
         
-        public void Heal(long amount)
-        {
-            Assert.IsTrue(amount >= 0, $"Heal amount must be greater than or equal to 0, was {amount}");
+        public void Heal(PreHealInfo info) {
+            Assert.IsTrue(info.Amount >= 0, $"Heal amount must be greater than or equal to 0, was {info.Amount}");
+            preHealEvent.Raise(info, _core);
+            
+            var healedAmount = info.Amount;
             if (healAmountModifier != null) {
                 Percentage healModifier = _stats.Get(healAmountModifier);
-                amount = (long) (amount * healModifier);
+                healedAmount = (long) (healedAmount * healModifier);   
             }
-            var gainedHealth = AddHealth(amount);
-            healedEvent.Raise(this, gainedHealth);
+            
+            var gainedHealth = AddHealth(healedAmount);
+            var receivedHealInfo = new ReceivedHealInfo(gainedHealth, info, _core);
+            entityHealedEvent.Raise(receivedHealInfo);
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <returns>true if current health is <= 0, false otherwise</returns>
+        /// <returns>true if current health is <= death threshold, false otherwise</returns>
         public bool IsDead() {
             return hp <= deathThreshold;
         }
@@ -158,7 +163,7 @@ namespace ElectricDrill.SimpleRpgCore
         /// <summary>
         ///
         /// </summary>
-        /// <returns>true if current health is > 0, false otherwise</returns>
+        /// <returns>true if current health is > death threshold, false otherwise</returns>
         public bool IsAlive() {
             return !IsDead();
         }
@@ -174,13 +179,14 @@ namespace ElectricDrill.SimpleRpgCore
         private void ValidateConstraints() {
             Assert.IsNotNull(preDmgInfoEvent, $"PreDmgGameEvent is missing for {gameObject.name}");
             Assert.IsNotNull(takenDmgInfoEvent, $"TakenDmgGameEvent is missing for {gameObject.name}");
-            Assert.IsNotNull(healedEvent, $"HealedGameEvent is missing for {gameObject.name}");
             Assert.IsFalse(maxHp <= 0, $"Max HP of an Entity must be greater than 0. {name}'s Max HP was {MAX_HP}");
             Assert.IsFalse(hp < 0, $"HP of an Entity must be greater than or equal to 0. {name}'s HP was {HP}");
             Assert.IsNotNull(deathThreshold, $"Death Threshold is missing for {gameObject.name}");
             Assert.IsFalse(deathThreshold < 0 && healthCanBeNegative == false, "If health cannot be negative, the death threshold must be greater than or equal to 0");
             Assert.IsNotNull(onDeathStrategy, $"OnDeathStrategy is missing for {gameObject.name}");
             Assert.IsNotNull(entityDiedEvent, $"DiedGameEvent is missing for {gameObject.name}");
+            Assert.IsNotNull(preHealEvent, $"PreHealGameEvent is missing for {gameObject.name}");
+            Assert.IsNotNull(entityHealedEvent, $"EntityHealedGameEvent is missing for {gameObject.name}");
         }
         
         private void OnEnable() {

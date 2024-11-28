@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ElectricDrill.SimpleRpgCore.Characteristics;
 using UnityEngine;
-using ElectricDrill.SimpleRpgCore.Damage;
+using ElectricDrill.SimpleRpgCore.Health;
 using ElectricDrill.SimpleRpgCore.Events;
 using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;

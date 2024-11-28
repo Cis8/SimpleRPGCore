@@ -7,8 +7,8 @@ namespace ElectricDrill.SimpleRpgCore.Events
     /// <summary>
     /// 
     /// </summary>
-    [CreateAssetMenu(fileName = "PreDmg Game Event", menuName = "Simple RPG/Events/Generated/PreDmg")]
-    public class PreDmgGameEvent : GameEventGeneric2<PreDmgInfo, EntityCore>
+    [CreateAssetMenu(fileName = "PreHeal Game Event", menuName = "Simple RPG/Events/Generated/PreHeal")]
+    public class PreHealGameEvent : GameEventGeneric2<PreHealInfo, EntityCore>
     {
     }
 }

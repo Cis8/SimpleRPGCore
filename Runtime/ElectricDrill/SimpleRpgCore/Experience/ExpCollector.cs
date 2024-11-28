@@ -1,5 +1,5 @@
 using System;
-using ElectricDrill.SimpleRpgCore.Damage;
+using ElectricDrill.SimpleRpgCore.Health;
 using ElectricDrill.SimpleRpgCore.Events;
 using UnityEngine;
 

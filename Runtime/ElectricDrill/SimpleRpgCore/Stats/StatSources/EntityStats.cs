@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ElectricDrill.SimpleRpgCore.Characteristics;
-using ElectricDrill.SimpleRpgCore.Damage;
+using ElectricDrill.SimpleRpgCore.Health;
 using ElectricDrill.SimpleRpgCore.Events;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEditor;
@@ -80,13 +80,12 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         // READ STATS
         public long GetBase(Stat stat) {
             Assert.IsTrue(StatSet.Contains(stat), $"Stat {stat.name} is not in the {name}'s StatSet ({StatSet.name})");
-            if (_useClassBaseStats) {
-                var baseValue = _baseClassStats.Get(stat);
-                baseValue += stat.CharacteristicsScaling?.CalculateValue(_entityCore) ?? 0;
-                return stat.Clamp(baseValue);
-            }
+            long baseValue;
             
-            return stat.Clamp(_fixedBaseStats[stat]);
+            baseValue = _useClassBaseStats ? _baseClassStats.Get(stat) : _fixedBaseStats.Get(stat);
+            
+            baseValue += stat.CharacteristicsScaling?.CalculateValue(_entityCore) ?? 0;
+            return stat.Clamp(baseValue);
         }
         
         public long Get(Stat stat) {

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using ElectricDrill.SimpleRpgCore;
-using ElectricDrill.SimpleRpgCore.Damage;
+using ElectricDrill.SimpleRpgCore.Health;
 using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
 using NUnit.Framework;
