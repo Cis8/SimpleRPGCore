@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore.Damage {
-    public struct PreDmgInfo
+    public class PreDmgInfo
     {
         public long Amount { get; }
         public DmgType Type { get; }

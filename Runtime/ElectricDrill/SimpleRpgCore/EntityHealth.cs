@@ -44,14 +44,7 @@ namespace ElectricDrill.SimpleRpgCore
         public bool HealthCanBeNegative { get => healthCanBeNegative; set => healthCanBeNegative = value; }
 
         private void Awake() {
-            Assert.IsNotNull(preDmgInfoEvent, $"PreDmgGameEvent is missing for {gameObject.name}");
-            Assert.IsNotNull(takenDmgInfoEvent, $"TakenDmgGameEvent is missing for {gameObject.name}");
-            Assert.IsNotNull(healedEvent, $"HealedGameEvent is missing for {gameObject.name}");
-            Assert.IsFalse(maxHp <= 0, $"Max HP of an Entity must be greater than 0. {name}'s Max HP was {MAX_HP}");
-            Assert.IsFalse(hp < 0, $"HP of an Entity must be greater than or equal to 0. {name}'s HP was {HP}");
-            Assert.IsFalse(deathThreshold < 0 && healthCanBeNegative == false, "If health cannot be negative, the death threshold must be greater than or equal to 0");
-            Assert.IsNotNull(onDeathStrategy, $"OnDeathStrategy is missing for {gameObject.name}");
-            Assert.IsNotNull(entityDiedEvent, $"DiedGameEvent is missing for {gameObject.name}");
+            ValidateConstraints();
         }
 
         private void Start() {
@@ -174,6 +167,20 @@ namespace ElectricDrill.SimpleRpgCore
             if (useClassMaxHp)
                 maxHp.Value = _entityClass.Class.GetMaxHpAt(level);
             // todo add flag to decide if health should be restored on level-up
+        }
+        
+        // UTILS
+        
+        private void ValidateConstraints() {
+            Assert.IsNotNull(preDmgInfoEvent, $"PreDmgGameEvent is missing for {gameObject.name}");
+            Assert.IsNotNull(takenDmgInfoEvent, $"TakenDmgGameEvent is missing for {gameObject.name}");
+            Assert.IsNotNull(healedEvent, $"HealedGameEvent is missing for {gameObject.name}");
+            Assert.IsFalse(maxHp <= 0, $"Max HP of an Entity must be greater than 0. {name}'s Max HP was {MAX_HP}");
+            Assert.IsFalse(hp < 0, $"HP of an Entity must be greater than or equal to 0. {name}'s HP was {HP}");
+            Assert.IsNotNull(deathThreshold, $"Death Threshold is missing for {gameObject.name}");
+            Assert.IsFalse(deathThreshold < 0 && healthCanBeNegative == false, "If health cannot be negative, the death threshold must be greater than or equal to 0");
+            Assert.IsNotNull(onDeathStrategy, $"OnDeathStrategy is missing for {gameObject.name}");
+            Assert.IsNotNull(entityDiedEvent, $"DiedGameEvent is missing for {gameObject.name}");
         }
         
         private void OnEnable() {
