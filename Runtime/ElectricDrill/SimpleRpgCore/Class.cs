@@ -40,16 +40,6 @@ namespace ElectricDrill.SimpleRpgCore
         public long GetStatAt(Stat stat, int level) {
             return _statGrowthFnPairs.First(s => s.Stat == stat).growthFormula.GetGrowthValue(level);
         }
-        /*public StatSetInstance CreateStatSetInstanceAt(int level) {
-            var statSetInstance = new StatSetInstance(_statSet);
-            foreach (var statGrowthFnPair in _statGrowthFnPairs) {
-                statSetInstance.AddValue(
-                    statGrowthFnPair.Stat,
-                    statGrowthFnPair.growthFormula.GetGrowthValue(level));
-            }
-
-            return statSetInstance;
-        }*/
         
         public CharacteristicSetInstance CreateCharacteristicSetInstanceAt(int level) {
             foreach (var characteristicGrowthFormula in characteristicGrowthFormulas) {

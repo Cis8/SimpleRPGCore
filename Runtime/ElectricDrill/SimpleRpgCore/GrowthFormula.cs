@@ -27,12 +27,7 @@ namespace ElectricDrill.SimpleRpgCore {
         
         
         private void OnValidate() {
-            // sort growthFormulas by FromLevel
-            /*levelToGrowthFormulas.Sort((a, b) =>
-                a.FromLevel.CompareTo(b.FromLevel));*/
-            // or use:
-            //levelToGrowthFormulas = levelToGrowthFormulas.OrderBy(lvToGrowthFo => lvToGrowthFo.FromLevel).ToList();
-            
+           
             if (levelToGrowthFormulas.Count >= 1) {
                 // if growthFormulas count >= 1 and the first formula contains "PRV" keyword, then either the
                 // useConstantAtLvl1 should be true or the formula should start at level 2

@@ -80,8 +80,8 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             long baseValue;
             
             baseValue = _useClassBaseStats ? _entityClass.Class.GetStatAt(stat, _entityCore.Level) : _fixedBaseStats.Get(stat);
-            
-            baseValue += stat.CharacteristicsScaling?.CalculateValue(_entityCore) ?? 0;
+            if (_entityCore.Characteristics && _entityCore.Characteristics.enabled)
+                baseValue += stat.CharacteristicsScaling?.CalculateValue(_entityCore) ?? 0;
             return stat.Clamp(baseValue);
         }
         
