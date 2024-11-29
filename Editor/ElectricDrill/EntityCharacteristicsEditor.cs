@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 namespace ElectricDrill.SimpleRpgCore.Characteristics
 {
@@ -10,7 +11,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-
+            
             EntityCharacteristics entityCharacteristics = (EntityCharacteristics)target;
             CharacteristicPointsTracker tracker = entityCharacteristics.CharPointsTracker;
 
@@ -40,8 +41,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
                 EditorGUILayout.EndHorizontal();
             }
 
-            if (GUI.changed)
-            {
+            if (GUI.changed) {
                 EditorUtility.SetDirty(entityCharacteristics);
             }
         }

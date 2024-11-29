@@ -24,6 +24,10 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         internal void Init(int totalPoints) {
             total = totalPoints;
             available = total - spentCharacteristicPoints.Values.Sum();
+            if (available < 0) {
+                RefundAll();
+            }
+            Debug.LogWarning($"Available characteristic points are negative: {available}. Refunding all points");
         }
         
         public void AddPoints(int amount) {

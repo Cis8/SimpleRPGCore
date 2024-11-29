@@ -63,6 +63,9 @@ namespace ElectricDrill.SimpleRpgCore.Utils
 
         public void Add(TKey key, TValue value) {
             _dictionary.Add(key, value);
+#if UNITY_EDITOR
+            OnBeforeSerialize();
+#endif
         }
 
         public bool TryGetValue(TKey key, out TValue value) {
@@ -71,7 +74,12 @@ namespace ElectricDrill.SimpleRpgCore.Utils
 
         public TValue this[TKey key] {
             get => _dictionary[key];
-            set => _dictionary[key] = value;
+            set {
+                _dictionary[key] = value;
+#if UNITY_EDITOR
+                OnBeforeSerialize();
+#endif
+            }
         }
 
         public Dictionary<TKey, TValue>.KeyCollection Keys => _dictionary.Keys;
