@@ -86,7 +86,9 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
             }
 
             lock (charPointsTracker.SpentCharacteristicPoints.inspectorReservedPairs) {
-                InitializationUtils.RefreshInspectorReservedValues(ref charPointsTracker.SpentCharacteristicPoints.inspectorReservedPairs, CharacteristicSet?.Characteristics);
+                InitializationUtils.RefreshInspectorReservedValues(
+                    ref charPointsTracker.SpentCharacteristicPoints.inspectorReservedPairs,
+                    CharacteristicSet?.Characteristics);
                 charPointsTracker.SpentCharacteristicPoints.OnAfterDeserialize();
             }
 #endif
