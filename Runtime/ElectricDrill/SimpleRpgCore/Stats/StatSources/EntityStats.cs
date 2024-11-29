@@ -25,9 +25,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         
         // Dynamic stats
         protected EntityClass _entityClass;
-
-        protected StatSetInstance _baseClassStats;
-
+        
         protected StatSetInstance _flatModifiersStats;
 
         // the key is the target stat, the value contains all the percentages of the source stats to be summed up
@@ -64,7 +62,6 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         private void Awake() {
             Assert.IsNotNull(_onStatChanged, $"{name}'s OnStatChanged must be set in the inspector");
             _entityCore = GetComponent<EntityCore>();
-            CheckInitializeClassBaseStats();
             _statToStatModifiers ??= new Dictionary<Stat, StatSetInstance>();
             InitializeFlatModifierStatsIfNull();
             InitializePercentageModifierStatsIfNull();
@@ -82,7 +79,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             Assert.IsTrue(StatSet.Contains(stat), $"Stat {stat.name} is not in the {name}'s StatSet ({StatSet.name})");
             long baseValue;
             
-            baseValue = _useClassBaseStats ? _baseClassStats.Get(stat) : _fixedBaseStats.Get(stat);
+            baseValue = _useClassBaseStats ? _entityClass.Class.GetStatAt(stat, _entityCore.Level) : _fixedBaseStats.Get(stat);
             
             baseValue += stat.CharacteristicsScaling?.CalculateValue(_entityCore) ?? 0;
             return stat.Clamp(baseValue);
@@ -154,15 +151,8 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
         
         // EVENTS and EDITOR
-        private void OnLevelUp(int level) {
-            var oldStatValues = GetCurrentFinalStatValues();
-            _baseClassStats = _entityClass?.Class.CreateStatSetInstanceAt(level);
+        protected virtual void OnLevelUp(int level) {
 
-            foreach (var stat in StatSet.Stats) {
-                long oldValue = oldStatValues.Get(stat);
-                long newValue = Get(stat);
-                CheckRaiseStatChanged(stat, oldValue, newValue);
-            }
         }
 
         private void CheckRaiseStatChanged(Stat stat, long oldValue, long newValue) {
@@ -194,7 +184,6 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         
         private void OnEnable() {
             _entityCore = GetComponent<EntityCore>();
-            CheckInitializeClassBaseStats();
             _entityCore.Level.OnLevelUp += OnLevelUp;
             if (!_useClassBaseStats)
                 InitializeFixedBaseStats();
@@ -219,13 +208,6 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
 
         // UTILS
-        private void CheckInitializeClassBaseStats() {
-            if (_useClassBaseStats) {
-                if (!TryGetComponent(out _entityClass))
-                    Debug.LogError($"EntityClass component must be attached to the {gameObject.name} GameObject if _useFixedBaseStats is set false");
-                _baseClassStats = _entityClass?.Class.CreateStatSetInstanceAt(_entityCore.Level);
-            }
-        }
         
         private void InitializeFixedBaseStats() {
             if (!_useClassBaseStats) {

@@ -33,8 +33,14 @@ namespace ElectricDrill.SimpleRpgCore
             return _maxHpGrowthFormula.GetGrowthValue(level);
         }
 
-        // function called on level-up to increase stats
-        public StatSetInstance CreateStatSetInstanceAt(int level) {
+        public long GetCharacteristicAt(Characteristic characteristic, int level) {
+            return characteristicGrowthFormulas[characteristic].GetGrowthValue(level);
+        }
+        
+        public long GetStatAt(Stat stat, int level) {
+            return _statGrowthFnPairs.First(s => s.Stat == stat).growthFormula.GetGrowthValue(level);
+        }
+        /*public StatSetInstance CreateStatSetInstanceAt(int level) {
             var statSetInstance = new StatSetInstance(_statSet);
             foreach (var statGrowthFnPair in _statGrowthFnPairs) {
                 statSetInstance.AddValue(
@@ -43,7 +49,7 @@ namespace ElectricDrill.SimpleRpgCore
             }
 
             return statSetInstance;
-        }
+        }*/
         
         public CharacteristicSetInstance CreateCharacteristicSetInstanceAt(int level) {
             foreach (var characteristicGrowthFormula in characteristicGrowthFormulas) {

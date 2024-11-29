@@ -19,7 +19,6 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         
         // dynamic characteristics
         private EntityClass _entityClass;
-        private CharacteristicSetInstance _classCharacteristics;
         
         // Fixed base characteristics
         [SerializeField] private CharacteristicSet fixedBaseCharacteristicCharSet;
@@ -31,8 +30,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
             get {
                 // Assert that the CharacteristicSet is not null
                 if (useClassBaseCharacteristics) {
-                    CheckInitializeClassBaseCharacteristics();
-                    if (_entityClass == null) {
+                    if (!TryGetComponent(out _entityClass)) {
                         Debug.LogError(
                             $"EntityClass component must be attached to the {gameObject.name} GameObject if useClassBaseCharacteristics is set true");
                         return null;
@@ -59,7 +57,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
             Assert.IsTrue(CharacteristicSet.Contains(characteristic), $"Characteristic {characteristic} is not in the {name}'s CharacteristicSet ({CharacteristicSet.name})");
             long finalValue = 0;
             if (useClassBaseCharacteristics) {
-                finalValue += _classCharacteristics[characteristic];
+                finalValue += _entityClass.Class.GetCharacteristicAt(characteristic, _entityCore.Level);
             }
             else {
                 finalValue += fixedBaseCharacteristics[characteristic];
@@ -96,7 +94,6 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
 
         private void OnEnable() {
             _entityCore = GetComponent<EntityCore>();
-            CheckInitializeClassBaseCharacteristics();
             _entityCore.Level.OnLevelUp += OnLevelUp;
 #if UNITY_EDITOR
             OnValidate();
@@ -115,29 +112,10 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         // UTILS
 #if UNITY_EDITOR
         private void OnSelectionChanged() {
-            Debug.Log($"Selection changed, active object: {Selection.activeObject}");
             if (Selection.activeObject == this) {
                 OnValidate();
             }
         }
 #endif
-
-        private void CheckInitializeClassBaseCharacteristics() {
-            CheckInitializeEntityCoreRef();
-            if (useClassBaseCharacteristics && !_entityClass) {
-                if (TryGetComponent(out _entityClass)) {
-                    _classCharacteristics = _entityClass.Class.CreateCharacteristicSetInstanceAt(_entityCore.Level);
-                }
-                else {
-                    Debug.LogError($"EntityClass component must be attached to the {gameObject.name} GameObject if useClassBaseCharacteristics is set false");
-                }
-            }
-        }
-
-        private void CheckInitializeEntityCoreRef() {
-            if (!_entityCore) {
-                _entityCore = GetComponent<EntityCore>();
-            }
-        }
     }
 }
