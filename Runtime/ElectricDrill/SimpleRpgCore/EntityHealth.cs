@@ -181,8 +181,8 @@ namespace ElectricDrill.SimpleRpgCore
             Assert.IsNotNull(takenDmgInfoEvent, $"TakenDmgGameEvent is missing for {gameObject.name}");
             Assert.IsFalse(maxHp <= 0, $"Max HP of an Entity must be greater than 0. {name}'s Max HP was {MAX_HP}");
             Assert.IsFalse(hp < 0, $"HP of an Entity must be greater than or equal to 0. {name}'s HP was {HP}");
-            Assert.IsNotNull(deathThreshold, $"Death Threshold is missing for {gameObject.name}");
-            Assert.IsFalse(deathThreshold < 0 && healthCanBeNegative == false, "If health cannot be negative, the death threshold must be greater than or equal to 0");
+            if (healthCanBeNegative)
+                Assert.IsNotNull(deathThreshold, $"Death Threshold is missing for {gameObject.name}");
             Assert.IsNotNull(onDeathStrategy, $"OnDeathStrategy is missing for {gameObject.name}");
             Assert.IsNotNull(entityDiedEvent, $"DiedGameEvent is missing for {gameObject.name}");
             Assert.IsNotNull(preHealEvent, $"PreHealGameEvent is missing for {gameObject.name}");
