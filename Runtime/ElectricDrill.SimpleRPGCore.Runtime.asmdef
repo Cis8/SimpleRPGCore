@@ -1,0 +1,14 @@
+{
+    "name": "ElectricDrill.SimpleRPGCore.Runtime",
+    "rootNamespace": "ElectricDrill.SimpleRPGCore",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

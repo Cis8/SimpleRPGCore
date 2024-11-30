@@ -1,0 +1,16 @@
+{
+    "name": "ElectricDrill.SimpleRPGCore.Editor",
+    "rootNamespace": "ElectricDrill.SimpleRpgCore",
+    "references": [
+        "GUID:46d39bf349b8a94469f824a6ac71ae68"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
