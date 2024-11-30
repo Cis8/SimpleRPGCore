@@ -19,7 +19,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         private EntityCore _entityCore;
 
         // todo entity characteristics should be considered if fixed stats are used
-        [SerializeField] private bool _useClassBaseStats = true;
+        [SerializeField, HideInInspector] private bool _useClassBaseStats = true;
 
         // todo hide fixed or dynamic stats based on the value of _useFixedStats
         
@@ -34,16 +34,16 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         protected StatSetInstance _percentageModifiers;
         
         // Fixed stats
-        [SerializeField] private StatSet fixedBaseStatsStatSet;
-        [SerializeField] private List<SerKeyValPair<Stat, long>> _inspectorReservedFixedBaseStats;
-        private StatSetInstance _fixedBaseStats;
+        [SerializeField, HideInInspector] private StatSet fixedBaseStatsStatSet;
+        [FormerlySerializedAs("_inspectorReservedFixedBaseStats")] [SerializeField, HideInInspector] internal SerializableDictionary<Stat, long> _fixedBaseStats;
         
         // todo evaluate if finalStats cache shall be added
         
         // Events
-        [SerializeField] private StatChangedGameEvent _onStatChanged;
+        [SerializeField, HideInInspector] private StatChangedGameEvent _onStatChanged;
         
         public StatChangedGameEvent OnStatChanged => _onStatChanged;
+        public Dictionary<Stat, long>.KeyCollection FixedBaseStatsKeys => _fixedBaseStats.Keys;
 
         /// <summary>
         /// Returns the StatSet of the entity. If _useFixedBaseStats is true, it returns the fixedBaseStatsStatSet, otherwise it returns the StatSet of the entity's class.
@@ -79,7 +79,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             Assert.IsTrue(StatSet.Contains(stat), $"Stat {stat.name} is not in the {name}'s StatSet ({StatSet.name})");
             long baseValue;
             
-            baseValue = _useClassBaseStats ? _entityClass.Class.GetStatAt(stat, _entityCore.Level) : _fixedBaseStats.Get(stat);
+            baseValue = _useClassBaseStats ? _entityClass.Class.GetStatAt(stat, _entityCore.Level) : _fixedBaseStats[stat];
             if (_entityCore.Characteristics && _entityCore.Characteristics.enabled)
                 baseValue += stat.CharacteristicsScaling?.CalculateValue(_entityCore) ?? 0;
             return stat.Clamp(baseValue);
@@ -185,8 +185,6 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         private void OnEnable() {
             _entityCore = GetComponent<EntityCore>();
             _entityCore.Level.OnLevelUp += OnLevelUp;
-            if (!_useClassBaseStats)
-                InitializeFixedBaseStats();
 #if UNITY_EDITOR
             OnValidate();
 #endif
@@ -202,21 +200,12 @@ namespace ElectricDrill.SimpleRpgCore.Stats
 
         private void OnValidate() {
             if (!_useClassBaseStats) {
-                InitializationUtils.RefreshInspectorReservedValues(ref _inspectorReservedFixedBaseStats, fixedBaseStatsStatSet?.Stats);
-                InitializeFixedBaseStats();
+                InitializationUtils.RefreshInspectorReservedValues(ref _fixedBaseStats.inspectorReservedPairs, fixedBaseStatsStatSet?.Stats);
+                _fixedBaseStats.OnAfterDeserialize();
             }
         }
 
         // UTILS
-        
-        private void InitializeFixedBaseStats() {
-            if (!_useClassBaseStats) {
-                _fixedBaseStats = new StatSetInstance(fixedBaseStatsStatSet);
-                foreach (var statValuePair in _inspectorReservedFixedBaseStats) {
-                    _fixedBaseStats.AddValue(statValuePair.Key, statValuePair.Value);
-                }
-            }
-        }
         
         private void InitializeFlatModifierStatsIfNull() {
             _flatModifiersStats ??= new StatSetInstance(StatSet);
