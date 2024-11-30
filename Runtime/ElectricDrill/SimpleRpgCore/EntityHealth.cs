@@ -15,29 +15,29 @@ namespace ElectricDrill.SimpleRpgCore
     [RequireComponent(typeof(EntityCore))]
     public class EntityHealth : MonoBehaviour, IDamageable, IHealable
     {
-        [SerializeField] private bool healthCanBeNegative = false;
-        [SerializeField] private LongVar deathThreshold;
+        [SerializeField, HideInInspector] private bool healthCanBeNegative = false;
+        [SerializeField, HideInInspector] private LongVar deathThreshold;
         // if true, the max hp will be taken from the class and assigned to _maxHp, overriding any value set in the inspector
         // if false, the value set in the inspector will be used
-        [SerializeField] private bool useClassMaxHp = false;
-        [SerializeField] private LongRef maxHp;
-        [SerializeField] private LongRef hp;
-        [SerializeField] private LongRef barrier;
-        [SerializeField] private Stat healAmountModifier;
-        [SerializeField] private OnDeathStrategy onDeathStrategy;
+        [SerializeField, HideInInspector] private bool useClassMaxHp = false;
+        [SerializeField, HideInInspector] private LongRef maxHp;
+        [SerializeField, HideInInspector] private LongRef hp;
+        [SerializeField, HideInInspector] private LongRef barrier;
+        [SerializeField, HideInInspector] private Stat healAmountModifier;
+        [SerializeField, HideInInspector] private OnDeathStrategy onDeathStrategy;
 
         private EntityCore _core;
         private EntityStats _stats;
         private EntityClass _entityClass;
         
         // Events
-        [SerializeField] private PreDmgGameEvent preDmgInfoEvent;
-        [SerializeField] private TakenDmgGameEvent takenDmgInfoEvent;
-        [SerializeField] private EntityGainedHealthGameEvent gainedHealthEvent;
-        [SerializeField] private EntityLostHealthGameEvent lostHealthEvent;
-        [SerializeField] private EntityDiedGameEvent entityDiedEvent;
-        [SerializeField] private PreHealGameEvent preHealEvent;
-        [SerializeField] private EntityHealedGameEvent entityHealedEvent;
+        [SerializeField, HideInInspector] private PreDmgGameEvent preDmgInfoEvent;
+        [SerializeField, HideInInspector] private TakenDmgGameEvent takenDmgInfoEvent;
+        [SerializeField, HideInInspector] private EntityGainedHealthGameEvent gainedHealthEvent;
+        [SerializeField, HideInInspector] private EntityLostHealthGameEvent lostHealthEvent;
+        [SerializeField, HideInInspector] private EntityDiedGameEvent entityDiedEvent;
+        [SerializeField, HideInInspector] private PreHealGameEvent preHealEvent;
+        [SerializeField, HideInInspector] private EntityHealedGameEvent entityHealedEvent;
 
         public long MAX_HP => maxHp;
         public long HP => hp;
