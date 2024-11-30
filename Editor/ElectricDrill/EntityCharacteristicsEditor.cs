@@ -39,6 +39,31 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
                 }
             }
 
+            // POINTS TRACKER
+            EditorGUILayout.BeginVertical("box");
+            EditorGUILayout.LabelField("Characteristic Points Tracker", EditorStyles.boldLabel);
+            EditorGUI.indentLevel++;
+            EditorGUILayout.LabelField("Available Points: " + tracker.Available);
+
+            // Collect keys in a separate list
+            List<Characteristic> spentCharacteristics = new List<Characteristic>(tracker.SpentCharacteristicsKeys);
+
+            foreach (var characteristic in spentCharacteristics)
+            {
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField(characteristic.name, GUILayout.Width(maxLabelWidth));
+                long spentPoints = tracker.GetSpentOn(characteristic);
+                long newSpentPoints = EditorGUILayout.LongField(spentPoints, GUILayout.Width(50));
+                if (newSpentPoints != spentPoints)
+                {
+                    Undo.RecordObject(entityCharacteristics, "Modify Spent Characteristic Points");
+                    tracker.SpendOn(characteristic, (int)(newSpentPoints - spentPoints));
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+            EditorGUI.indentLevel--;
+            EditorGUILayout.EndVertical();
+            
             // Check if useClassBaseCharacteristics is true
             SerializedProperty useClassBaseCharacteristicsProp = serializedObject.FindProperty("useClassBaseCharacteristics");
             EditorGUILayout.PropertyField(useClassBaseCharacteristicsProp, new GUIContent("Use Class' Base Characteristics"));
@@ -72,31 +97,6 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
                 EditorGUI.indentLevel--;
                 EditorGUILayout.EndVertical();
             }
-
-            // POINTS TRACKER
-            EditorGUILayout.BeginVertical("box");
-            EditorGUILayout.LabelField("Characteristic Points Tracker", EditorStyles.boldLabel);
-            EditorGUI.indentLevel++;
-            EditorGUILayout.LabelField("Available Points: " + tracker.Available);
-
-            // Collect keys in a separate list
-            List<Characteristic> spentCharacteristics = new List<Characteristic>(tracker.SpentCharacteristicsKeys);
-
-            foreach (var characteristic in spentCharacteristics)
-            {
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(characteristic.name, GUILayout.Width(maxLabelWidth));
-                long spentPoints = tracker.GetSpentOn(characteristic);
-                long newSpentPoints = EditorGUILayout.LongField(spentPoints, GUILayout.Width(50));
-                if (newSpentPoints != spentPoints)
-                {
-                    Undo.RecordObject(entityCharacteristics, "Modify Spent Characteristic Points");
-                    tracker.SpendOn(characteristic, (int)(newSpentPoints - spentPoints));
-                }
-                EditorGUILayout.EndHorizontal();
-            }
-            EditorGUI.indentLevel--;
-            EditorGUILayout.EndVertical();
 
             serializedObject.ApplyModifiedProperties();
             
