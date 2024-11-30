@@ -19,7 +19,7 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         [SerializeField, HideInInspector] private SerializableDictionary<Characteristic, int> spentCharacteristicPoints = new();
         
         internal SerializableDictionary<Characteristic, int> SpentCharacteristicPoints => spentCharacteristicPoints;
-        public Dictionary<Characteristic, int>.KeyCollection SpentCharacteristics => spentCharacteristicPoints.Keys;
+        public Dictionary<Characteristic, int>.KeyCollection SpentCharacteristicsKeys => spentCharacteristicPoints.Keys;
 
         internal void Init(int totalPoints) {
             total = totalPoints;

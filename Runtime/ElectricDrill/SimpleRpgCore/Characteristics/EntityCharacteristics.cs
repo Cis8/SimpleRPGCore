@@ -1,4 +1,3 @@
-using System;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEditor;
 using UnityEngine;
@@ -12,17 +11,17 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         private EntityCore _entityCore;
         
         [SerializeField] private IntRef charPointsPerLevel;
-        [SerializeField] CharacteristicPointsTracker charPointsTracker;
+        [SerializeField, HideInInspector] CharacteristicPointsTracker charPointsTracker;
 
 
-        [SerializeField] private bool useClassBaseCharacteristics;
+        [SerializeField, HideInInspector] internal bool useClassBaseCharacteristics;
         
         // dynamic characteristics
         private EntityClass _entityClass;
         
         // Fixed base characteristics
-        [SerializeField] private CharacteristicSet fixedBaseCharacteristicCharSet;
-        [SerializeField] private SerializableDictionary<Characteristic, long> fixedBaseCharacteristics;
+        [SerializeField, HideInInspector] private CharacteristicSet fixedBaseCharacteristicCharSet;
+        [SerializeField, HideInInspector] internal SerializableDictionary<Characteristic, long> fixedBaseCharacteristics;
 
 #if UNITY_EDITOR
         static EntityCharacteristics()
