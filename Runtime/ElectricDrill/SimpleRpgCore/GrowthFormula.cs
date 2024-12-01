@@ -16,7 +16,7 @@ namespace ElectricDrill.SimpleRpgCore {
         [SerializeField] private IntVar maxLevel;
         [SerializeField, HideInInspector] private bool useConstantAtLvl1 = true;
         [SerializeField, HideInInspector] private long constantAtLvl1;
-        [SerializeField, HideInInspector] private List<LevelGrowthFormulaPair> levelToGrowthFormulas;
+        [SerializeField, HideInInspector] private List<LevelGrowthFormulaPair> levelToGrowthFormulas = new();
         [SerializeField, HideInInspector] private double[] growthFoValues = Array.Empty<double>();
         public double[] GrowthFoValues => growthFoValues;
 
@@ -28,7 +28,6 @@ namespace ElectricDrill.SimpleRpgCore {
         internal IntVar MaxLevel => maxLevel;
         
         private void OnValidate() {
-           
             if (levelToGrowthFormulas.Count >= 1) {
                 // if growthFormulas count >= 1 and the first formula contains "PRV" keyword, then either the
                 // useConstantAtLvl1 should be true or the formula should start at level 2

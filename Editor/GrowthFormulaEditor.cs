@@ -87,7 +87,13 @@ namespace ElectricDrill.SimpleRpgCore
         private void DrawGrowthGraph(GrowthFormula growthFormula) {
             GUILayout.Space(20);
 
-            float maxValue = (float)growthFormula.GrowthFoValues.Max();
+            float maxValue;
+            if (growthFormula.GrowthFoValues.Length > 0) {
+                maxValue = (float)growthFormula.GrowthFoValues.Max();
+            }
+            else {
+                maxValue = 0;
+            }
             int maxDigits = maxValue.ToString("N0").Length;
             int leftSpace = maxDigits * 7; // Calculate left space based on the number of digits
 
@@ -97,17 +103,14 @@ namespace ElectricDrill.SimpleRpgCore
             Rect graphRect = GUILayoutUtility.GetRect(GraphWidth, GraphHeight);
             Handles.DrawSolidRectangleWithOutline(graphRect, Color.black, Color.white);
 
-            if (growthFormula.GrowthFoValues == null || growthFormula.GrowthFoValues.Length == 0)
-                return;
-
-            if (maxValue == 0)
-                return;
-
             float stepX = graphRect.width / (growthFormula.GrowthFoValues.Length - 1);
             float stepY = graphRect.height / maxValue;
 
-            Vector3 previousPoint =
-                new Vector3(graphRect.x, graphRect.yMax - (float)growthFormula.GrowthFoValues[0] * stepY);
+            Vector3 previousPoint;
+            if (growthFormula.GrowthFoValues.Length > 0)
+                previousPoint = new Vector3(graphRect.x, graphRect.yMax - (float)growthFormula.GrowthFoValues[0] * stepY);
+            else
+                previousPoint = new Vector3(graphRect.x, graphRect.yMax);
 
             for (int i = 1; i < growthFormula.GrowthFoValues.Length; i++) {
                 Vector3 currentPoint = new Vector3(graphRect.x + i * stepX,
@@ -158,6 +161,14 @@ namespace ElectricDrill.SimpleRpgCore
                     // Adjust label position to the left if it exceeds the graph's width
                     if (squarePosition.x + labelSize.x > graphRect.xMax) {
                         labelPosition.x = squarePosition.x - labelSize.x - 5;
+                    }
+
+                    // Adjust label position if it exceeds the top or bottom of the graph
+                    if (labelPosition.y - labelSize.y < graphRect.y) {
+                        labelPosition.y = graphRect.y + labelSize.y;
+                    }
+                    else if (labelPosition.y > graphRect.yMax) {
+                        labelPosition.y = graphRect.yMax;
                     }
 
                     Handles.Label(labelPosition, labelText);
