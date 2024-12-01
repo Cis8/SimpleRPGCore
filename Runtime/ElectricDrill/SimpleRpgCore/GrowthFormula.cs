@@ -17,7 +17,7 @@ namespace ElectricDrill.SimpleRpgCore {
         [SerializeField, HideInInspector] private bool useConstantAtLvl1 = true;
         [SerializeField, HideInInspector] private long constantAtLvl1;
         [SerializeField, HideInInspector] private List<LevelGrowthFormulaPair> levelToGrowthFormulas;
-        [SerializeField, HideInInspector] private double[] growthFoValues;
+        [SerializeField, HideInInspector] private double[] growthFoValues = Array.Empty<double>();
         public double[] GrowthFoValues => growthFoValues;
 
         public long GetGrowthValue(int level) {
