@@ -138,7 +138,7 @@ namespace ElectricDrill.SimpleRpgCore
                 Handles.Label(labelPosition, yValue.ToString("N0"));
             }
 
-            // Show values on hover
+            // Show values on hover and draw square
             Vector2 mousePosition = Event.current.mousePosition;
             if (graphRect.Contains(mousePosition)) {
                 float mouseX = mousePosition.x - graphRect.x;
@@ -146,11 +146,18 @@ namespace ElectricDrill.SimpleRpgCore
                 int index = Mathf.RoundToInt(mouseX / stepX);
                 if (index >= 0 && index < growthFormula.GrowthFoValues.Length) {
                     float valueY = (float)growthFormula.GrowthFoValues[index];
-                    Vector2 labelPosition = mousePosition;
+                    Vector3 squarePosition = new Vector3(graphRect.x + index * stepX, graphRect.yMax - valueY * stepY);
+                    Handles.color = Color.red;
+                    Handles.DrawSolidDisc(squarePosition, Vector3.forward, 3);
+
+                    // Draw label next to the square
                     string labelText = $"lvl: {index + 1}, value: {valueY:N0}";
                     Vector2 labelSize = GUI.skin.label.CalcSize(new GUIContent(labelText));
-                    if (mousePosition.x > graphRect.x + graphRect.width - labelSize.x) {
-                        labelPosition.x -= labelSize.x; // Adjust label position to the left if near the right edge
+                    Vector3 labelPosition = new Vector3(squarePosition.x + 5, squarePosition.y);
+
+                    // Adjust label position to the left if it exceeds the graph's width
+                    if (squarePosition.x + labelSize.x > graphRect.xMax) {
+                        labelPosition.x = squarePosition.x - labelSize.x - 5;
                     }
 
                     Handles.Label(labelPosition, labelText);
