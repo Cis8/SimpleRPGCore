@@ -13,11 +13,11 @@ namespace ElectricDrill.SimpleRpgCore {
     [CreateAssetMenu(fileName = "New Growth Formula", menuName = "Simple RPG/Growth Formula")]
     public class GrowthFormula : ScriptableObject
     {
-        [SerializeField] private bool useConstantAtLvl1 = true;
-        [SerializeField] private long constantAtLvl1;
-        [SerializeField] private List<LevelGrowthFormulaPair> levelToGrowthFormulas;
         [SerializeField] private IntVar maxLevel;
-        [SerializeField] private double[] growthFoValues;
+        [SerializeField, HideInInspector] private bool useConstantAtLvl1 = true;
+        [SerializeField, HideInInspector] private long constantAtLvl1;
+        [SerializeField, HideInInspector] private List<LevelGrowthFormulaPair> levelToGrowthFormulas;
+        [SerializeField, HideInInspector] private double[] growthFoValues;
         public double[] GrowthFoValues => growthFoValues;
 
         public long GetGrowthValue(int level) {
@@ -25,6 +25,7 @@ namespace ElectricDrill.SimpleRpgCore {
             return (long)growthFoValues[level - 1];
         }
         
+        internal IntVar MaxLevel => maxLevel;
         
         private void OnValidate() {
            
