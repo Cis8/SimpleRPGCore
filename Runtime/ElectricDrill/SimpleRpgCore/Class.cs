@@ -34,25 +34,12 @@ namespace ElectricDrill.SimpleRpgCore
         }
 
         public long GetCharacteristicAt(Characteristic characteristic, int level) {
+            Assert.IsNotNull(characteristicGrowthFormulas[characteristic], $"Growth formula for {characteristic.name} is null");
             return characteristicGrowthFormulas[characteristic].GetGrowthValue(level);
         }
         
         public long GetStatAt(Stat stat, int level) {
             return _statGrowthFnPairs.First(s => s.Stat == stat).growthFormula.GetGrowthValue(level);
-        }
-        
-        public CharacteristicSetInstance CreateCharacteristicSetInstanceAt(int level) {
-            foreach (var characteristicGrowthFormula in characteristicGrowthFormulas) {
-                Assert.IsNotNull(characteristicGrowthFormula.Value, $"GrowthFormula for {characteristicGrowthFormula.Key} is null");
-            }
-            var characteristicSetInstance = new CharacteristicSetInstance(_characteristicSet);
-            foreach (var characteristicGrowthFormula in characteristicGrowthFormulas) {
-                characteristicSetInstance.AddValue(
-                    characteristicGrowthFormula.Key,
-                    characteristicGrowthFormula.Value.GetGrowthValue(level));
-            }
-
-            return characteristicSetInstance;
         }
 
         [Serializable]
