@@ -40,6 +40,9 @@ namespace ElectricDrill.SimpleRpgCore
         {
             serializedObject.Update();
 
+            // Draw the default inspector, including the script reference
+            DrawDefaultInspector();
+            
             // Draw the healthCanBeNegative property
             EditorGUILayout.PropertyField(healthCanBeNegative);
 
