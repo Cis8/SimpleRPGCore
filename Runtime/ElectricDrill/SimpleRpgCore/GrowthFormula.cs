@@ -21,7 +21,8 @@ namespace ElectricDrill.SimpleRpgCore {
         public double[] GrowthFoValues => growthFoValues;
 
         public long GetGrowthValue(int level) {
-            Assert.IsTrue(level <= maxLevel.Value, "Level is greater than max level");
+            Assert.IsTrue(level <= maxLevel.Value, $"Level ({level}) is greater than max level " +
+                                                   $"({maxLevel.Value}) for growth formula {name}");
             return (long)growthFoValues[level - 1];
         }
         

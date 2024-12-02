@@ -24,6 +24,7 @@ namespace ElectricDrill.SimpleRpgCore.Scaling {
         
         public long CalculateValue(EntityCore self, int level) {
             Assert.IsTrue(targetScalingComponents.Count == 0, "This formula requires a target entity to calculate the value");
+            Assert.IsTrue(useScalingBaseValue, "This formula does not require a level to calculate the value");
             return CalculateBaseValue(level) +
                    selfScalingComponents.Sum(component => component.CalculateValue(self));
         }
@@ -35,6 +36,7 @@ namespace ElectricDrill.SimpleRpgCore.Scaling {
         }
         
         public long CalculateValue(EntityCore self, EntityCore target, int level) {
+            Assert.IsTrue(useScalingBaseValue, "This formula does not require a level to calculate the value");
             return CalculateBaseValue(level) +
                    selfScalingComponents.Sum(component => component.CalculateValue(self)) +
                    targetScalingComponents.Sum(component => component.CalculateValue(target));
