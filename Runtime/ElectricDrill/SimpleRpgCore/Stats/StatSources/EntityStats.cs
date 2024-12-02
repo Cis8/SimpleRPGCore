@@ -16,6 +16,10 @@ namespace ElectricDrill.SimpleRpgCore.Stats
     [RequireComponent(typeof(EntityCore))]
     public class EntityStats : MonoBehaviour
     {
+        public void Set(Stat s, long v) {
+            _fixedBaseStats[s] = v;
+        }
+        
         private EntityCore _entityCore;
 
         // todo entity characteristics should be considered if fixed stats are used

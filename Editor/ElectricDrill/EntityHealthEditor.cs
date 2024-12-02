@@ -26,7 +26,7 @@ namespace ElectricDrill.SimpleRpgCore
             deathThreshold = serializedObject.FindProperty("deathThreshold");
             useClassMaxHp = serializedObject.FindProperty("useClassMaxHp");
             maxHp = serializedObject.FindProperty("maxHp");
-            healAmountModifier = serializedObject.FindProperty("healAmountModifier");
+            healAmountModifier = serializedObject.FindProperty("healAmountModifierStat");
             preDmgInfoEvent = serializedObject.FindProperty("preDmgInfoEvent");
             takenDmgInfoEvent = serializedObject.FindProperty("takenDmgInfoEvent");
             gainedHealthEvent = serializedObject.FindProperty("gainedHealthEvent");

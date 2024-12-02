@@ -2,6 +2,7 @@ using ElectricDrill.SimpleRpgCore.Stats;
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ElectricDrill.SimpleRpgCore
 {
@@ -42,6 +43,7 @@ namespace ElectricDrill.SimpleRpgCore
                 List<Stat> keys = new List<Stat>(entityStats.FixedBaseStatsKeys);
                 foreach (var stat in keys)
                 {
+                    // todo remove null keys from the dictionary
                     long value = entityStats._fixedBaseStats[stat];
                     long newValue = EditorGUILayout.LongField(stat.name, value);
                     if (newValue != value)

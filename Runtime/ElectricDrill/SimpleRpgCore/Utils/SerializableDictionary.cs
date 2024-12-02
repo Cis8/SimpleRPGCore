@@ -12,7 +12,7 @@ namespace ElectricDrill.SimpleRpgCore.Utils
 
         [SerializeField, HideInInspector] private bool missingKeyPair;
 
-        [NonSerialized] private Dictionary<TKey, TValue> _dictionary = new();
+        [NonSerialized] internal Dictionary<TKey, TValue> _dictionary = new();
 
         public void OnBeforeSerialize() {
             lock (this) {
@@ -61,11 +61,19 @@ namespace ElectricDrill.SimpleRpgCore.Utils
             }
         }
 
-        public void Add(TKey key, TValue value) {
+        internal void Add(TKey key, TValue value) {
             _dictionary.Add(key, value);
 #if UNITY_EDITOR
             OnBeforeSerialize();
 #endif
+        }
+        
+        internal bool Remove(TKey key) {
+            var removed = _dictionary.Remove(key);
+#if UNITY_EDITOR
+            OnBeforeSerialize();
+#endif
+            return removed;
         }
 
         public bool TryGetValue(TKey key, out TValue value) {

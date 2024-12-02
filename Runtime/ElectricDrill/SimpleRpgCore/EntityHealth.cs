@@ -23,7 +23,7 @@ namespace ElectricDrill.SimpleRpgCore
         [SerializeField, HideInInspector] private LongRef maxHp;
         [SerializeField, HideInInspector] private LongRef hp;
         [SerializeField, HideInInspector] private LongRef barrier;
-        [SerializeField, HideInInspector] private Stat healAmountModifier;
+        [SerializeField, HideInInspector] private Stat healAmountModifierStat;
         [SerializeField, HideInInspector] private OnDeathStrategy onDeathStrategy;
 
         private EntityCore _core;
@@ -50,7 +50,7 @@ namespace ElectricDrill.SimpleRpgCore
 
         private void Start() {
             _stats = GetComponent<EntityStats>();
-            Assert.IsTrue(healAmountModifier == null || _stats.StatSet.Contains(healAmountModifier), $"StatSet of {gameObject.name} doesn't contain the stat {healAmountModifier}");
+            Assert.IsTrue(healAmountModifierStat == null || _stats.StatSet.Contains(healAmountModifierStat), $"StatSet of {gameObject.name} doesn't contain the stat {healAmountModifierStat}");
             _entityClass = GetComponent<EntityClass>();
             if (useClassMaxHp) {
                 Assert.IsNotNull(_entityClass, $"Class of {gameObject.name} is missing");
@@ -142,8 +142,8 @@ namespace ElectricDrill.SimpleRpgCore
             preHealEvent.Raise(info, _core);
             
             var healedAmount = info.Amount;
-            if (healAmountModifier != null) {
-                Percentage healModifier = _stats.Get(healAmountModifier);
+            if (healAmountModifierStat != null) {
+                Percentage healModifier = _stats.Get(healAmountModifierStat);
                 healedAmount = (long) (healedAmount * healModifier);   
             }
             

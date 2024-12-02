@@ -1,5 +1,6 @@
 using System;
 using ElectricDrill.SimpleRpgCore.Events;
+using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -16,7 +17,11 @@ namespace ElectricDrill.SimpleRpgCore
         
         // EXPERIENCE FIELDS
         [SerializeField] private GrowthFormula _experienceGrowthFormula;
-        private long _currentTotalExperience;
+        [SerializeField, HideInInspector] long _currentTotalExperience;
+        [SerializeField] private Stat experienceGainedModifierStat;
+        private Func<Percentage> _experienceGainedModifier;
+        
+        internal Stat ExperienceGainedModifierStat => experienceGainedModifierStat;
         
         // Editor-wired Events
         [SerializeField] private IntGameEvent _onLevelUpEditor;
@@ -57,7 +62,7 @@ namespace ElectricDrill.SimpleRpgCore
         /// <returns>The amount of experience added</returns>
         public long AddExpForNextLevel() { // currently public for easy testing
             var amountToAdd = NextLevelTotalExperience() - _currentTotalExperience;
-            _currentTotalExperience += amountToAdd;
+            AddExpWithModifier(amountToAdd);
             LevelUp();
             return amountToAdd;
         }
@@ -68,11 +73,25 @@ namespace ElectricDrill.SimpleRpgCore
                 AddExp(remaining);
             }
             else {
+                AddExpWithModifier(amount);
+            }
+        }
+        
+        private void AddExpWithModifier(long amount) {
+            var modifier = _experienceGainedModifier?.Invoke();
+            if (modifier != null) {
+                _currentTotalExperience += (long)(amount * (1.0d + modifier));
+            }
+            else {
                 _currentTotalExperience += amount;
             }
         }
+        
+        internal void SetExperienceGainedModifier(Func<Percentage> experienceGainedModifier) {
+            _experienceGainedModifier = experienceGainedModifier;
+        }
 
-        public void Init(long totalCurrentExperience) {
+        public void SetTotalCurrentExp(long totalCurrentExperience) {
             Assert.IsNotNull(_maxLevel, "Max Level is missing");
             _currentTotalExperience = totalCurrentExperience;
             var growthFoValues = _experienceGrowthFormula.GrowthFoValues;
@@ -92,10 +111,13 @@ namespace ElectricDrill.SimpleRpgCore
             0
             : _experienceGrowthFormula.GetGrowthValue(_level - 1);
         
-        public long NextLevelTotalExperience() => _level == _maxLevel ? 
-            _experienceGrowthFormula.GetGrowthValue(_level - 1)
-            : _experienceGrowthFormula.GetGrowthValue(_level);
-        
+        public long NextLevelTotalExperience() {
+            Assert.IsNotNull(_experienceGrowthFormula, $"Experience Growth Formula is missing for {nameof(EntityLevel)}");
+            return _level == _maxLevel
+                ? _experienceGrowthFormula.GetGrowthValue(_level - 1)
+                : _experienceGrowthFormula.GetGrowthValue(_level);
+        }
+
         // implicit conversion from EntityLevel to int
         public static implicit operator int(EntityLevel entityLevel) => entityLevel.Level;
     }
