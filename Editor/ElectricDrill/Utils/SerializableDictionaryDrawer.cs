@@ -14,7 +14,7 @@ namespace ElectricDrill.SimpleRpgCore
         {
             EditorGUI.BeginProperty(position, label, property);
 
-            var keysProperty = property.FindPropertyRelative("inspectorReservedPairs");
+            var pairsProperty = property.FindPropertyRelative("inspectorReservedPairs");
             var missingKeyPairProperty = property.FindPropertyRelative("missingKeyPair");
 
             position.height = EditorGUIUtility.singleLineHeight;
@@ -23,9 +23,9 @@ namespace ElectricDrill.SimpleRpgCore
             if (property.isExpanded)
             {
                 EditorGUI.indentLevel++;
-                for (int i = 0; i < keysProperty.arraySize; i++)
+                for (int i = 0; i < pairsProperty.arraySize; i++)
                 {
-                    var pairProperty = keysProperty.GetArrayElementAtIndex(i);
+                    var pairProperty = pairsProperty.GetArrayElementAtIndex(i);
                     var keyProperty = pairProperty.FindPropertyRelative("Key");
                     var valueProperty = pairProperty.FindPropertyRelative("Value");
 
@@ -40,7 +40,7 @@ namespace ElectricDrill.SimpleRpgCore
 
                     if (GUI.Button(removeButtonRect, "-"))
                     {
-                        keysProperty.DeleteArrayElementAtIndex(i);
+                        pairsProperty.DeleteArrayElementAtIndex(i);
                     }
                 }
 
@@ -48,8 +48,8 @@ namespace ElectricDrill.SimpleRpgCore
                 var addButtonRect = new Rect(position.x, position.y, position.width, position.height);
                 if (GUI.Button(addButtonRect, "Add"))
                 {
-                    keysProperty.arraySize++;
-                    var newPairProperty = keysProperty.GetArrayElementAtIndex(keysProperty.arraySize - 1);
+                    pairsProperty.arraySize++;
+                    var newPairProperty = pairsProperty.GetArrayElementAtIndex(pairsProperty.arraySize - 1);
                     var keyProperty = newPairProperty.FindPropertyRelative("Key");
                     var valueProperty = newPairProperty.FindPropertyRelative("Value");
 

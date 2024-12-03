@@ -41,7 +41,7 @@ namespace ElectricDrill.SimpleRpgCore
                 EditorGUILayout.LabelField("Fixed Base Stats", EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
                 
-                // get the non null keys from the dictionary
+                // get the non-null keys from the dictionary
                 List<Stat> nonNullKeys = entityStats.FixedBaseStatsKeys.Where(k => 
                     k != null && k)
                     .ToList();

@@ -20,6 +20,7 @@ namespace ElectricDrill.SimpleRpgCore.Utils
                     missingKeyPair = true;
 
                 inspectorReservedPairs.Clear();
+                
                 foreach (var kvp in _dictionary) {
                     if(kvp.Key == null)
                         continue;
@@ -36,8 +37,7 @@ namespace ElectricDrill.SimpleRpgCore.Utils
             lock (this) {
                 _dictionary = new Dictionary<TKey, TValue>();
 
-                if (inspectorReservedPairs == null)
-                    inspectorReservedPairs = new List<SerKeyValPair<TKey, TValue>>();
+                inspectorReservedPairs ??= new List<SerKeyValPair<TKey, TValue>>();
 
                 if (inspectorReservedPairs.FindAll(p => p.Key == null).Count > 1) {
                     missingKeyPair = true;

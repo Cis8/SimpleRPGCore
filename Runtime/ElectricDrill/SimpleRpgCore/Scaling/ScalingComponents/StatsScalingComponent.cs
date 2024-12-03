@@ -14,11 +14,13 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
         protected override IEnumerable<Stat> GetSetItems() => _set.Stats;
         
 #if UNITY_EDITOR
-        private void OnEnable() {
+        protected override void OnEnable() {
+            base.OnEnable();
             Stat.OnStatDeleted += HandleStatDeleted;
         }
 
-        private void OnDisable() {
+        protected override void OnDisable() {
+            base.OnDisable();
             Stat.OnStatDeleted -= HandleStatDeleted;
         }
 

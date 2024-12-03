@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore.Utils
 {
@@ -12,23 +13,59 @@ namespace ElectricDrill.SimpleRpgCore.Utils
         ICollection<T>,
         ISerializable
     {
-        HashSet<T> hashSet = new();
-        [SerializeField] private List<T> values = new();
+        [NonSerialized] HashSet<T> hashSet = new();
+        [SerializeField] private List<T> inspectorReservedValues = new();
+        [SerializeField, HideInInspector] private bool missingValue = false;
 
         // save the hashset to list
         public void OnBeforeSerialize() {
-            values.Clear();
+            lock (this) {
+                if (inspectorReservedValues.Exists(v => v == null)) {
+                    missingValue = true;
+                }
+                inspectorReservedValues.Clear();
             
-            foreach (var value in hashSet) {
-                values.Add(value);
+                foreach (var value in hashSet) {
+                    if (value == null) {
+                        continue;
+                    }
+                    inspectorReservedValues.Add(value);
+                }
+            
+                if (missingValue) {
+                    inspectorReservedValues.Add(default);
+                }   
             }
         }
 
         // load dictionary from lists
         public void OnAfterDeserialize() {
-            hashSet.Clear();
-            foreach (T value in values) {
-                hashSet.Add(value);
+            lock (this) {
+                hashSet = new HashSet<T>();
+                
+                inspectorReservedValues ??= new List<T>();
+            
+                if (inspectorReservedValues.FindAll(v => v == null).Count > 1) {
+                    inspectorReservedValues.RemoveAll(v => v == null);
+                    missingValue = true;
+                    Debug.LogWarning("Assign a valid value to the null item before adding another one");
+                }
+                else {
+                    var nullItemIdx = inspectorReservedValues.FindIndex(v => v == null);
+                    if (nullItemIdx != -1) {
+                        missingValue = true;
+                        inspectorReservedValues.RemoveAt(nullItemIdx);
+                    }
+                    else {
+                        missingValue = false;
+                    }
+                }
+            
+                foreach (var value in inspectorReservedValues) {
+                    if (value != null) {
+                        hashSet.Add(value);
+                    }
+                }   
             }
         }
         

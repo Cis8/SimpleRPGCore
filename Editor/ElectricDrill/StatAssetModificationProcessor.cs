@@ -8,9 +8,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         private static AssetDeleteResult OnWillDeleteAsset(string assetPath, RemoveAssetOptions options)
         {
             Stat stat = AssetDatabase.LoadAssetAtPath<Stat>(assetPath);
-            if (stat != null)
-            {
-                Debug.Log($"Stat {stat.name} is about to be deleted");
+            if (stat != null) {
                 Stat.OnWillDeleteStat(stat);
             }
             return AssetDeleteResult.DidNotDelete;

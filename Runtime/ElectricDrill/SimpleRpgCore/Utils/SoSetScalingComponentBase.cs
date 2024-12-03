@@ -49,11 +49,11 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
         protected abstract IEnumerable<KeyType> GetSetItems();
 
 #if UNITY_EDITOR
-        private void OnEnable() {
+        protected virtual void OnEnable() {
             Selection.selectionChanged += OnSelectionChanged;
         }
 
-        private void OnDisable() {
+        protected virtual void OnDisable() {
             Selection.selectionChanged -= OnSelectionChanged;
         }
 

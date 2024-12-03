@@ -38,13 +38,12 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             return !(a == b);
         }
         
+#if UNITY_EDITOR
         public static event Action<Stat> OnStatDeleted;
 
         public static void OnWillDeleteStat(Stat stat) {
-            Debug.Log($"Stat {stat.name} destroyed");
             OnStatDeleted?.Invoke(stat);
         }
-#if UNITY_EDITOR
 #endif
     }
 }

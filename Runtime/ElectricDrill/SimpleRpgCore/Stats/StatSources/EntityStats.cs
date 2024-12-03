@@ -208,8 +208,22 @@ namespace ElectricDrill.SimpleRpgCore.Stats
                 _fixedBaseStats.OnAfterDeserialize();
             }
         }
+        
 
         // UTILS
+#if UNITY_EDITOR
+        
+        static EntityStats()
+        {
+            Selection.selectionChanged += OnSelectionChanged;
+        }
+        
+        private static void OnSelectionChanged() {
+            if (Selection.activeObject is GameObject selectedObject && selectedObject.TryGetComponent<EntityStats>(out var entityStats)) {
+                entityStats.OnValidate();
+            }
+        }
+#endif
         
         private void InitializeFlatModifierStatsIfNull() {
             _flatModifiersStats ??= new StatSetInstance(StatSet);

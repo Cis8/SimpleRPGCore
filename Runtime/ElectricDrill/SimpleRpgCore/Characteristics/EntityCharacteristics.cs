@@ -22,13 +22,6 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         // Fixed base characteristics
         [SerializeField, HideInInspector] private CharacteristicSet fixedBaseCharacteristicCharSet;
         [SerializeField, HideInInspector] internal SerializableDictionary<Characteristic, long> fixedBaseCharacteristics;
-
-#if UNITY_EDITOR
-        static EntityCharacteristics()
-        {
-            Selection.selectionChanged += OnSelectionChanged;
-        }
-#endif
         
         public CharacteristicPointsTracker CharPointsTracker => charPointsTracker;
         
@@ -119,6 +112,11 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         
         // UTILS
 #if UNITY_EDITOR
+        static EntityCharacteristics()
+        {
+            Selection.selectionChanged += OnSelectionChanged;
+        }
+        
         private static void OnSelectionChanged() {
             if (Selection.activeObject is GameObject selectedObject && selectedObject.TryGetComponent<EntityCharacteristics>(out var entityCharacteristics)) {
                 entityCharacteristics.OnValidate();
