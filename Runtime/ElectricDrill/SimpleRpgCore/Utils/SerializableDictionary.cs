@@ -21,6 +21,8 @@ namespace ElectricDrill.SimpleRpgCore.Utils
 
                 inspectorReservedPairs.Clear();
                 foreach (var kvp in _dictionary) {
+                    if(kvp.Key == null)
+                        continue;
                     inspectorReservedPairs.Add(new SerKeyValPair<TKey, TValue>(kvp.Key, kvp.Value));
                 }
 

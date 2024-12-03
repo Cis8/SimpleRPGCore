@@ -29,6 +29,8 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
 
         protected virtual void OnValidate() {
             if (_set != null) {
+                var nonNullPairs = _scalingAttributeValues.Where(pair => IsKeyNotNull(pair.Key)).ToArray();
+                _scalingAttributeValues = nonNullPairs;
                 _scalingAttributeValues = GetSetItems().Select(item => {
                     if (_scalingAttributeValues == null) {
                         return new SerKeyValPair<KeyType, double>(item, 0d);
@@ -46,6 +48,8 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
                 _scalingAttributeValues = Array.Empty<SerKeyValPair<KeyType, double>>();
             }
         }
+        
+        public abstract bool IsKeyNotNull(KeyType key);
 
         protected abstract IEnumerable<KeyType> GetSetItems();
 

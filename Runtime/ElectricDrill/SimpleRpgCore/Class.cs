@@ -52,7 +52,9 @@ namespace ElectricDrill.SimpleRpgCore
         // EDITOR
         private void OnValidate() {
             if (_statSet != null) {
-                _statGrowthFnPairs = _statSet.Stats.Select(stat => {
+                _statGrowthFnPairs = _statSet.Stats
+                    .Where(stat => stat)
+                    .Select(stat => {
                     if (_statGrowthFnPairs == null) {
                         return new StatGrowthFnPair {
                             Stat = stat,

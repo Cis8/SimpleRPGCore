@@ -25,6 +25,8 @@ namespace ElectricDrill.SimpleRpgCore
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
+            
+            DrawDefaultInspector();
 
             // Draw the _useClassBaseStats property
             EditorGUILayout.PropertyField(useClassBaseStats);
@@ -38,21 +40,26 @@ namespace ElectricDrill.SimpleRpgCore
                 EntityStats entityStats = (EntityStats)target;
                 EditorGUILayout.LabelField("Fixed Base Stats", EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
-
-                // Collect keys in a list to avoid modifying the collection while iterating
-                List<Stat> keys = new List<Stat>(entityStats.FixedBaseStatsKeys);
-                foreach (var stat in keys)
+                
+                // get the non null keys from the dictionary
+                List<Stat> nonNullKeys = entityStats.FixedBaseStatsKeys.Where(k => 
+                    k != null && k)
+                    .ToList();
+                Dictionary<Stat, long> newFixedBaseStats = new Dictionary<Stat, long>();
+                foreach (var stat in nonNullKeys)
                 {
-                    // todo remove null keys from the dictionary
                     long value = entityStats._fixedBaseStats[stat];
                     long newValue = EditorGUILayout.LongField(stat.name, value);
                     if (newValue != value)
                     {
-                        Undo.RecordObject(entityStats, "Modify Fixed Base Stat");
-                        entityStats._fixedBaseStats[stat] = newValue;
-                        EditorUtility.SetDirty(entityStats);
+                        newFixedBaseStats[stat] = newValue;
+                    }
+                    else {
+                        newFixedBaseStats[stat] = value;
                     }
                 }
+                entityStats._fixedBaseStats = newFixedBaseStats;
+                
                 EditorGUI.indentLevel--;
             }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ElectricDrill.SimpleRpgCore.Utils;
@@ -18,6 +19,10 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         
         public bool Contains(Stat stat) {
             return _stats.Contains(stat);
+        }
+
+        private void OnValidate() {
+            _stats.RemoveWhere(s => !s);
         }
     }
 }

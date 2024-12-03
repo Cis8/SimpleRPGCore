@@ -10,6 +10,8 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
         protected override StatSet GetEntitySet(EntityCore entity) => entity.Stats.StatSet;
 
         protected override long GetEntityValue(EntityCore entity, Stat key) => entity.Stats.Get(key);
+        
+        public override bool IsKeyNotNull(Stat key) => key;
         protected override IEnumerable<Stat> GetSetItems() => _set.Stats;
     }
 }

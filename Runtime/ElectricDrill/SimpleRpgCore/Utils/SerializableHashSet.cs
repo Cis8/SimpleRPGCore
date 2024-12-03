@@ -61,6 +61,10 @@ namespace ElectricDrill.SimpleRpgCore.Utils
         public bool Remove(T item) {
             return hashSet.Remove(item);
         }
+        
+        public int RemoveWhere(Predicate<T> match) {
+            return hashSet.RemoveWhere(match);
+        }
 
         int ICollection<T>.Count => hashSet.Count;
         public bool IsReadOnly => false;
