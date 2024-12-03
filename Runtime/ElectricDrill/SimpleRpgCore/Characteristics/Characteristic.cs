@@ -11,6 +11,12 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
     [Serializable]
     public class Characteristic : BoundedValue
     {
+#if UNITY_EDITOR
+        public static event Action<Characteristic> OnCharacteristicDeleted;
 
+        public static void OnWillDeleteCharacteristic(Characteristic characteristic) {
+            OnCharacteristicDeleted?.Invoke(characteristic);
+        }
+#endif
     }
 }

@@ -96,11 +96,13 @@ namespace ElectricDrill.SimpleRpgCore
         private void OnEnable() {
             Selection.selectionChanged += OnSelectionChanged;
             Stat.OnStatDeleted += HandleStatDeleted;
+            Characteristic.OnCharacteristicDeleted += HandleCharacteristicDeleted;
         }
 
         private void OnDisable() {
             Selection.selectionChanged -= OnSelectionChanged;
             Stat.OnStatDeleted -= HandleStatDeleted;
+            Characteristic.OnCharacteristicDeleted -= HandleCharacteristicDeleted;
         }
 
         private void OnSelectionChanged() {
@@ -112,6 +114,12 @@ namespace ElectricDrill.SimpleRpgCore
         private void HandleStatDeleted(Stat deletedStat) {
             if (_statGrowthFunctions.Keys.Contains(deletedStat)) {
                 _statGrowthFunctions.Remove(deletedStat);
+            }
+        }
+        
+        private void HandleCharacteristicDeleted(Characteristic deletedCharacteristic) {
+            if (characteristicGrowthFormulas.Keys.Contains(deletedCharacteristic)) {
+                characteristicGrowthFormulas.Remove(deletedCharacteristic);
             }
         }
 #endif

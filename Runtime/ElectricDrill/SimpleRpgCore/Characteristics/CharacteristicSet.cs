@@ -19,5 +19,21 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
         public bool Contains(Characteristic characteristic) {
             return _characteristics.Contains(characteristic);
         }
+        
+#if UNITY_EDITOR
+        private void OnEnable() {
+            Characteristic.OnCharacteristicDeleted += HandleCharacteristicDeleted;
+        }
+
+        private void OnDisable() {
+            Characteristic.OnCharacteristicDeleted -= HandleCharacteristicDeleted;
+        }
+
+        private void HandleCharacteristicDeleted(Characteristic deletedCharacteristic) {
+            if (_characteristics.Contains(deletedCharacteristic)) {
+                _characteristics.Remove(deletedCharacteristic);
+            }
+        }
+#endif
     }
 }
