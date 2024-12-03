@@ -21,8 +21,20 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             return _stats.Contains(stat);
         }
 
-        private void OnValidate() {
-            _stats.RemoveWhere(s => !s);
+#if UNITY_EDITOR
+        private void OnEnable() {
+            Stat.OnStatDeleted += HandleStatDeleted;
         }
+
+        private void OnDisable() {
+            Stat.OnStatDeleted -= HandleStatDeleted;
+        }
+
+        private void HandleStatDeleted(Stat deletedStat) {
+            if (_stats.Contains(deletedStat)) {
+                _stats.Remove(deletedStat);
+            }
+        }
+#endif
     }
 }

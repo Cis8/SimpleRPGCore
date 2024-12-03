@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using ElectricDrill.SimpleRpgCore.Stats;
 using UnityEngine;
 
@@ -10,8 +11,22 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
         protected override StatSet GetEntitySet(EntityCore entity) => entity.Stats.StatSet;
 
         protected override long GetEntityValue(EntityCore entity, Stat key) => entity.Stats.Get(key);
-        
-        public override bool IsKeyNotNull(Stat key) => key;
         protected override IEnumerable<Stat> GetSetItems() => _set.Stats;
+        
+#if UNITY_EDITOR
+        private void OnEnable() {
+            Stat.OnStatDeleted += HandleStatDeleted;
+        }
+
+        private void OnDisable() {
+            Stat.OnStatDeleted -= HandleStatDeleted;
+        }
+
+        private void HandleStatDeleted(Stat deletedStat) {
+            if (_scalingAttributeValues.Keys.Contains(deletedStat)) {
+                _scalingAttributeValues.Remove(deletedStat);
+            }
+        }
+#endif
     }
 }

@@ -24,7 +24,7 @@ namespace ElectricDrill.SimpleRpgCore
 
         // todo change and us List<RPGKeyValuePair<Stat, GrowthFormula>>
         [SerializeField] protected StatSet _statSet;
-        [SerializeField] protected StatGrowthFnPair[] _statGrowthFnPairs = Array.Empty<StatGrowthFnPair>();
+        [SerializeField] protected SerializableDictionary<Stat, GrowthFormula> _statGrowthFunctions = new();
         
         public CharacteristicSet CharacteristicSet => _characteristicSet;
         public StatSet StatSet => _statSet;
@@ -39,7 +39,7 @@ namespace ElectricDrill.SimpleRpgCore
         }
         
         public long GetStatAt(Stat stat, int level) {
-            return _statGrowthFnPairs.First(s => s.Stat == stat).growthFormula.GetGrowthValue(level);
+            return _statGrowthFunctions.First(s => s.Key == stat).Value.GetGrowthValue(level);
         }
 
         [Serializable]
@@ -52,29 +52,23 @@ namespace ElectricDrill.SimpleRpgCore
         // EDITOR
         private void OnValidate() {
             if (_statSet != null) {
-                _statGrowthFnPairs = _statSet.Stats
+                _statGrowthFunctions = _statSet.Stats
                     .Where(stat => stat)
                     .Select(stat => {
-                    if (_statGrowthFnPairs == null) {
-                        return new StatGrowthFnPair {
-                            Stat = stat,
-                            growthFormula = null
-                        };
+                    if (_statGrowthFunctions == null) {
+                        return new KeyValuePair<Stat, GrowthFormula>(stat, null);
                     }
                     else {
-                        var existingStat = _statGrowthFnPairs.FirstOrDefault(s => s.Stat.name == stat.name);
-                        if (existingStat.Stat == null) {
-                            return new StatGrowthFnPair {
-                                Stat = stat,
-                                growthFormula = null
-                            };
+                        var existingStat = _statGrowthFunctions.FirstOrDefault(s => s.Key.name == stat.name);
+                        if (existingStat.Key == null) {
+                            return new KeyValuePair<Stat, GrowthFormula>(stat, null);
                         }
                         return existingStat;
                     }
-                }).ToArray();
+                    }).ToDictionary(pair => pair.Key, pair => pair.Value);
             }
             else {
-                _statGrowthFnPairs = Array.Empty<StatGrowthFnPair>();
+                _statGrowthFunctions = new();
             }
             
             if (_characteristicSet != null) {
@@ -101,15 +95,23 @@ namespace ElectricDrill.SimpleRpgCore
 #if UNITY_EDITOR
         private void OnEnable() {
             Selection.selectionChanged += OnSelectionChanged;
+            Stat.OnStatDeleted += HandleStatDeleted;
         }
 
         private void OnDisable() {
             Selection.selectionChanged -= OnSelectionChanged;
+            Stat.OnStatDeleted -= HandleStatDeleted;
         }
 
         private void OnSelectionChanged() {
             if (Selection.activeObject == this) {
                 OnValidate();
+            }
+        }
+
+        private void HandleStatDeleted(Stat deletedStat) {
+            if (_statGrowthFunctions.Keys.Contains(deletedStat)) {
+                _statGrowthFunctions.Remove(deletedStat);
             }
         }
 #endif

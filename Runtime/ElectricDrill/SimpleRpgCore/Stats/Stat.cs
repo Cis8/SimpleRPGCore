@@ -1,3 +1,4 @@
+using System;
 using ElectricDrill.SimpleRpgCore.Scaling;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -9,13 +10,12 @@ namespace ElectricDrill.SimpleRpgCore.Stats
     {
         [SerializeField] [CanBeNull] private CharacteristicsScalingComponent characteristicsScaling;
 
-        [CanBeNull]
-        public CharacteristicsScalingComponent CharacteristicsScaling => characteristicsScaling;
+        [CanBeNull] public CharacteristicsScalingComponent CharacteristicsScaling => characteristicsScaling;
 
         private bool Equals(Stat other) {
             return name == other.name;
         }
-        
+
         public override bool Equals(object obj) {
             return obj is Stat other && Equals(other);
         }
@@ -29,12 +29,22 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             if (ReferenceEquals(a, null) ^ ReferenceEquals(b, null)) {
                 return false;
             }
+
             // if here a is null, also b is null
             return ReferenceEquals(a, null) || a!.Equals(b!);
         }
-        
+
         public static bool operator !=(Stat a, Stat b) {
             return !(a == b);
         }
+        
+        public static event Action<Stat> OnStatDeleted;
+
+        public static void OnWillDeleteStat(Stat stat) {
+            Debug.Log($"Stat {stat.name} destroyed");
+            OnStatDeleted?.Invoke(stat);
+        }
+#if UNITY_EDITOR
+#endif
     }
 }

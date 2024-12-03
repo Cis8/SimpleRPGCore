@@ -11,9 +11,8 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
     public abstract class SoSetScalingComponentBase<SetType, KeyType> : ScalingComponent where SetType : ScriptableObject
     {
         [SerializeField] protected SetType _set;
-
-        [SerializeField]
-        protected SerKeyValPair<KeyType, double>[] _scalingAttributeValues = Array.Empty<SerKeyValPair<KeyType, double>>();
+        
+        [SerializeField] protected SerializableDictionary<KeyType, double> _scalingAttributeValues = new();
 
         public override long CalculateValue(EntityCore entity) {
             Assert.IsNotNull(_set, $"StatSet of {name} is missing");
@@ -29,28 +28,24 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
 
         protected virtual void OnValidate() {
             if (_set != null) {
-                var nonNullPairs = _scalingAttributeValues.Where(pair => IsKeyNotNull(pair.Key)).ToArray();
-                _scalingAttributeValues = nonNullPairs;
-                _scalingAttributeValues = GetSetItems().Select(item => {
-                    if (_scalingAttributeValues == null) {
-                        return new SerKeyValPair<KeyType, double>(item, 0d);
-                    }
-                    else {
-                        var existingItem = _scalingAttributeValues.FirstOrDefault(s => s.Key.Equals(item));
-                        if (existingItem.Key == null) {
-                            return new SerKeyValPair<KeyType, double>(item, 0d);
+                _scalingAttributeValues = 
+                    GetSetItems().Select(item => {
+                        if (_scalingAttributeValues == null) {
+                            return new KeyValuePair<KeyType, double>(item, 0d);
+                        } else {
+                            var existingItem = _scalingAttributeValues.FirstOrDefault(s => s.Key.Equals(item));
+                            if (existingItem.Key == null) {
+                                return new KeyValuePair<KeyType, double>(item, 0d);
+                            }
+                            return existingItem;
                         }
-                        return existingItem;
-                    }
-                }).ToArray();
+                    }).ToDictionary(pair => pair.Key, pair => pair.Value);
             }
             else {
-                _scalingAttributeValues = Array.Empty<SerKeyValPair<KeyType, double>>();
+                _scalingAttributeValues = new();
             }
         }
         
-        public abstract bool IsKeyNotNull(KeyType key);
-
         protected abstract IEnumerable<KeyType> GetSetItems();
 
 #if UNITY_EDITOR
