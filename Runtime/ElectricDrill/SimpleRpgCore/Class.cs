@@ -20,11 +20,11 @@ namespace ElectricDrill.SimpleRpgCore
         
         // can be null
         [SerializeField] protected CharacteristicSet _characteristicSet;
-        [SerializeField] private SerializableDictionary<Characteristic, GrowthFormula> characteristicGrowthFormulas = new();
+        [SerializeField, HideInInspector] internal SerializableDictionary<Characteristic, GrowthFormula> characteristicGrowthFormulas = new();
 
         // todo change and us List<RPGKeyValuePair<Stat, GrowthFormula>>
         [SerializeField] protected StatSet _statSet;
-        [SerializeField] protected SerializableDictionary<Stat, GrowthFormula> _statGrowthFunctions = new();
+        [SerializeField, HideInInspector] internal SerializableDictionary<Stat, GrowthFormula> _statGrowthFormulas = new();
         
         public CharacteristicSet CharacteristicSet => _characteristicSet;
         public StatSet StatSet => _statSet;
@@ -39,7 +39,7 @@ namespace ElectricDrill.SimpleRpgCore
         }
         
         public long GetStatAt(Stat stat, int level) {
-            return _statGrowthFunctions.First(s => s.Key == stat).Value.GetGrowthValue(level);
+            return _statGrowthFormulas.First(s => s.Key == stat).Value.GetGrowthValue(level);
         }
 
         [Serializable]
@@ -52,14 +52,14 @@ namespace ElectricDrill.SimpleRpgCore
         // EDITOR
         private void OnValidate() {
             if (_statSet != null) {
-                _statGrowthFunctions = _statSet.Stats
+                _statGrowthFormulas = _statSet.Stats
                     .Where(stat => stat)
                     .Select(stat => {
-                    if (_statGrowthFunctions == null) {
+                    if (_statGrowthFormulas == null) {
                         return new KeyValuePair<Stat, GrowthFormula>(stat, null);
                     }
                     else {
-                        var existingStat = _statGrowthFunctions.FirstOrDefault(s => s.Key.name == stat.name);
+                        var existingStat = _statGrowthFormulas.FirstOrDefault(s => s.Key.name == stat.name);
                         if (existingStat.Key == null) {
                             return new KeyValuePair<Stat, GrowthFormula>(stat, null);
                         }
@@ -68,7 +68,7 @@ namespace ElectricDrill.SimpleRpgCore
                     }).ToDictionary(pair => pair.Key, pair => pair.Value);
             }
             else {
-                _statGrowthFunctions = new();
+                _statGrowthFormulas = new();
             }
             
             if (_characteristicSet != null) {
@@ -112,8 +112,8 @@ namespace ElectricDrill.SimpleRpgCore
         }
 
         private void HandleStatDeleted(Stat deletedStat) {
-            if (_statGrowthFunctions.Keys.Contains(deletedStat)) {
-                _statGrowthFunctions.Remove(deletedStat);
+            if (_statGrowthFormulas.Keys.Contains(deletedStat)) {
+                _statGrowthFormulas.Remove(deletedStat);
             }
         }
         
