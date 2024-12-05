@@ -12,7 +12,7 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
     {
         [SerializeField] protected SetType _set;
         
-        [SerializeField] protected SerializableDictionary<KeyType, double> _scalingAttributeValues = new();
+        [SerializeField, HideInInspector] internal SerializableDictionary<KeyType, double> _scalingAttributeValues = new();
 
         public override long CalculateValue(EntityCore entity) {
             Assert.IsNotNull(_set, $"StatSet of {name} is missing");
