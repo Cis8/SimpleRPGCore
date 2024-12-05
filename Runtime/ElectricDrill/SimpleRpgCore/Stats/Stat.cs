@@ -10,7 +10,10 @@ namespace ElectricDrill.SimpleRpgCore.Stats
     {
         [SerializeField] [CanBeNull] private CharacteristicsScalingComponent characteristicsScaling;
 
-        [CanBeNull] public CharacteristicsScalingComponent CharacteristicsScaling => characteristicsScaling;
+        [CanBeNull] public CharacteristicsScalingComponent CharacteristicsScaling {
+            get => characteristicsScaling;
+            internal set => characteristicsScaling = value;
+        }
 
         private bool Equals(Stat other) {
             return name == other.name;

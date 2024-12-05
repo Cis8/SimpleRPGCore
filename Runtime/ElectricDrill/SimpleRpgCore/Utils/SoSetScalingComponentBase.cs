@@ -47,6 +47,11 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
         }
         
         protected abstract IEnumerable<KeyType> GetSetItems();
+        
+        internal void SetSet(SetType set) {
+            _set = set;
+            OnValidate();
+        }
 
 #if UNITY_EDITOR
         protected virtual void OnEnable() {
