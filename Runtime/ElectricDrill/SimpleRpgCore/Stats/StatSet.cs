@@ -21,6 +21,10 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             return _stats.Contains(stat);
         }
 
+        internal void SetStats(SerializableHashSet<Stat> stats) {
+            _stats = stats;
+        }
+        
 #if UNITY_EDITOR
         private void OnEnable() {
             Stat.OnStatDeleted += HandleStatDeleted;

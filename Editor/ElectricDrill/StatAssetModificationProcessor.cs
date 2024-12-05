@@ -1,7 +1,8 @@
+using ElectricDrill.SimpleRpgCore.Stats;
 using UnityEditor;
 using UnityEngine;
 
-namespace ElectricDrill.SimpleRpgCore.Stats
+namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
     public class StatAssetModificationProcessor : AssetModificationProcessor
     {

@@ -1,7 +1,8 @@
+using ElectricDrill.SimpleRpgCore.Scaling;
 using UnityEditor;
 using UnityEngine;
 
-namespace ElectricDrill.SimpleRpgCore.Scaling {
+namespace ElectricDrill.SimpleRpgCore.CstmEditor {
     [CustomEditor(typeof(ScalingFormula))]
     public class ScalingFormulaEditor : Editor {
         public override void OnInspectorGUI() {

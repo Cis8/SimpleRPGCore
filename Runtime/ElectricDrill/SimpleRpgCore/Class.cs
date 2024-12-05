@@ -26,8 +26,8 @@ namespace ElectricDrill.SimpleRpgCore
         [SerializeField] protected StatSet _statSet;
         [SerializeField, HideInInspector] internal SerializableDictionary<Stat, GrowthFormula> _statGrowthFormulas = new();
         
-        public CharacteristicSet CharacteristicSet => _characteristicSet;
-        public StatSet StatSet => _statSet;
+        public CharacteristicSet CharacteristicSet { get => _characteristicSet; internal set => _characteristicSet = value; }
+        public StatSet StatSet { get => _statSet; internal set => _statSet = value; }
 
         public long GetMaxHpAt(int level) {
             return _maxHpGrowthFormula.GetGrowthValue(level);

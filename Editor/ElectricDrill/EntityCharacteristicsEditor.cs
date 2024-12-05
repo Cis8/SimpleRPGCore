@@ -1,8 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using ElectricDrill.SimpleRpgCore.Characteristics;
 
-namespace ElectricDrill.SimpleRpgCore.Characteristics
+namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
     [CustomEditor(typeof(EntityCharacteristics))]
     public class EntityCharacteristicsEditor : Editor

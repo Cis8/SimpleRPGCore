@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ElectricDrill.SimpleRpgCore
+namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
     [CustomEditor(typeof(EntityStats))]
     public class EntityStatsEditor : Editor

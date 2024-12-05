@@ -1,9 +1,10 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using ElectricDrill.SimpleRpgCore.Scaling;
 using ElectricDrill.SimpleRpgCore.Stats;
 
-namespace ElectricDrill.SimpleRpgCore.Scaling
+namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
     [CustomEditor(typeof(StatsScalingComponent))]
     public class StatsScalingComponentEditor : Editor

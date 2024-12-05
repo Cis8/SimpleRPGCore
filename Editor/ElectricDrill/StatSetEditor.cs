@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace ElectricDrill.SimpleRpgCore.Stats
+namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
     /*[CustomEditor(typeof(StatSet))]
     public class StatSetEditor : Editor

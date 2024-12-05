@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine;
 
@@ -18,6 +19,10 @@ namespace ElectricDrill.SimpleRpgCore.Characteristics
 
         public bool Contains(Characteristic characteristic) {
             return _characteristics.Contains(characteristic);
+        }
+        
+        internal void SetCharacteristics(SerializableHashSet<Characteristic> characteristics) {
+            _characteristics = characteristics;
         }
         
 #if UNITY_EDITOR

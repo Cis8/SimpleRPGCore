@@ -2,8 +2,9 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using ElectricDrill.SimpleRpgCore.Characteristics;
+using ElectricDrill.SimpleRpgCore.Scaling;
 
-namespace ElectricDrill.SimpleRpgCore.Scaling
+namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
     [CustomEditor(typeof(CharacteristicsScalingComponent))]
     public class CharacteristicsScalingComponentEditor : Editor

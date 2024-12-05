@@ -3,7 +3,7 @@ using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEditor;
 using UnityEngine;
 
-namespace ElectricDrill.SimpleRpgCore
+namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
     [CustomPropertyDrawer(typeof(SerializableDictionary<,>))]
     public class SerializableDictionaryDrawer : PropertyDrawer

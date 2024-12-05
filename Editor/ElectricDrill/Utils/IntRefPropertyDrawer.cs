@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using ElectricDrill.SimpleRpgCore.Utils;
 
-namespace ElectricDrill.SimpleRpgCore
+namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
     [CustomPropertyDrawer(typeof(IntRef))]
     public class IntRefPropertyDrawer : PropertyDrawer

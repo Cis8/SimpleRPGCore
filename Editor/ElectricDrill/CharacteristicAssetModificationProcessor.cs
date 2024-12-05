@@ -1,7 +1,8 @@
+using ElectricDrill.SimpleRpgCore.Characteristics;
 using UnityEditor;
 using UnityEngine;
 
-namespace ElectricDrill.SimpleRpgCore.Characteristics
+namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
     public class CharacteristicAssetModificationProcessor : AssetModificationProcessor
     {

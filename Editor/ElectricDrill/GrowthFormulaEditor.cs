@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace ElectricDrill.SimpleRpgCore
+namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
     [CustomEditor(typeof(GrowthFormula))]
     public class GrowthFormulaEditor : Editor

@@ -2,7 +2,7 @@ using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEditor;
 using UnityEngine;
 
-namespace ElectricDrill.SimpleRpgCore
+namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
     [CustomEditor(typeof(EntityHealth))]
     public class EntityHealthEditor : Editor
