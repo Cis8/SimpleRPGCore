@@ -7,9 +7,9 @@ namespace ElectricDrill.SimpleRpgCore.Health {
     [CreateAssetMenu(fileName = "PercentualDefReductionFn", menuName = "Simple RPG/Def Reduction Functions/Percentual Def Reduction")]
     public class PercentualDefReductionFn : DefReductionFn
     {
-        public override long ReducedDef(long piercingStatValue, long piercedStatValue) {
-            piercedStatValue -= (long)(piercedStatValue * (piercingStatValue / 100.0d));
-            return piercedStatValue < 0 ? 0 : piercedStatValue;
+        public override double ReducedDef(long piercingStatValue, long piercedStatValue) {
+            var reducedDefStat = piercedStatValue - piercedStatValue * piercingStatValue / 100.0d;
+            return reducedDefStat < 0 ? 0 : reducedDefStat;
         }
     }
 }

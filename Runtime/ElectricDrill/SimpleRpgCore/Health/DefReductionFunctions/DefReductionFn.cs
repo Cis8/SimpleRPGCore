@@ -5,6 +5,6 @@ using UnityEngine;
 namespace ElectricDrill.SimpleRpgCore.Health {
     public abstract class DefReductionFn : ScriptableObject
     {
-        public abstract long ReducedDef(long piercingStatValue, long piercedStatValue);
+        public abstract double ReducedDef(long piercingStatValue, long piercedStatValue);
     }
 }

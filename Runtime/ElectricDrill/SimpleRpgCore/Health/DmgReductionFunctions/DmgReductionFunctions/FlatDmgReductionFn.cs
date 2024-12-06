@@ -15,9 +15,9 @@ namespace ElectricDrill.SimpleRpgCore.Health
         /// Subtracts constant * <paramref name="defensiveStatValue"/> to the amount of damage
         /// </summary>
         /// <returns>The reduced amount of damage</returns>
-        public override long ReducedDmg(long amount, long defensiveStatValue) {
+        public override long ReducedDmg(long amount, double defensiveStatValue) {
             var reducedValue = amount - defensiveStatValue * constant;
-            return (long)(reducedValue < 0 ? 0 : reducedValue);
+            return (long)Math.Round(reducedValue < 0 ? 0 : reducedValue);
         }
     }
 }

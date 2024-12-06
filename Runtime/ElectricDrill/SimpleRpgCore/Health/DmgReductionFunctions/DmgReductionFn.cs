@@ -14,6 +14,6 @@ namespace ElectricDrill.SimpleRpgCore.Health
         /// <param name="amount">The amount of damage to be reduced</param>
         /// <param name="defensiveStatValue">Value of the defensive statistic</param>
         /// <returns>The reduced amount of damage</returns>
-        public abstract long ReducedDmg(long amount, long defensiveStatValue);
+        public abstract long ReducedDmg(long amount, double defensiveStatValue);
     }
 }

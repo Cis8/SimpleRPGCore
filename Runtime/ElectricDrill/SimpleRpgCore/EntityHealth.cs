@@ -5,6 +5,7 @@ using ElectricDrill.SimpleRpgCore.Health;
 using ElectricDrill.SimpleRpgCore.Events;
 using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -72,9 +73,9 @@ namespace ElectricDrill.SimpleRpgCore
             var piercingStat = preDmg.Type.DefensiveStatPiercedBy != null ? preDmg.Dealer.Stats.Get(preDmg.Type.DefensiveStatPiercedBy) : 0;
 
             // calculate the reduced defensive stat and the reduced amount of damage
-            var reducedDefensiveStat = preDmg.Type.DefReductionFn != null ? preDmg.Type.DefReductionFn.ReducedDef(piercingStat, defensiveStat) : defensiveStat;
-            var dmgToBeTaken = preDmg.Type.DmgReductionFn != null ? preDmg.Type.DmgReductionFn.ReducedDmg(preDmg.Amount, reducedDefensiveStat) : preDmg.Amount;
-
+            var dmgToBeTaken = CalculateReducedDmg(preDmg.Amount, piercingStat, preDmg.Type.DefReductionFn,
+                defensiveStat, preDmg.Type.DmgReductionFn);
+            
             var barrierReducedDmgToBeTaken = dmgToBeTaken;
             if (!preDmg.Type.IgnoresBarrier)
             {
@@ -172,6 +173,19 @@ namespace ElectricDrill.SimpleRpgCore
             if (useClassMaxHp)
                 maxHp.Value = _entityClass.Class.GetMaxHpAt(level);
             // todo add flag to decide if health should be restored on level-up
+        }
+        
+        internal static long CalculateReducedDmg(long amount, long piercingStatValue, [CanBeNull] DefReductionFn defReductionFn, long defensiveStatValue, [CanBeNull] DmgReductionFn dmgReductionFn) {
+            static double CalculateReducedDef(long piercingStatValue, long defensiveStatValue, [CanBeNull] DefReductionFn defReductionFn) {
+                return defReductionFn ? defReductionFn.ReducedDef(piercingStatValue, defensiveStatValue) : defensiveStatValue;
+            }
+        
+            static long CalculateReducedDmgFromFn(long amount, double defensiveStatValue, [CanBeNull] DmgReductionFn dmgReductionFn) {
+                return dmgReductionFn ? dmgReductionFn.ReducedDmg(amount, defensiveStatValue) : amount;
+            }
+            
+            var reducedDefensiveStat = CalculateReducedDef(piercingStatValue, defensiveStatValue, defReductionFn);
+            return CalculateReducedDmgFromFn(amount, reducedDefensiveStat, dmgReductionFn);
         }
         
         // UTILS

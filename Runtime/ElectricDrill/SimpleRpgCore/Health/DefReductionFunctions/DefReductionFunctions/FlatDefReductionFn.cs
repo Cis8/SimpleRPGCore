@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using ElectricDrill.SimpleRpgCore.Health;
@@ -9,9 +10,9 @@ namespace ElectricDrill.SimpleRpgCore.Health {
     {
         [SerializeField] private double constant = 1.0;
         
-        public override long ReducedDef(long piercingStatValue, long piercedStatValue) {
+        public override double ReducedDef(long piercingStatValue, long piercedStatValue) {
             var reducedValue = piercedStatValue - piercingStatValue * constant;
-            return (long)(reducedValue < 0 ? 0 : reducedValue);
+            return (long)Math.Round(reducedValue < 0 ? 0 : reducedValue);
         }
     }
 }
