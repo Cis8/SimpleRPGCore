@@ -25,7 +25,7 @@ namespace ElectricDrill.SimpleRpgCore
         [SerializeField, HideInInspector] private LongRef hp;
         [SerializeField, HideInInspector] private LongRef barrier;
         [SerializeField, HideInInspector] private Stat healAmountModifierStat;
-        [SerializeField, HideInInspector] private OnDeathStrategy onDeathStrategy;
+        [SerializeField] private OnDeathStrategy onDeathStrategy;
 
         private EntityCore _core;
         private EntityStats _stats;
@@ -51,6 +51,10 @@ namespace ElectricDrill.SimpleRpgCore
             Assert.IsTrue(healAmountModifierStat == null || _stats.StatSet.Contains(healAmountModifierStat), $"StatSet of {gameObject.name} doesn't contain the stat {healAmountModifierStat}");
             _entityClass = GetComponent<EntityClass>();
             _core = GetComponent<EntityCore>();
+            SetupHealth();
+        }
+
+        public void SetupHealth() {
             if (useClassMaxHp) {
                 Assert.IsNotNull(_entityClass, $"Class of {gameObject.name} is missing");
                 maxHp.Value = _entityClass.Class.GetMaxHpAt(_core.Level);
