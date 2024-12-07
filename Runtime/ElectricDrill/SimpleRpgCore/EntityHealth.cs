@@ -47,17 +47,19 @@ namespace ElectricDrill.SimpleRpgCore
 
         private void Awake() {
             ValidateConstraints();
-        }
-
-        private void Start() {
             _stats = GetComponent<EntityStats>();
             Assert.IsTrue(healAmountModifierStat == null || _stats.StatSet.Contains(healAmountModifierStat), $"StatSet of {gameObject.name} doesn't contain the stat {healAmountModifierStat}");
             _entityClass = GetComponent<EntityClass>();
+            _core = GetComponent<EntityCore>();
             if (useClassMaxHp) {
                 Assert.IsNotNull(_entityClass, $"Class of {gameObject.name} is missing");
                 maxHp.Value = _entityClass.Class.GetMaxHpAt(_core.Level);
             }
             hp.Value = maxHp;
+        }
+
+        private void Start() {
+
         }
 
         private void Update() {
@@ -115,7 +117,7 @@ namespace ElectricDrill.SimpleRpgCore
         /// <param name="amount">Health amount to be added</param>
         private long AddHealth(long amount) {
             Assert.IsTrue(amount >= 0, $"Health amount to be added must be greater than or equal to 0, was {amount}");
-            var previousHp = hp;
+            long previousHp = hp;
             hp.Value = Math.Min(hp + amount, maxHp);
             long gainedHealth = hp - previousHp;
             gainedHealthEvent?.Raise(this, gainedHealth);
@@ -129,8 +131,8 @@ namespace ElectricDrill.SimpleRpgCore
         /// <param name="amount">Health amount to be removed</param>
         private void RemoveHealth(long amount) {
             Assert.IsTrue(amount >= 0, $"Health amount to be removed must be greater than or equal to 0, was {amount}");
-            var previousHp = hp;
-            var newHp = hp - amount;
+            long previousHp = hp;
+            long newHp = hp - amount;
             if (newHp < 0 && !healthCanBeNegative) {
                 newHp = 0;
             }

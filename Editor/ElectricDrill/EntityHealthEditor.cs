@@ -11,6 +11,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
         SerializedProperty deathThreshold;
         SerializedProperty useClassMaxHp;
         SerializedProperty maxHp;
+        SerializedProperty hp;
         SerializedProperty healAmountModifier;
         SerializedProperty preDmgInfoEvent;
         SerializedProperty takenDmgInfoEvent;
@@ -26,6 +27,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             deathThreshold = serializedObject.FindProperty("deathThreshold");
             useClassMaxHp = serializedObject.FindProperty("useClassMaxHp");
             maxHp = serializedObject.FindProperty("maxHp");
+            hp = serializedObject.FindProperty("hp");
             healAmountModifier = serializedObject.FindProperty("healAmountModifierStat");
             preDmgInfoEvent = serializedObject.FindProperty("preDmgInfoEvent");
             takenDmgInfoEvent = serializedObject.FindProperty("takenDmgInfoEvent");
@@ -42,7 +44,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
 
             // Draw the default inspector, including the script reference
             DrawDefaultInspector();
-            
+
             // Draw the healthCanBeNegative property
             EditorGUILayout.PropertyField(healthCanBeNegative);
 
@@ -64,6 +66,9 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             {
                 EditorGUILayout.PropertyField(maxHp);
             }
+
+            // Draw the hp property
+            EditorGUILayout.PropertyField(hp);
 
             // Draw the healAmountModifier property with a label
             EditorGUILayout.PropertyField(healAmountModifier, new GUIContent("(o) Heal Amount Modifier"));
