@@ -21,14 +21,14 @@ namespace ElectricDrill.SimpleRpgCore
         // if true, the max hp will be taken from the class and assigned to _maxHp, overriding any value set in the inspector
         // if false, the value set in the inspector will be used
         [SerializeField, HideInInspector] private bool useClassMaxHp = false;
-        [SerializeField, HideInInspector] private LongRef maxHp;
-        [SerializeField, HideInInspector] private LongRef hp;
-        [SerializeField, HideInInspector] private LongRef barrier;
+        [SerializeField, HideInInspector] internal LongRef maxHp;
+        [SerializeField, HideInInspector] internal LongRef hp;
+        [SerializeField, HideInInspector] internal LongRef barrier;
         [SerializeField, HideInInspector] private Stat healAmountModifierStat;
         [SerializeField] private OnDeathStrategy onDeathStrategy;
 
         private EntityCore _core;
-        private EntityStats _stats;
+        internal EntityStats _stats;
         private EntityClass _entityClass;
         
         // Events
@@ -40,9 +40,10 @@ namespace ElectricDrill.SimpleRpgCore
         [SerializeField, HideInInspector] private PreHealGameEvent preHealEvent;
         [SerializeField, HideInInspector] private EntityHealedGameEvent entityHealedEvent;
 
-        public long MAX_HP => maxHp;
-        public long HP => hp;
+        public long MaxHp => maxHp;
+        public long Hp => hp;
         public long Barrier => barrier;
+        
         public bool HealthCanBeNegative { get => healthCanBeNegative; set => healthCanBeNegative = value; }
 
         private void Awake() {
@@ -88,7 +89,7 @@ namespace ElectricDrill.SimpleRpgCore
                 // subtract the dmg to be taken to the entity's barrier (if it has any)
                 if (barrier > 0) {
                     barrierReducedDmgToBeTaken = Math.Max(0, dmgToBeTaken - barrier);
-                    RemoveBarrier(dmgToBeTaken);
+                    RemoveBarrier(barrierReducedDmgToBeTaken);
                 }
             }
 
@@ -199,8 +200,8 @@ namespace ElectricDrill.SimpleRpgCore
         private void ValidateConstraints() {
             Assert.IsNotNull(preDmgInfoEvent, $"PreDmgGameEvent is missing for {gameObject.name}");
             Assert.IsNotNull(takenDmgInfoEvent, $"TakenDmgGameEvent is missing for {gameObject.name}");
-            Assert.IsFalse(maxHp <= 0, $"Max HP of an Entity must be greater than 0. {name}'s Max HP was {MAX_HP}");
-            Assert.IsFalse(hp < 0, $"HP of an Entity must be greater than or equal to 0. {name}'s HP was {HP}");
+            Assert.IsFalse(maxHp <= 0, $"Max HP of an Entity must be greater than 0. {name}'s Max HP was {MaxHp}");
+            Assert.IsFalse(hp < 0, $"HP of an Entity must be greater than or equal to 0. {name}'s HP was {Hp}");
             if (healthCanBeNegative)
                 Assert.IsNotNull(deathThreshold, $"Death Threshold is missing for {gameObject.name}");
             Assert.IsNotNull(onDeathStrategy, $"OnDeathStrategy is missing for {gameObject.name}");

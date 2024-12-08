@@ -21,9 +21,9 @@ namespace ElectricDrill.SimpleRpgCore.Scaling {
             {
                 foreach (var attributeMapping in _scalingAttributeValues) {
                     value += (long)Math.Round(attributeMapping.Attribute switch {
-                        HealthScalingAttributes.HP => health.HP * attributeMapping.Value,
-                        HealthScalingAttributes.MAX_HP => health.MAX_HP * attributeMapping.Value,
-                        HealthScalingAttributes.MISSING_HP => (health.MAX_HP - health.HP) * attributeMapping.Value,
+                        HealthScalingAttributes.HP => health.Hp * attributeMapping.Value,
+                        HealthScalingAttributes.MAX_HP => health.MaxHp * attributeMapping.Value,
+                        HealthScalingAttributes.MISSING_HP => (health.MaxHp - health.Hp) * attributeMapping.Value,
                         _ => throw new ArgumentOutOfRangeException()
                     });
                 }

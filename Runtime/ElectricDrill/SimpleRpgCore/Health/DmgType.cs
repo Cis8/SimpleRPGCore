@@ -15,10 +15,16 @@ namespace ElectricDrill.SimpleRpgCore.Health
         [SerializeField] private bool ignoresBarrier = false;
 
         public Stat ReducedBy { get => dmgReducedBy; protected set => dmgReducedBy = value; }
-        public Stat DefensiveStatPiercedBy => defensiveStatPiercedBy;
-        public DefReductionFn DefReductionFn => defReductionFn;
+        public Stat DefensiveStatPiercedBy {
+            get => defensiveStatPiercedBy;
+            protected set => defensiveStatPiercedBy = value;
+        }
+        public DefReductionFn DefReductionFn { get => defReductionFn; protected set => defReductionFn = value; }
         public DmgReductionFn DmgReductionFn { get => dmgReductionFn; protected set => dmgReductionFn = value; }
-        public bool IgnoresBarrier => ignoresBarrier;
+        public bool IgnoresBarrier { 
+            get =>ignoresBarrier;
+            protected set => ignoresBarrier = value;
+        }
 
         public override string ToString() {
             return name;

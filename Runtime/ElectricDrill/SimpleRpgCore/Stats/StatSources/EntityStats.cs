@@ -52,7 +52,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         /// <summary>
         /// Returns the StatSet of the entity. If _useFixedBaseStats is true, it returns the fixedBaseStatsStatSet, otherwise it returns the StatSet of the entity's class.
         /// </summary>
-        public StatSet StatSet {
+        public virtual StatSet StatSet {
             get {
                 if (_useClassBaseStats) {
                     if (TryGetComponent(out _entityClass))
@@ -89,7 +89,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             return stat.Clamp(baseValue);
         }
         
-        public long Get(Stat stat) {
+        public virtual long Get(Stat stat) {
             Assert.IsTrue(StatSet.Contains(stat), $"Stat {stat.name} is not in the {name}'s StatSet ({StatSet.name})");
             return stat.Clamp(CalculateFinalStat(stat));
         }

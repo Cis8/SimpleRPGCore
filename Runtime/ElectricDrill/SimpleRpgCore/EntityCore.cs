@@ -21,8 +21,8 @@ namespace ElectricDrill.SimpleRpgCore
         private EntityStats _stats;
         private EntityCharacteristics _characteristics;
 
-        public EntityLevel Level => _level;
-        public EntityStats Stats => _stats ? _stats : GetComponent<EntityStats>();
+        public virtual EntityLevel Level => _level;
+        public virtual EntityStats Stats => _stats ? _stats : GetComponent<EntityStats>();
         public EntityCharacteristics Characteristics => _characteristics ? _characteristics : GetComponent<EntityCharacteristics>();
 
         protected virtual void Awake() {

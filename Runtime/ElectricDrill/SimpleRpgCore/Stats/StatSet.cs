@@ -9,7 +9,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
     [CreateAssetMenu(fileName = "New StatSet", menuName = "Simple RPG/Stat Set")]
     public class StatSet : ScriptableObject, IStatContainer
     {
-        [SerializeField] private SerializableHashSet<Stat> _stats = new();
+        [SerializeField] internal SerializableHashSet<Stat> _stats = new();
 
         public IReadOnlyList<Stat> Stats => _stats.ToList();
 
