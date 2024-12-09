@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -60,12 +61,15 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor {
             if (GUI.changed && levelProp.hasMultipleDifferentValues == false)
             {
                 SerializedProperty currentTotalExperienceProp = property.FindPropertyRelative("_currentTotalExperience");
-                
+               
                 GrowthFormula growthFormula = experienceFormulaProp.objectReferenceValue as GrowthFormula;
                 if (growthFormula != null)
                 {
-                    int levelValue = GetIntRefValue(levelProp);
-                    currentTotalExperienceProp.longValue = growthFormula.GetGrowthValue(levelValue);
+                    int levelFromCurrentExp = Array.FindIndex(growthFormula.GrowthFoValues, v => v >= currentTotalExperienceProp.longValue) + 1;
+                    int levelFromField = GetIntRefValue(levelProp);
+                    
+                    if (levelFromCurrentExp != levelFromField)
+                        currentTotalExperienceProp.longValue = growthFormula.GetGrowthValue(levelFromField - 1);
                 }
             }
 
