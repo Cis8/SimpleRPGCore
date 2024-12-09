@@ -33,7 +33,8 @@ namespace ElectricDrill.SimpleRpgCore
             
             // this can be null since it is not required
             _characteristics = GetComponent<EntityCharacteristics>();
-            _level.SetExperienceGainedModifier(() => _stats.Get(_level.ExperienceGainedModifierStat));
+            if (_level.ExperienceGainedModifierStat)
+                _level.SetExperienceGainedModifier(() => _stats.Get(_level.ExperienceGainedModifierStat));
         }
 
         protected virtual void Update() {

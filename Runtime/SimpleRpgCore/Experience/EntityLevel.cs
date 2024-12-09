@@ -42,8 +42,6 @@ namespace ElectricDrill.SimpleRpgCore
                 Assert.IsTrue(value >= 1, $"Level must be greater than or equal to 1, was {value}");
                 Assert.IsTrue(value <= _maxLevel, $"Level must be less than or equal to the max level, was {value}");
                 _level.Value = value;
-                _currentTotalExperience = _experienceGrowthFormula.GetGrowthValue(value);
-
             }
         }
 
@@ -63,34 +61,32 @@ namespace ElectricDrill.SimpleRpgCore
         /// Adds, to the current total experience, the amount of experience needed to reach the next level.
         /// </summary>
         /// <returns>The amount of experience added</returns>
-        public long AddExpForNextLevel() { // currently public for easy testing
+        private long AddExpForNextLevel() {
             var amountToAdd = NextLevelTotalExperience() - _currentTotalExperience;
-            AddExpWithModifier(amountToAdd);
+            _currentTotalExperience += amountToAdd;
             LevelUp();
             return amountToAdd;
         }
         
         public void AddExp(long amount) {
-            Debug.Log("Current Total Experience: " + _currentTotalExperience);
-            Debug.Log("Next level at: " + NextLevelTotalExperience());
+            long modifiedAmount = (long)(amount * GetExpGainedMultiplier());
+            AddExpWithoutModifier(modifiedAmount);
+        }
+        
+        private void AddExpWithoutModifier(long amount) {
             if (_currentTotalExperience + amount >= NextLevelTotalExperience()) {
                 var remaining = amount - AddExpForNextLevel();
                 Debug.Log("Levelled up, remaining: " + remaining);
-                AddExp(remaining);
-            }
-            else {
-                AddExpWithModifier(amount);
-            }
-        }
-        
-        private void AddExpWithModifier(long amount) {
-            var modifier = _experienceGainedModifier?.Invoke();
-            if (modifier != null) {
-                _currentTotalExperience += (long)(amount * (1.0d + modifier));
+                AddExpWithoutModifier(remaining);
             }
             else {
                 _currentTotalExperience += amount;
             }
+        }
+
+        private double GetExpGainedMultiplier() {
+            var modifier = _experienceGainedModifier?.Invoke();
+            return 1.0d + (modifier?? 0.0d);
         }
         
         internal void SetExperienceGainedModifier(Func<Percentage> experienceGainedModifier) {
