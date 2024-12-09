@@ -13,12 +13,12 @@ namespace ElectricDrill.SimpleRpgCore
     {
         // LEVEL FIELDS
         // even if the level could be retrieved from the experience, it is more efficient to have a dedicated field
-        [SerializeField] private IntRef _level = 1; // Add message that tells the user to not manually change the value of this IntVar
+        [SerializeField, HideInInspector] private IntRef _level = 1; // Add message that tells the user to not manually change the value of this IntVar
         [SerializeField] private IntRef _maxLevel = 100;
         
         // EXPERIENCE FIELDS
         [SerializeField] private GrowthFormula _experienceGrowthFormula;
-        long _currentTotalExperience;
+        [SerializeField, HideInInspector] internal long _currentTotalExperience;
         [SerializeField] private Stat experienceGainedModifierStat;
         private Func<Percentage> _experienceGainedModifier;
         
@@ -42,6 +42,8 @@ namespace ElectricDrill.SimpleRpgCore
                 Assert.IsTrue(value >= 1, $"Level must be greater than or equal to 1, was {value}");
                 Assert.IsTrue(value <= _maxLevel, $"Level must be less than or equal to the max level, was {value}");
                 _level.Value = value;
+                _currentTotalExperience = _experienceGrowthFormula.GetGrowthValue(value);
+
             }
         }
 
