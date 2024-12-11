@@ -2,17 +2,18 @@ using System;
 using ElectricDrill.SimpleRpgCore.Scaling;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore.Stats
 {
     [CreateAssetMenu(fileName = "New Stat", menuName = "Simple RPG/Stat")]
     public class Stat : BoundedValue
     {
-        [SerializeField] [CanBeNull] private CharacteristicsScalingComponent characteristicsScaling;
+        [SerializeField] [CanBeNull] private AttributesScalingComponent attributesScaling;
 
-        [CanBeNull] public CharacteristicsScalingComponent CharacteristicsScaling {
-            get => characteristicsScaling;
-            internal set => characteristicsScaling = value;
+        [CanBeNull] public AttributesScalingComponent AttributesScaling {
+            get => attributesScaling;
+            internal set => attributesScaling = value;
         }
 
         private bool Equals(Stat other) {

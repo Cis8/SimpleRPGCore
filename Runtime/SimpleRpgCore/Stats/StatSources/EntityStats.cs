@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ElectricDrill.SimpleRpgCore.Characteristics;
+using ElectricDrill.SimpleRpgCore.Attributes;
 using ElectricDrill.SimpleRpgCore.Events;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEditor;
@@ -21,7 +21,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         
         private EntityCore _entityCore;
 
-        // todo entity characteristics should be considered if fixed stats are used
+        // todo entity attributes should be considered if fixed stats are used
         [SerializeField, HideInInspector] private bool _useClassBaseStats = true;
 
         // todo hide fixed or dynamic stats based on the value of _useFixedStats
@@ -83,8 +83,8 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             long baseValue;
             
             baseValue = _useClassBaseStats ? _entityClass.Class.GetStatAt(stat, _entityCore.Level) : _fixedBaseStats[stat];
-            if (_entityCore.Characteristics && _entityCore.Characteristics.enabled)
-                baseValue += stat.CharacteristicsScaling?.CalculateValue(_entityCore) ?? 0;
+            if (_entityCore.Attributes && _entityCore.Attributes.enabled)
+                baseValue += stat.AttributesScaling?.CalculateValue(_entityCore) ?? 0;
             return stat.Clamp(baseValue);
         }
         

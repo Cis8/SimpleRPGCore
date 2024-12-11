@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using ElectricDrill.SimpleRpgCore.Characteristics;
+using ElectricDrill.SimpleRpgCore.Attributes;
 using UnityEngine;
 using ElectricDrill.SimpleRpgCore.Events;
 using ElectricDrill.SimpleRpgCore.Stats;
@@ -18,11 +18,11 @@ namespace ElectricDrill.SimpleRpgCore
         
         // mainly here for enhancing the performance while reading stats with scaling formulas
         private EntityStats _stats;
-        private EntityCharacteristics _characteristics;
+        private EntityAttributes _attributes;
 
         public virtual EntityLevel Level => _level;
         public virtual EntityStats Stats => _stats ? _stats : GetComponent<EntityStats>();
-        public EntityCharacteristics Characteristics => _characteristics ? _characteristics : GetComponent<EntityCharacteristics>();
+        public EntityAttributes Attributes => _attributes ? _attributes : GetComponent<EntityAttributes>();
 
         protected virtual void Awake() {
         }
@@ -32,7 +32,7 @@ namespace ElectricDrill.SimpleRpgCore
                 _stats = GetComponent<EntityStats>();
             
             // this can be null since it is not required
-            _characteristics = GetComponent<EntityCharacteristics>();
+            _attributes = GetComponent<EntityAttributes>();
             if (_level.ExperienceGainedModifierStat)
                 _level.SetExperienceGainedModifier(() => _stats.Get(_level.ExperienceGainedModifierStat));
         }

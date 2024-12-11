@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ElectricDrill.SimpleRpgCore.Characteristics;
+using ElectricDrill.SimpleRpgCore.Attributes;
 using ElectricDrill.SimpleRpgCore.Scaling;
 using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
@@ -21,7 +21,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             "Critical Chance",
             "Ability Power"
         };
-        private static readonly string[] Characteristics = {
+        private static readonly string[] Attributes = {
             "Strength",
             "Dexterity",
             "Intelligence"
@@ -41,13 +41,13 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                 statInstances[statName] = stat;
             }
 
-            // Create Characteristics
-            var characteristicInstances = new Dictionary<string, Characteristic>();
-            foreach (string characteristicName in Characteristics) {
-                Characteristic characteristic = ScriptableObject.CreateInstance<Characteristic>();
-                characteristic.name = characteristicName;
-                AssetDatabase.CreateAsset(characteristic, $"{RootFolder}/Characteristics/{characteristicName.Replace(" ", "")}.asset");
-                characteristicInstances[characteristicName] = characteristic;
+            // Create Attributes
+            var attributeInstances = new Dictionary<string, Attribute>();
+            foreach (string attributeName in Attributes) {
+                Attribute attribute = ScriptableObject.CreateInstance<Attribute>();
+                attribute.name = attributeName;
+                AssetDatabase.CreateAsset(attribute, $"{RootFolder}/Attributes/{attributeName.Replace(" ", "")}.asset");
+                attributeInstances[attributeName] = attribute;
             }
 
             // Create Stat Set
@@ -60,22 +60,22 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             statSet.SetStats(statHashSet);
             AssetDatabase.CreateAsset(statSet, $"{RootFolder}/StatSets/DefaultStatSet.asset");
 
-            // Create Characteristic Set
-            var characteristicHashSet = new SerializableHashSet<Characteristic>();
-            foreach (var characteristic in characteristicInstances.Values) {
-                characteristicHashSet.Add(characteristic);
+            // Create Attribute Set
+            var attributeHashSet = new SerializableHashSet<Attribute>();
+            foreach (var attribute in attributeInstances.Values) {
+                attributeHashSet.Add(attribute);
             }
-            CharacteristicSet characteristicSet = ScriptableObject.CreateInstance<CharacteristicSet>();
-            characteristicSet.name = "DefaultCharacteristicSet";
-            characteristicSet.SetCharacteristics(characteristicHashSet);
-            AssetDatabase.CreateAsset(characteristicSet, $"{RootFolder}/CharacteristicSets/DefaultCharacteristicSet.asset");
+            AttributeSet attributeSet = ScriptableObject.CreateInstance<AttributeSet>();
+            attributeSet.name = "DefaultAttributeSet";
+            attributeSet.SetAttributes(attributeHashSet);
+            AssetDatabase.CreateAsset(attributeSet, $"{RootFolder}/AttributeSets/DefaultAttributeSet.asset");
 
             foreach (string className in Classes) {
                 // Create Class
                 Class characterClass = ScriptableObject.CreateInstance<Class>();
                 characterClass.name = className;
                 characterClass.StatSet = statSet;
-                characterClass.CharacteristicSet = characteristicSet;
+                characterClass.AttributeSet = attributeSet;
                 string classFolder = $"{RootFolder}/Classes/{characterClass.name}";
                 AssetDatabase.CreateAsset(characterClass, $"{classFolder}/{characterClass.name}.asset");
 
@@ -93,23 +93,23 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                     characterClass._statGrowthFormulas[stat.Value] = growthFormula;
                 }
 
-                // Create Characteristic Growth Formulas
-                foreach (var characteristic in characteristicInstances) {
+                // Create Attribute Growth Formulas
+                foreach (var attributeToGf in attributeInstances) {
                     GrowthFormula growthFormula = ScriptableObject.CreateInstance<GrowthFormula>();
-                    growthFormula.name = $"{characteristic.Key} Growth";
+                    growthFormula.name = $"{attributeToGf.Key} Growth";
                     growthFormula.useConstantAtLvl1 = true;
                     growthFormula.constantAtLvl1 = 10;
                     growthFormula.levelToGrowthFormulas = new List<GrowthFormula.LevelGrowthFormulaPair> {
                         new GrowthFormula.LevelGrowthFormulaPair { FromLevel = 2, GrowthFormula = "PRV + 10" }
                     };
                     growthFormula.OnValidate();
-                    AssetDatabase.CreateAsset(growthFormula, $"{classFolder}/CharacteristicGrowthFormulas/{growthFormula.name}.asset");
-                    characterClass.characteristicGrowthFormulas[characteristic.Value] = growthFormula;
+                    AssetDatabase.CreateAsset(growthFormula, $"{classFolder}/AttributeGrowthFormulas/{growthFormula.name}.asset");
+                    characterClass.attributeGrowthFormulas[attributeToGf.Value] = growthFormula;
                 }
             }
 
-            // Create Characteristic Scaling Components
-            CreateCharacteristicScalingComponents(characteristicSet, statInstances, characteristicInstances);
+            // Create Attribute Scaling Components
+            CreateAttributeScalingComponents(attributeSet, statInstances, attributeInstances);
 
             // Save all assets
             AssetDatabase.SaveAssets();
@@ -132,20 +132,20 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                 AssetDatabase.CreateFolder($"{RootFolder}", "Stats");
             }
 
-            if (!AssetDatabase.IsValidFolder($"{RootFolder}/Stats/CharToStatScalings")) {
-                AssetDatabase.CreateFolder($"{RootFolder}/Stats", "CharToStatScalings");
+            if (!AssetDatabase.IsValidFolder($"{RootFolder}/Stats/AttrToStatScalings")) {
+                AssetDatabase.CreateFolder($"{RootFolder}/Stats", "AttrToStatScalings");
             }
 
-            if (!AssetDatabase.IsValidFolder($"{RootFolder}/Characteristics")) {
-                AssetDatabase.CreateFolder($"{RootFolder}", "Characteristics");
+            if (!AssetDatabase.IsValidFolder($"{RootFolder}/Attributes")) {
+                AssetDatabase.CreateFolder($"{RootFolder}", "Attributes");
             }
 
             if (!AssetDatabase.IsValidFolder($"{RootFolder}/StatSets")) {
                 AssetDatabase.CreateFolder($"{RootFolder}", "StatSets");
             }
 
-            if (!AssetDatabase.IsValidFolder($"{RootFolder}/CharacteristicSets")) {
-                AssetDatabase.CreateFolder($"{RootFolder}", "CharacteristicSets");
+            if (!AssetDatabase.IsValidFolder($"{RootFolder}/AttributeSets")) {
+                AssetDatabase.CreateFolder($"{RootFolder}", "AttributeSets");
             }
 
             if (!AssetDatabase.IsValidFolder($"{RootFolder}/Classes")) {
@@ -162,13 +162,13 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                     AssetDatabase.CreateFolder(classFolder, "StatGrowthFormulas");
                 }
 
-                if (!AssetDatabase.IsValidFolder($"{classFolder}/CharacteristicGrowthFormulas")) {
-                    AssetDatabase.CreateFolder(classFolder, "CharacteristicGrowthFormulas");
+                if (!AssetDatabase.IsValidFolder($"{classFolder}/AttributeGrowthFormulas")) {
+                    AssetDatabase.CreateFolder(classFolder, "AttributeGrowthFormulas");
                 }
             }
         }
 
-        private static void CreateCharacteristicScalingComponents(CharacteristicSet characteristicSet, Dictionary<string, Stat> statInstances, Dictionary<string, Characteristic> characteristicInstances) {
+        private static void CreateAttributeScalingComponents(AttributeSet attributeSet, Dictionary<string, Stat> statInstances, Dictionary<string, Attribute> attributeInstances) {
             var scalingMappings = new Dictionary<string, string> {
                 { "Ability Power", "Intelligence" },
                 { "Physical Attack", "Strength" },
@@ -176,14 +176,14 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             };
 
             foreach (var mapping in scalingMappings) {
-                CharacteristicsScalingComponent scalingComponent = ScriptableObject.CreateInstance<CharacteristicsScalingComponent>();
-                scalingComponent.name = $"{mapping.Key.Replace(" ", "")}CharScaling";
-                scalingComponent.SetSet(characteristicSet);
-                scalingComponent._scalingAttributeValues[characteristicInstances[mapping.Value]] = 1.0;
-                AssetDatabase.CreateAsset(scalingComponent, $"{RootFolder}/Stats/CharToStatScalings/{scalingComponent.name}.asset");
+                AttributesScalingComponent scalingComponent = ScriptableObject.CreateInstance<AttributesScalingComponent>();
+                scalingComponent.name = $"{mapping.Key.Replace(" ", "")}AttrScaling";
+                scalingComponent.SetSet(attributeSet);
+                scalingComponent._scalingAttributeValues[attributeInstances[mapping.Value]] = 1.0;
+                AssetDatabase.CreateAsset(scalingComponent, $"{RootFolder}/Stats/AttrToStatScalings/{scalingComponent.name}.asset");
 
                 // Assign the scaling component to the corresponding stat
-                statInstances[mapping.Key].CharacteristicsScaling = scalingComponent;
+                statInstances[mapping.Key].AttributesScaling = scalingComponent;
             }
         }
     }

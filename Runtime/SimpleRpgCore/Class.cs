@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using ElectricDrill.SimpleRpgCore.Characteristics;
+using ElectricDrill.SimpleRpgCore.Attributes;
 using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
 using NUnit.Framework;
@@ -10,6 +10,7 @@ using UnityEditor;
 using UnityEditor.TerrainTools;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Attribute = ElectricDrill.SimpleRpgCore.Attributes.Attribute;
 
 namespace ElectricDrill.SimpleRpgCore
 {
@@ -19,23 +20,22 @@ namespace ElectricDrill.SimpleRpgCore
         [SerializeField] protected GrowthFormula _maxHpGrowthFormula;
         
         // can be null
-        [SerializeField] protected CharacteristicSet _characteristicSet;
-        [SerializeField, HideInInspector] internal SerializableDictionary<Characteristic, GrowthFormula> characteristicGrowthFormulas = new();
+        [SerializeField] protected AttributeSet attributeSet;
+        [SerializeField, HideInInspector] internal SerializableDictionary<Attribute, GrowthFormula> attributeGrowthFormulas = new();
 
-        // todo change and us List<RPGKeyValuePair<Stat, GrowthFormula>>
         [SerializeField] protected StatSet _statSet;
         [SerializeField, HideInInspector] internal SerializableDictionary<Stat, GrowthFormula> _statGrowthFormulas = new();
         
-        public CharacteristicSet CharacteristicSet { get => _characteristicSet; internal set => _characteristicSet = value; }
+        public AttributeSet AttributeSet { get => attributeSet; internal set => attributeSet = value; }
         public StatSet StatSet { get => _statSet; internal set => _statSet = value; }
 
         public long GetMaxHpAt(int level) {
             return _maxHpGrowthFormula.GetGrowthValue(level);
         }
 
-        public long GetCharacteristicAt(Characteristic characteristic, int level) {
-            Assert.IsNotNull(characteristicGrowthFormulas[characteristic], $"Growth formula for {characteristic.name} is null");
-            return characteristicGrowthFormulas[characteristic].GetGrowthValue(level);
+        public long GetAttributeAt(Attribute attribute, int level) {
+            Assert.IsNotNull(attributeGrowthFormulas[attribute], $"Growth formula for {attribute.name} is null");
+            return attributeGrowthFormulas[attribute].GetGrowthValue(level);
         }
         
         public long GetStatAt(Stat stat, int level) {
@@ -71,24 +71,24 @@ namespace ElectricDrill.SimpleRpgCore
                 _statGrowthFormulas = new();
             }
             
-            if (_characteristicSet != null) {
-                characteristicGrowthFormulas = _characteristicSet.Characteristics.Select(characteristic => {
-                    if (characteristicGrowthFormulas == null) {
-                        return new KeyValuePair<Characteristic, GrowthFormula>(characteristic, null);
+            if (attributeSet != null) {
+                attributeGrowthFormulas = attributeSet.Attributes.Select(attribute => {
+                    if (attributeGrowthFormulas == null) {
+                        return new KeyValuePair<Attribute, GrowthFormula>(attribute, null);
                     }
                     else {
-                        var existingCharacteristic = characteristicGrowthFormulas.FirstOrDefault(s => s.Key.name == characteristic.name);
-                        if (existingCharacteristic.Key == null) {
-                            return new KeyValuePair<Characteristic, GrowthFormula>(characteristic, null);
+                        var existingAttribute = attributeGrowthFormulas.FirstOrDefault(s => s.Key.name == attribute.name);
+                        if (existingAttribute.Key == null) {
+                            return new KeyValuePair<Attribute, GrowthFormula>(attribute, null);
                         }
-                        return existingCharacteristic;
+                        return existingAttribute;
                     }
                 }).ToDictionary(
                     pair => pair.Key,
                     pair => pair.Value);
             }
             else {
-                characteristicGrowthFormulas = new();
+                attributeGrowthFormulas = new();
             }
         }
 
@@ -96,13 +96,13 @@ namespace ElectricDrill.SimpleRpgCore
         private void OnEnable() {
             Selection.selectionChanged += OnSelectionChanged;
             Stat.OnStatDeleted += HandleStatDeleted;
-            Characteristic.OnCharacteristicDeleted += HandleCharacteristicDeleted;
+            Attribute.OnAttributeDeleted += HandleAttributeDeleted;
         }
 
         private void OnDisable() {
             Selection.selectionChanged -= OnSelectionChanged;
             Stat.OnStatDeleted -= HandleStatDeleted;
-            Characteristic.OnCharacteristicDeleted -= HandleCharacteristicDeleted;
+            Attribute.OnAttributeDeleted -= HandleAttributeDeleted;
         }
 
         private void OnSelectionChanged() {
@@ -117,9 +117,9 @@ namespace ElectricDrill.SimpleRpgCore
             }
         }
         
-        private void HandleCharacteristicDeleted(Characteristic deletedCharacteristic) {
-            if (characteristicGrowthFormulas.Keys.Contains(deletedCharacteristic)) {
-                characteristicGrowthFormulas.Remove(deletedCharacteristic);
+        private void HandleAttributeDeleted(Attribute deletedAttribute) {
+            if (attributeGrowthFormulas.Keys.Contains(deletedAttribute)) {
+                attributeGrowthFormulas.Remove(deletedAttribute);
             }
         }
 #endif

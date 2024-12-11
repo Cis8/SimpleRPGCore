@@ -1,13 +1,13 @@
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
-using ElectricDrill.SimpleRpgCore.Characteristics;
+using ElectricDrill.SimpleRpgCore.Attributes;
 using ElectricDrill.SimpleRpgCore.Scaling;
 
 namespace ElectricDrill.SimpleRpgCore.CstmEditor
 {
-    [CustomEditor(typeof(CharacteristicsScalingComponent))]
-    public class CharacteristicsScalingComponentEditor : Editor
+    [CustomEditor(typeof(AttributesScalingComponent))]
+    public class AttributesScalingComponentEditor : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -15,14 +15,14 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             DrawDefaultInspector();
 
             // Get the target object
-            CharacteristicsScalingComponent component = (CharacteristicsScalingComponent)target;
+            AttributesScalingComponent component = (AttributesScalingComponent)target;
 
             // Draw the custom inspector for the serializable dictionary
             EditorGUILayout.BeginVertical("box");
             EditorGUILayout.LabelField("Scaling Attribute Values", EditorStyles.boldLabel);
 
             // Iterate through the dictionary and draw each key-value pair
-            var keys = new List<Characteristic>(component._scalingAttributeValues.Keys);
+            var keys = new List<Attribute>(component._scalingAttributeValues.Keys);
             foreach (var key in keys) {
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Space(20); // Indentation

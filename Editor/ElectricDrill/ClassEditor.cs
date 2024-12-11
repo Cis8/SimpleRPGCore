@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using ElectricDrill.SimpleRpgCore;
-using ElectricDrill.SimpleRpgCore.Characteristics;
+using ElectricDrill.SimpleRpgCore.Attributes;
 using ElectricDrill.SimpleRpgCore.Stats;
 
 namespace ElectricDrill.SimpleRpgCore.CstmEditor
@@ -32,17 +32,17 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             EditorGUI.indentLevel--;
             EditorGUILayout.EndVertical();
     
-            // Display Characteristic Growth Formulas
+            // Display Attribute Growth Formulas
             EditorGUILayout.BeginVertical("box");
-            EditorGUILayout.LabelField("Characteristic Growth Formulas", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Attribute Growth Formulas", EditorStyles.boldLabel);
             EditorGUI.indentLevel++;
-            var characteristicKeys = new List<Characteristic>(classTarget.characteristicGrowthFormulas.Keys);
-            for (int i = 0; i < characteristicKeys.Count; i++)
+            var attributeKeys = new List<Attribute>(classTarget.attributeGrowthFormulas.Keys);
+            for (int i = 0; i < attributeKeys.Count; i++)
             {
-                var key = characteristicKeys[i];
+                var key = attributeKeys[i];
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField(key.name, GUILayout.Width(150));
-                classTarget.characteristicGrowthFormulas[key] = (GrowthFormula)EditorGUILayout.ObjectField(classTarget.characteristicGrowthFormulas[key], typeof(GrowthFormula), false);
+                classTarget.attributeGrowthFormulas[key] = (GrowthFormula)EditorGUILayout.ObjectField(classTarget.attributeGrowthFormulas[key], typeof(GrowthFormula), false);
                 EditorGUILayout.EndHorizontal();
             }
             EditorGUI.indentLevel--;
