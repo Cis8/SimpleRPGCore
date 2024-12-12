@@ -65,11 +65,18 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor {
                 GrowthFormula growthFormula = experienceFormulaProp.objectReferenceValue as GrowthFormula;
                 if (growthFormula != null)
                 {
-                    int levelFromCurrentExp = Array.FindIndex(growthFormula.GrowthFoValues, v => v >= currentTotalExperienceProp.longValue) + 1;
+                    int levelFromCurrentExp = Array.FindIndex(growthFormula.GrowthFoValues, v => v >= currentTotalExperienceProp.longValue);
                     int levelFromField = GetIntRefValue(levelProp);
-                    
-                    if (levelFromCurrentExp != levelFromField)
-                        currentTotalExperienceProp.longValue = growthFormula.GetGrowthValue(levelFromField);
+
+                    if (levelFromCurrentExp != levelFromField) {
+                        if (levelFromField == 1)
+                        {
+                            currentTotalExperienceProp.longValue = 0;
+                        }
+                        else {
+                            currentTotalExperienceProp.longValue = growthFormula.GetGrowthValue(levelFromField - 1);
+                        }
+                    }
                 }
             }
 
