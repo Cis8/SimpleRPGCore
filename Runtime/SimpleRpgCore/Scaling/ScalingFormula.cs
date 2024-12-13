@@ -19,11 +19,11 @@ namespace ElectricDrill.SimpleRpgCore.Scaling {
         
         // though for being updated at runtime, these lists are not serialized. The Reset method should be called to
         // erase the temporary scaling components
-        private readonly List<ScalingComponent> _tempSelfScalingComponents = new();
-        private readonly List<ScalingComponent> _tempTargetScalingComponents = new();
+        private readonly List<ScalingComponent> _tmpSelfScalingComponents = new();
+        private readonly List<ScalingComponent> _tmpTargetScalingComponents = new();
 
-        public List<ScalingComponent> TempSelfScalingComponents => _tempSelfScalingComponents;
-        public List<ScalingComponent> TempTargetScalingComponents => _tempTargetScalingComponents;
+        public List<ScalingComponent> TmpSelfScalingComponents => _tmpSelfScalingComponents;
+        public List<ScalingComponent> TmpTargetScalingComponents => _tmpTargetScalingComponents;
 
 
         public long CalculateValue(EntityCore self) {
@@ -53,8 +53,8 @@ namespace ElectricDrill.SimpleRpgCore.Scaling {
         }
 
         public void ResetTmpScalings() {
-            _tempSelfScalingComponents.Clear();
-            _tempTargetScalingComponents.Clear();
+            _tmpSelfScalingComponents.Clear();
+            _tmpTargetScalingComponents.Clear();
         }
 
         private long CalculateBaseValue(int level = 0) {
@@ -67,12 +67,12 @@ namespace ElectricDrill.SimpleRpgCore.Scaling {
         
         private long CalculateSelfScalingComponents(EntityCore self) {
             return selfScalingComponents.Sum(component => component.CalculateValue(self)) +
-                   _tempSelfScalingComponents.Sum(component => component.CalculateValue(self));
+                   _tmpSelfScalingComponents.Sum(component => component.CalculateValue(self));
         }
         
         private long CalculateTargetScalingComponents(EntityCore target) {
             return targetScalingComponents.Sum(component => component.CalculateValue(target)) +
-                   _tempTargetScalingComponents.Sum(component => component.CalculateValue(target));
+                   _tmpTargetScalingComponents.Sum(component => component.CalculateValue(target));
         }
     }
 }
