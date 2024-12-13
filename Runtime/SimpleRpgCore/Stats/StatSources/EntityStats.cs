@@ -38,7 +38,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         
         // Fixed stats
         [SerializeField, HideInInspector] private StatSet fixedBaseStatsStatSet;
-        [FormerlySerializedAs("_inspectorReservedFixedBaseStats")] [SerializeField, HideInInspector] internal SerializableDictionary<Stat, long> _fixedBaseStats;
+        [SerializeField, HideInInspector] internal SerializableDictionary<Stat, long> _fixedBaseStats;
         
         // todo evaluate if finalStats cache shall be added
         
