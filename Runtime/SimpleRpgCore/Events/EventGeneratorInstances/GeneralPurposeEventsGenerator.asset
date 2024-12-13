@@ -12,11 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfcacd2599878c4cb4794e53d034f27, type: 3}
   m_Name: GeneralPurposeEventsGenerator
   m_EditorClassIdentifier: 
+  rootNamespace: ElectricDrill.SimpleRpgCore.Events
   eventsToGenerate:
   - eventName: Int
+    documentation: 
     parameters:
     - parameterType: 0
       nativeType: 0
       monoScript: {fileID: 0}
-  baseSaveLocation: Packages/com.electricdrill.simple-rpg-core/Runtime/ElectricDrill/SimpleRpgCore/Events
-  previousSaveLocation: Packages/com.electricdrill.simple-rpg-core/Runtime/ElectricDrill/SimpleRpgCore/Events
+    isGenerated: 1
+  - eventName: EntityCore
+    documentation: 
+    parameters:
+    - parameterType: 1
+      nativeType: 0
+      monoScript: {fileID: 11500000, guid: 39f37772fc10564479c048779944d172, type: 3}
+    isGenerated: 1
+  baseSaveLocation: Packages/com.electricdrill.simple-rpg-core/Runtime/SimpleRpgCore/Events
+  previousSaveLocation: Packages/com.electricdrill.simple-rpg-core/Runtime/SimpleRpgCore/Events

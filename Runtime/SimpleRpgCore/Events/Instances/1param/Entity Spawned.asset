@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf7f8fcdafac182409c9bb3f3581ff9c, type: 3}
-  m_Name: On Entity Took Dmg
+  m_Script: {fileID: 11500000, guid: 1f7f3a6f796ec635e9521f0d59939737, type: 3}
+  m_Name: Entity Spawned
   m_EditorClassIdentifier: 

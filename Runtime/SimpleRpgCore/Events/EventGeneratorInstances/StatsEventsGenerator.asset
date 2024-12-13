@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfcacd2599878c4cb4794e53d034f27, type: 3}
   m_Name: StatsEventsGenerator
   m_EditorClassIdentifier: 
+  rootNamespace: ElectricDrill.SimpleRpgCore.Events
   eventsToGenerate:
   - eventName: StatChanged
     documentation: The stat that changed, the stat's previous value, and the stat's
@@ -21,5 +22,5 @@ MonoBehaviour:
       nativeType: 0
       monoScript: {fileID: 11500000, guid: 9c6adfedfd42511469ccc57e7a469fe6, type: 3}
     isGenerated: 1
-  baseSaveLocation: Packages/com.electricdrill.simple-rpg-core/Runtime/ElectricDrill/SimpleRpgCore/Events
+  baseSaveLocation: Packages/com.electricdrill.simple-rpg-core/Runtime/SimpleRpgCore/Events
   previousSaveLocation: Packages/com.electricdrill.simple-rpg-core/Runtime/ElectricDrill/SimpleRpgCore/Events

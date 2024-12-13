@@ -1,13 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using ElectricDrill.SimpleRpgCore.Attributes;
 using UnityEngine;
 using ElectricDrill.SimpleRpgCore.Events;
 using ElectricDrill.SimpleRpgCore.Stats;
-using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine.Assertions;
-using UnityEngine.Serialization;
 
 
 namespace ElectricDrill.SimpleRpgCore
@@ -19,6 +14,9 @@ namespace ElectricDrill.SimpleRpgCore
         // mainly here for enhancing the performance while reading stats with scaling formulas
         private EntityStats _stats;
         private EntityAttributes _attributes;
+        
+        // EVENTS
+        [SerializeField] private EntityCoreGameEvent spawnedEntityEvent;
 
         public virtual EntityLevel Level => _level;
         public virtual EntityStats Stats => _stats ? _stats : GetComponent<EntityStats>();
@@ -35,13 +33,12 @@ namespace ElectricDrill.SimpleRpgCore
             _attributes = GetComponent<EntityAttributes>();
             if (_level.ExperienceGainedModifierStat)
                 _level.SetExperienceGainedModifier(() => _stats.Get(_level.ExperienceGainedModifierStat));
+            
+            Assert.IsNotNull(spawnedEntityEvent, $"Spawned entity event is null on {name}");
+            spawnedEntityEvent.Raise(this);
         }
 
         protected virtual void Update() {
-        }
-        
-        private void CheckMissingReferences() {
-            Assert.IsNotNull(_level, "Entity Level is missing");
         }
     }
 }

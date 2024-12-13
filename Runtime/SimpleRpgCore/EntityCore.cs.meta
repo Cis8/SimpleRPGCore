@@ -4,7 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - _class: {instanceID: 0}
+  - spawnedEntityEvent: {fileID: 11400000, guid: ac4bd35e6138757008e416d86b3e2c9e, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

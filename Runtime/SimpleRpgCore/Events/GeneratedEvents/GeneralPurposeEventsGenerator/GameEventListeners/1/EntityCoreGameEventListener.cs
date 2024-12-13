@@ -1,11 +1,12 @@
 using UnityEngine;
+using ElectricDrill.SimpleRpgCore;
 
 namespace ElectricDrill.SimpleRpgCore.Events
 {
     /// <summary>
     /// 
     /// </summary>
-    public class IntGameEventListener : GameEventListenerGeneric1<int>
+    public class EntityCoreGameEventListener : GameEventListenerGeneric1<EntityCore>
     {
     }
 }
