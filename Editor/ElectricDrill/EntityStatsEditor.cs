@@ -25,7 +25,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
-            
+
             DrawDefaultInspector();
 
             // Draw the _useClassBaseStats property
@@ -40,26 +40,21 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                 EntityStats entityStats = (EntityStats)target;
                 EditorGUILayout.LabelField("Fixed Base Stats", EditorStyles.boldLabel);
                 EditorGUI.indentLevel++;
-                
+
                 // get the non-null keys from the dictionary
-                List<Stat> nonNullKeys = entityStats.FixedBaseStatsKeys.Where(k => 
-                    k != null && k)
+                List<Stat> nonNullKeys = entityStats.FixedBaseStatsKeys.Where(k =>
+                        k != null && k)
                     .ToList();
-                Dictionary<Stat, long> newFixedBaseStats = new Dictionary<Stat, long>();
                 foreach (var stat in nonNullKeys)
                 {
                     long value = entityStats._fixedBaseStats[stat];
                     long newValue = EditorGUILayout.LongField(stat.name, value);
                     if (newValue != value)
                     {
-                        newFixedBaseStats[stat] = newValue;
-                    }
-                    else {
-                        newFixedBaseStats[stat] = value;
+                        entityStats._fixedBaseStats[stat] = newValue;
                     }
                 }
-                entityStats._fixedBaseStats = newFixedBaseStats;
-                
+
                 EditorGUI.indentLevel--;
             }
 
