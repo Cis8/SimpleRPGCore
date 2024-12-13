@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore.Stats
 {
-    [CreateAssetMenu(fileName = "New Stat", menuName = "Simple RPG/Stat")]
+    [CreateAssetMenu(fileName = "New Stat", menuName = "Simple RPG Core/Stat")]
     public class Stat : BoundedValue
     {
         [SerializeField] [CanBeNull] private AttributesScalingComponent attributesScaling;

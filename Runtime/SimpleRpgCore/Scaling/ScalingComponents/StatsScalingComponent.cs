@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore.Scaling
 {
-    [CreateAssetMenu(fileName = "New Stats Scaling Component", menuName = "Simple RPG/Scaling/Stats Component")]
+    [CreateAssetMenu(fileName = "New Stats Scaling Component", menuName = "Simple RPG Core/Scaling/Stats Component")]
     public class StatsScalingComponent : SoSetScalingComponentBase<StatSet, Stat>
     {
         protected override StatSet GetEntitySet(EntityCore entity) => entity.Stats.StatSet;

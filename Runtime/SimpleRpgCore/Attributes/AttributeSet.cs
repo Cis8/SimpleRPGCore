@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore.Attributes
 {
-    [CreateAssetMenu(fileName = "New Attribute Set", menuName = "Simple RPG/Attribute Set")]
+    [CreateAssetMenu(fileName = "New Attribute Set", menuName = "Simple RPG Core/Attribute Set")]
     public class AttributeSet : ScriptableObject, IAttributeContainer
     {
         [SerializeField] private SerializableHashSet<Attribute> _attributes = new();

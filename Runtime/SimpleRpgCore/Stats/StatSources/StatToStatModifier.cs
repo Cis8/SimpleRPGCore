@@ -4,7 +4,7 @@ using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore.Stats {
-    [CreateAssetMenu(fileName = "New Stat to Stat Modifier", menuName = "Simple RPG/Stat to Stat Modifier")]
+    [CreateAssetMenu(fileName = "New Stat to Stat Modifier", menuName = "Simple RPG Core/Stat to Stat Modifier")]
     public class StatToStatModifier : ScriptableObject
     {
         [SerializeField] private Stat targetStat;

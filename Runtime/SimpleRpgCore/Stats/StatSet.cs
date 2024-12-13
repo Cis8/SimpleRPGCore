@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore.Stats
 {
-    [CreateAssetMenu(fileName = "New StatSet", menuName = "Simple RPG/Stat Set")]
+    [CreateAssetMenu(fileName = "New StatSet", menuName = "Simple RPG Core/Stat Set")]
     public class StatSet : ScriptableObject, IStatContainer
     {
         [SerializeField] internal SerializableHashSet<Stat> _stats = new();

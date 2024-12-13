@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace ElectricDrill.SimpleRpgCore.Attributes
 {
-    [CreateAssetMenu(fileName = "New Attribute", menuName = "Simple RPG/Attribute")]
+    [CreateAssetMenu(fileName = "New Attribute", menuName = "Simple RPG Core/Attribute")]
     [Serializable]
     public class Attribute : BoundedValue
     {

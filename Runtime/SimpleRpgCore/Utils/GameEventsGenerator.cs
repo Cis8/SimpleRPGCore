@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore.Events
 {
-    [CreateAssetMenu(fileName = "GameEventGenerator", menuName = "Simple RPG/Tools/GameEventGenerator")]
+    [CreateAssetMenu(fileName = "GameEventGenerator", menuName = "Simple RPG Core/Tools/GameEventGenerator")]
     public sealed class GameEventGenerator : ScriptableObject
     {
         [Serializable]
@@ -121,7 +121,7 @@ namespace ElectricDrill.SimpleRpgCore.Events
     /// <summary>
     /// {gameEvent.documentation}
     /// </summary>
-    [CreateAssetMenu(fileName = ""{gameEvent.eventName} Game Event"", menuName = ""Simple RPG/Events/Generated/{gameEvent.eventName}"")]
+    [CreateAssetMenu(fileName = ""{gameEvent.eventName} Game Event"", menuName = ""Simple RPG Core/Events/Generated/{gameEvent.eventName}"")]
     public class {className} : {genericType}<{parameterList}>
     {{
     }}

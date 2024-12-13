@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore.Events {
-    [CreateAssetMenu(fileName = "New Game Event", menuName = "Simple RPG/Events/Game Event")]
+    [CreateAssetMenu(fileName = "New Game Event", menuName = "Simple RPG Core/Events/Game Event")]
     public class GameEvent : ScriptableObject
     {
         // evaluate if this shall be changed to a fixed size array that is resized when needed

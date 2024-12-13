@@ -10,7 +10,7 @@ using UnityEngine.Assertions;
 using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore {
-    [CreateAssetMenu(fileName = "New Growth Formula", menuName = "Simple RPG/Growth Formula")]
+    [CreateAssetMenu(fileName = "New Growth Formula", menuName = "Simple RPG Core/Growth Formula")]
     public class GrowthFormula : ScriptableObject
     {
         [SerializeField] private IntVar maxLevel;

@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace ElectricDrill.SimpleRpgCore.Scaling {
-    [CreateAssetMenu(fileName = "New Scaling Formula", menuName = "Simple RPG/Scaling/Scaling Formula")]
+    [CreateAssetMenu(fileName = "New Scaling Formula", menuName = "Simple RPG Core/Scaling/Scaling Formula")]
     public class ScalingFormula : ScriptableObject
     {
         [SerializeField] private bool useScalingBaseValue;

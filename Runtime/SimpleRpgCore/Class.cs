@@ -14,7 +14,7 @@ using Attribute = ElectricDrill.SimpleRpgCore.Attributes.Attribute;
 
 namespace ElectricDrill.SimpleRpgCore
 {
-    [CreateAssetMenu(fileName = "New Class", menuName = "Simple RPG/Class")]
+    [CreateAssetMenu(fileName = "New Class", menuName = "Simple RPG Core/Class")]
     public class Class : ScriptableObject
     {
         [SerializeField] protected GrowthFormula _maxHpGrowthFormula;

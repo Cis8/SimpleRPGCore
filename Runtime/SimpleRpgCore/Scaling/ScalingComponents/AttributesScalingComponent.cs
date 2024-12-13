@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore.Scaling
 {
-    [CreateAssetMenu(fileName = "New Attributes Scaling Component", menuName = "Simple RPG/Scaling/Attributes Component")]
+    [CreateAssetMenu(fileName = "New Attributes Scaling Component", menuName = "Simple RPG Core/Scaling/Attributes Component")]
     public class AttributesScalingComponent : SoSetScalingComponentBase<AttributeSet, Attribute>
     {
         protected override AttributeSet GetEntitySet(EntityCore entity) => entity.Attributes.AttributeSet;
