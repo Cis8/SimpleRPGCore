@@ -5,6 +5,7 @@ using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore
 {
@@ -18,7 +19,7 @@ namespace ElectricDrill.SimpleRpgCore
         
         // EXPERIENCE FIELDS
         [SerializeField] private GrowthFormula _experienceGrowthFormula;
-        [SerializeField, HideInInspector] internal long _currentTotalExperience;
+        [SerializeField, HideInInspector] internal LongRef currentTotalExperience;
         [SerializeField] private Stat experienceGainedModifierStat;
         private Func<Percentage> _experienceGainedModifier;
         
@@ -62,8 +63,8 @@ namespace ElectricDrill.SimpleRpgCore
         /// </summary>
         /// <returns>The amount of experience added</returns>
         private long AddExpForNextLevel() {
-            var amountToAdd = NextLevelTotalExperience() - _currentTotalExperience;
-            _currentTotalExperience += amountToAdd;
+            var amountToAdd = NextLevelTotalExperience() - currentTotalExperience;
+            currentTotalExperience.Value += amountToAdd;
             LevelUp();
             return amountToAdd;
         }
@@ -74,13 +75,13 @@ namespace ElectricDrill.SimpleRpgCore
         }
         
         private void AddExpWithoutModifier(long amount) {
-            if (_currentTotalExperience + amount >= NextLevelTotalExperience()) {
+            if (currentTotalExperience.Value + amount >= NextLevelTotalExperience()) {
                 var remaining = amount - AddExpForNextLevel();
                 Debug.Log("Levelled up, remaining: " + remaining);
                 AddExpWithoutModifier(remaining);
             }
             else {
-                _currentTotalExperience += amount;
+                currentTotalExperience.Value += amount;
             }
         }
 
@@ -95,11 +96,11 @@ namespace ElectricDrill.SimpleRpgCore
 
         public void SetTotalCurrentExp(long totalCurrentExperience) {
             Assert.IsNotNull(_maxLevel, "Max Level is missing");
-            _currentTotalExperience = totalCurrentExperience;
+            currentTotalExperience.Value = totalCurrentExperience;
             var growthFoValues = _experienceGrowthFormula.GrowthFoValues;
             var i = 0;
             for (; i < growthFoValues.Length; i++) {
-                if (growthFoValues[i] > _currentTotalExperience) {
+                if (growthFoValues[i] > currentTotalExperience) {
                     _level.Value = i + 1;
                 }
             }
@@ -108,7 +109,7 @@ namespace ElectricDrill.SimpleRpgCore
                 _level.Value = _maxLevel.Value;
         }
 
-        public long CurrentTotalExperience => _currentTotalExperience;
+        public long CurrentTotalExperience => currentTotalExperience;
         public long CurrentLevelTotalExperience() => _level == 1 ? 
             0
             : _experienceGrowthFormula.GetGrowthValue(_level - 1);

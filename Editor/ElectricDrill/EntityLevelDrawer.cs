@@ -9,13 +9,14 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             float height = EditorGUIUtility.standardVerticalSpacing;
-            
+
             var props = new[] {
                 property.FindPropertyRelative("_level"),
                 property.FindPropertyRelative("_maxLevel"),
                 property.FindPropertyRelative("_experienceGrowthFormula"),
                 property.FindPropertyRelative("experienceGainedModifierStat"),
-                property.FindPropertyRelative("_onLevelUpEditor")
+                property.FindPropertyRelative("_onLevelUpEditor"),
+                property.FindPropertyRelative("currentTotalExperience")
             };
 
             foreach (var prop in props)
@@ -31,17 +32,19 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor {
             EditorGUI.BeginProperty(position, label, property);
 
             float yPos = position.y;
-            
+
             // Get properties
             SerializedProperty levelProp = property.FindPropertyRelative("_level");
             SerializedProperty maxLevelProp = property.FindPropertyRelative("_maxLevel");
             SerializedProperty experienceFormulaProp = property.FindPropertyRelative("_experienceGrowthFormula");
             SerializedProperty expGainModifierProp = property.FindPropertyRelative("experienceGainedModifierStat");
             SerializedProperty onLevelUpProp = property.FindPropertyRelative("_onLevelUpEditor");
+            SerializedProperty currentTotalExperienceProp = property.FindPropertyRelative("currentTotalExperience");
 
             // Draw each property
             var props = new[] {
                 (levelProp, "Level"),
+                (currentTotalExperienceProp, "Current Total Experience"),
                 (maxLevelProp, "Max Level"),
                 (experienceFormulaProp, "Experience Formula"),
                 (expGainModifierProp, "Experience Gain Modifier"),
@@ -52,29 +55,37 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor {
             {
                 var propHeight = EditorGUI.GetPropertyHeight(prop, true);
                 var propRect = new Rect(position.x, yPos, position.width, propHeight);
-                
+
                 EditorGUI.PropertyField(propRect, prop, new GUIContent(lbl), true);
                 yPos += propHeight + EditorGUIUtility.standardVerticalSpacing;
             }
+            
+            // Set isReadOnly to true for currentTotalExperience
+            currentTotalExperienceProp.FindPropertyRelative("isReadOnly").boolValue = true;
 
             // Update experience when level changes
             if (GUI.changed && levelProp.hasMultipleDifferentValues == false)
             {
-                SerializedProperty currentTotalExperienceProp = property.FindPropertyRelative("_currentTotalExperience");
-               
                 GrowthFormula growthFormula = experienceFormulaProp.objectReferenceValue as GrowthFormula;
                 if (growthFormula != null)
                 {
-                    int levelFromCurrentExp = Array.FindIndex(growthFormula.GrowthFoValues, v => v >= currentTotalExperienceProp.longValue);
+                    long currentTotalExperience = GetLongRefValue(currentTotalExperienceProp);
+                    
+                    int levelFromCurrentExp;
+                    if (currentTotalExperience < growthFormula.GrowthFoValues[0])
+                        levelFromCurrentExp = 1;
+                    else
+                        levelFromCurrentExp = Array.FindIndex(growthFormula.GrowthFoValues, v => v >= currentTotalExperience) + 2;
+                    
                     int levelFromField = GetIntRefValue(levelProp);
 
                     if (levelFromCurrentExp != levelFromField) {
                         if (levelFromField == 1)
                         {
-                            currentTotalExperienceProp.longValue = 0;
+                            SetLongRefValue(currentTotalExperienceProp, 0);
                         }
                         else {
-                            currentTotalExperienceProp.longValue = growthFormula.GetGrowthValue(levelFromField - 1);
+                            SetLongRefValue(currentTotalExperienceProp, growthFormula.GetGrowthValue(levelFromField - 1));
                         }
                     }
                 }
@@ -101,6 +112,45 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor {
             }
 
             return 0;
+        }
+
+        private long GetLongRefValue(SerializedProperty longRefProp)
+        {
+            SerializedProperty useConstantProp = longRefProp.FindPropertyRelative("UseConstant");
+            SerializedProperty constantValueProp = longRefProp.FindPropertyRelative("ConstantValue");
+            SerializedProperty variableProp = longRefProp.FindPropertyRelative("Variable");
+
+            if (useConstantProp.boolValue)
+            {
+                return constantValueProp.longValue;
+            }
+            else if (variableProp.objectReferenceValue != null)
+            {
+                SerializedObject longVarObject = new SerializedObject(variableProp.objectReferenceValue);
+                SerializedProperty valueProp = longVarObject.FindProperty("Value");
+                return valueProp.longValue;
+            }
+
+            return 0;
+        }
+
+        private void SetLongRefValue(SerializedProperty longRefProp, long value)
+        {
+            SerializedProperty useConstantProp = longRefProp.FindPropertyRelative("UseConstant");
+            SerializedProperty constantValueProp = longRefProp.FindPropertyRelative("ConstantValue");
+            SerializedProperty variableProp = longRefProp.FindPropertyRelative("Variable");
+
+            if (useConstantProp.boolValue)
+            {
+                constantValueProp.longValue = value;
+            }
+            else if (variableProp.objectReferenceValue != null)
+            {
+                SerializedObject longVarObject = new SerializedObject(variableProp.objectReferenceValue);
+                SerializedProperty valueProp = longVarObject.FindProperty("Value");
+                valueProp.longValue = value;
+                longVarObject.ApplyModifiedProperties();
+            }
         }
     }
 }

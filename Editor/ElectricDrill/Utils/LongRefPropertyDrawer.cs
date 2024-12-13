@@ -14,6 +14,9 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             var useConstant = property.FindPropertyRelative("UseConstant");
             var constantValue = property.FindPropertyRelative("ConstantValue");
             var variable = property.FindPropertyRelative("Variable");
+#if UNITY_EDITOR
+            var isReadOnly = property.FindPropertyRelative("isReadOnly");
+#endif
 
             position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
 
@@ -29,7 +32,20 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
 
             if (useConstant.boolValue)
             {
+#if UNITY_EDITOR
+                if (isReadOnly.boolValue)
+                {
+                    EditorGUI.BeginDisabledGroup(true);
+                    EditorGUI.LongField(valueRect, constantValue.longValue);
+                    EditorGUI.EndDisabledGroup();
+                }
+                else
+                {
+                    constantValue.longValue = EditorGUI.LongField(valueRect, constantValue.longValue);
+                }
+#else
                 constantValue.longValue = EditorGUI.LongField(valueRect, constantValue.longValue);
+#endif
             }
             else
             {

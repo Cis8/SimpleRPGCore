@@ -7,6 +7,10 @@ namespace ElectricDrill.SimpleRpgCore.Utils {
     [Serializable]
     public class LongRef
     {
+#if UNITY_EDITOR
+        // if true, the drawer will show the const value as read-only
+        public bool isReadOnly = false;
+#endif
         public bool UseConstant = true;
         public long ConstantValue;
         public LongVar Variable;
