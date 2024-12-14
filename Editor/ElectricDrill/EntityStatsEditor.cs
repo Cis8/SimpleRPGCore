@@ -52,9 +52,10 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                     if (newValue != value)
                     {
                         entityStats._fixedBaseStats[stat] = newValue;
+                        EditorUtility.SetDirty(target);
                     }
                 }
-
+                
                 EditorGUI.indentLevel--;
             }
 
