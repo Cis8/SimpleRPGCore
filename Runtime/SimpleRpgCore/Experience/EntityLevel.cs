@@ -77,7 +77,6 @@ namespace ElectricDrill.SimpleRpgCore
         private void AddExpWithoutModifier(long amount) {
             if (currentTotalExperience.Value + amount >= NextLevelTotalExperience()) {
                 var remaining = amount - AddExpForNextLevel();
-                Debug.Log("Levelled up, remaining: " + remaining);
                 AddExpWithoutModifier(remaining);
             }
             else {
@@ -123,5 +122,16 @@ namespace ElectricDrill.SimpleRpgCore
 
         // implicit conversion from EntityLevel to int
         public static implicit operator int(EntityLevel entityLevel) => entityLevel.Level;
+
+        // used to check that the experience corresponds to the level. If not, the experience is set to the correct value
+        public void ValidateExperience() {
+            if (_experienceGrowthFormula == null) return;
+            
+            if (currentTotalExperience.Value < CurrentLevelTotalExperience() || currentTotalExperience.Value >= NextLevelTotalExperience()) {
+                Debug.LogWarning("Current total exp does not correspond to the current level." +
+                                 $" Resetting it to {CurrentLevelTotalExperience()}, the base value for level {_level}");
+                currentTotalExperience.Value = CurrentLevelTotalExperience();
+            }
+        }
     }
 }

@@ -34,6 +34,8 @@ namespace ElectricDrill.SimpleRpgCore
             if (_level.ExperienceGainedModifierStat)
                 _level.SetExperienceGainedModifier(() => _stats.Get(_level.ExperienceGainedModifierStat));
             
+            _level.ValidateExperience();
+            
             Assert.IsNotNull(spawnedEntityEvent, $"Spawned entity event is null on {name}");
             spawnedEntityEvent.Raise(this);
         }
