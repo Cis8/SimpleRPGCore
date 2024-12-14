@@ -107,7 +107,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor {
             else if (variableProp.objectReferenceValue != null)
             {
                 SerializedObject intVarObject = new SerializedObject(variableProp.objectReferenceValue);
-                SerializedProperty valueProp = intVarObject.FindProperty("Value");
+                SerializedProperty valueProp = intVarObject.FindProperty("_value");
                 return valueProp.intValue;
             }
 
@@ -127,7 +127,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor {
             else if (variableProp.objectReferenceValue != null)
             {
                 SerializedObject longVarObject = new SerializedObject(variableProp.objectReferenceValue);
-                SerializedProperty valueProp = longVarObject.FindProperty("Value");
+                SerializedProperty valueProp = longVarObject.FindProperty("_value");
                 return valueProp.longValue;
             }
 
@@ -147,7 +147,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor {
             else if (variableProp.objectReferenceValue != null)
             {
                 SerializedObject longVarObject = new SerializedObject(variableProp.objectReferenceValue);
-                SerializedProperty valueProp = longVarObject.FindProperty("Value");
+                SerializedProperty valueProp = longVarObject.FindProperty("_value");
                 valueProp.longValue = value;
                 longVarObject.ApplyModifiedProperties();
             }
