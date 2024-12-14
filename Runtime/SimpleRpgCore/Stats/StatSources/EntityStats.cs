@@ -15,10 +15,6 @@ namespace ElectricDrill.SimpleRpgCore.Stats
     [RequireComponent(typeof(EntityCore))]
     public class EntityStats : MonoBehaviour
     {
-        public void Set(Stat s, long v) {
-            _fixedBaseStats[s] = v;
-        }
-        
         private EntityCore _entityCore;
 
         // todo entity attributes should be considered if fixed stats are used
@@ -48,6 +44,10 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         public StatChangedGameEvent OnStatChanged => _onStatChanged;
         public Dictionary<Stat, long>.KeyCollection FixedBaseStatsKeys => _fixedBaseStats.Keys;
 
+        public void Set(Stat s, long v) {
+            _fixedBaseStats[s] = v;
+        }
+        
         /// <summary>
         /// Returns the StatSet of the entity. If _useFixedBaseStats is true, it returns the fixedBaseStatsStatSet, otherwise it returns the StatSet of the entity's class.
         /// </summary>
