@@ -53,6 +53,10 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
             }
         }
 
+        private void Awake() {
+            _entityCore = GetComponent<EntityCore>();
+        }
+
         public long Get(Attribute attribute) {
             Assert.IsTrue(AttributeSet.Contains(attribute), $"Attribute {attribute} is not in the {name}'s AttributeSet ({AttributeSet.name})");
             long finalValue = 0;
@@ -95,7 +99,6 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
         }
 
         private void OnEnable() {
-            _entityCore = GetComponent<EntityCore>();
             _entityCore.Level.OnLevelUp += OnLevelUp;
 #if UNITY_EDITOR
             OnValidate();
