@@ -24,6 +24,14 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
         [SerializeField, HideInInspector] private AttributeSet fixedBaseAttributeSet;
         [SerializeField, HideInInspector] internal SerializableDictionary<Attribute, long> fixedBaseAttributes;
         
+        private EntityCore EntityCore {
+            get {
+                if (!_entityCore) {
+                    _entityCore = GetComponent<EntityCore>();
+                }
+                return _entityCore;
+            }
+        }
         public AttributePointsTracker AttrPointsTracker => attrPointsTracker;
         
         public AttributeSet AttributeSet {
@@ -54,14 +62,13 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
         }
 
         private void Awake() {
-            _entityCore = GetComponent<EntityCore>();
         }
 
         public long Get(Attribute attribute) {
             Assert.IsTrue(AttributeSet.Contains(attribute), $"Attribute {attribute} is not in the {name}'s AttributeSet ({AttributeSet.name})");
             long finalValue = 0;
             if (useClassBaseAttributes) {
-                finalValue += _entityClass.Class.GetAttributeAt(attribute, _entityCore.Level);
+                finalValue += _entityClass.Class.GetAttributeAt(attribute, EntityCore.Level);
             }
             else {
                 finalValue += fixedBaseAttributes[attribute];
@@ -99,7 +106,7 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
         }
 
         private void OnEnable() {
-            _entityCore.Level.OnLevelUp += OnLevelUp;
+            EntityCore.Level.OnLevelUp += OnLevelUp;
 #if UNITY_EDITOR
             OnValidate();
             Selection.selectionChanged += OnSelectionChanged;
@@ -107,7 +114,7 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
         }
         
         private void OnDisable() {
-            _entityCore.Level.OnLevelUp -= OnLevelUp;
+            EntityCore.Level.OnLevelUp -= OnLevelUp;
 #if UNITY_EDITOR
             OnValidate();
             Selection.selectionChanged -= OnSelectionChanged;
