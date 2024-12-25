@@ -43,8 +43,8 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                 }
 
                 EditorGUILayout.LabelField("Documentation");
-                var documentationValue = gameEvent.FindPropertyRelative("documentation").stringValue;
-                EditorGUILayout.TextArea(documentationValue, GUILayout.Height(60));
+                var documentationProperty = gameEvent.FindPropertyRelative("documentation");
+                documentationProperty.stringValue = EditorGUILayout.TextArea(documentationProperty.stringValue, GUILayout.Height(60));
                 EditorGUILayout.PropertyField(gameEvent.FindPropertyRelative("parameters"), true);
 
                 if (GUILayout.Button("Remove Event"))
@@ -76,6 +76,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                 EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
             }
 
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("menuBasePath"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("baseSaveLocation"));
 
             if (GUILayout.Button("Add New Event"))

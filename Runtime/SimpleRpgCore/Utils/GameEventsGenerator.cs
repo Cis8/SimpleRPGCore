@@ -35,10 +35,11 @@ namespace ElectricDrill.SimpleRpgCore.Events
             public List<EventParameter> parameters = new List<EventParameter>();
             [HideInInspector] public bool isGenerated; // Flag to track if the event has been generated
         }
-        
+
         public string rootNamespace = "ElectricDrill.SimpleRpgCore.Events";
         public List<GameEventDefinition> eventsToGenerate = new List<GameEventDefinition>();
         public string baseSaveLocation = "Assets";
+        public string menuBasePath = "Simple RPG Core/Events/Generated"; // New property for menu base path
 
         private List<string> generatedEventNames = new List<string>();
         [SerializeField, HideInInspector] string previousSaveLocation;
@@ -121,7 +122,7 @@ namespace ElectricDrill.SimpleRpgCore.Events
     /// <summary>
     /// {gameEvent.documentation}
     /// </summary>
-    [CreateAssetMenu(fileName = ""{gameEvent.eventName} Game Event"", menuName = ""Simple RPG Core/Events/Generated/{gameEvent.eventName}"")]
+    [CreateAssetMenu(fileName = ""{gameEvent.eventName} Game Event"", menuName = ""{menuBasePath}/{gameEvent.eventName}"")]
     public class {className} : {genericType}<{parameterList}>
     {{
     }}
@@ -180,7 +181,7 @@ namespace {rootNamespace}
                 FileUtil.DeleteFileOrDirectory(listenerFilePath + ".meta");
             }
         }
-        
+
         private void OnValidate() {
             // if the list of the parameters is long 4 already, we can't add more parameters
             foreach (var gameEvent in eventsToGenerate)
