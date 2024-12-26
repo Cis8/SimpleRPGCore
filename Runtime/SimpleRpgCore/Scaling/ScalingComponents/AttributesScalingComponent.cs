@@ -16,10 +16,12 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
         
 #if UNITY_EDITOR
         protected override void OnEnable() {
+            base.OnEnable();
             Attribute.OnAttributeDeleted += HandleAttributeDeleted;
         }
 
         protected override void OnDisable() {
+            base.OnDisable();
             Attribute.OnAttributeDeleted -= HandleAttributeDeleted;
         }
 
