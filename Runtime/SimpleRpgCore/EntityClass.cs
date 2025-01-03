@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace ElectricDrill.SimpleRpgCore {
-    public class EntityClass : MonoBehaviour
+    public class EntityClass : MonoBehaviour, IClass
     {
         [SerializeField] private Class _class;
         

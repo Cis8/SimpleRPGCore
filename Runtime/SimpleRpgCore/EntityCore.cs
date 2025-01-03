@@ -2,12 +2,13 @@ using ElectricDrill.SimpleRpgCore.Attributes;
 using UnityEngine;
 using ElectricDrill.SimpleRpgCore.Events;
 using ElectricDrill.SimpleRpgCore.Stats;
+using log4net.Core;
 using UnityEngine.Assertions;
 
 
 namespace ElectricDrill.SimpleRpgCore
 {
-    public class EntityCore : MonoBehaviour
+    public class EntityCore : MonoBehaviour, ILevel, IAttributes
     {
         [SerializeField] private EntityLevel _level;
         
@@ -20,7 +21,7 @@ namespace ElectricDrill.SimpleRpgCore
 
         public virtual EntityLevel Level => _level;
         public virtual EntityStats Stats => _stats ? _stats : GetComponent<EntityStats>();
-        public EntityAttributes Attributes => _attributes ? _attributes : GetComponent<EntityAttributes>();
+        public virtual EntityAttributes Attributes => _attributes ? _attributes : GetComponent<EntityAttributes>();
 
         protected virtual void Awake() {
         }

@@ -13,35 +13,48 @@ using UnityEngine.Serialization;
 namespace ElectricDrill.SimpleRpgCore.Stats
 {
     [RequireComponent(typeof(EntityCore))]
-    public class EntityStats : MonoBehaviour
+    public class EntityStats : MonoBehaviour, IStatSet
     {
         private EntityCore _entityCore;
 
-        // todo entity attributes should be considered if fixed stats are used
         [SerializeField, HideInInspector] private bool _useClassBaseStats = true;
+        public bool UseClassBaseStats {
+            get => _useClassBaseStats;
+            internal set => _useClassBaseStats = value;
+        }
 
-        // todo hide fixed or dynamic stats based on the value of _useFixedStats
-        
         // Dynamic stats
-        protected EntityClass _entityClass;
-        
+        protected IClass _entityClass;
+
         protected StatSetInstance _flatModifiersStats;
 
         // the key is the target stat, the value contains all the percentages of the source stats to be summed up
-        private Dictionary<Stat, StatSetInstance> _statToStatModifiers;
+        internal Dictionary<Stat, StatSetInstance> _statToStatModifiers;
 
         protected StatSetInstance _percentageModifiers;
         
         // Fixed stats
-        [SerializeField, HideInInspector] private StatSet fixedBaseStatsStatSet;
-        [SerializeField, HideInInspector] internal SerializableDictionary<Stat, long> _fixedBaseStats;
-        
-        // todo evaluate if finalStats cache shall be added
+        [SerializeField, HideInInspector] internal StatSet fixedBaseStatsStatSet;
+        [SerializeField, HideInInspector] internal SerializableDictionary<Stat, long> _fixedBaseStats = new();
         
         // Events
         [SerializeField, HideInInspector] private StatChangedGameEvent _onStatChanged;
+
+        public EntityCore EntityCore {
+            get => _entityCore;
+            internal set => _entityCore = value;
+        }
+
+        public IClass EntityClass {
+            get => _entityClass;
+            internal set => _entityClass = value;
+        }
+
+        public StatChangedGameEvent OnStatChanged {
+            get => _onStatChanged;
+            internal set => _onStatChanged = value;
+        }
         
-        public StatChangedGameEvent OnStatChanged => _onStatChanged;
         public Dictionary<Stat, long>.KeyCollection FixedBaseStatsKeys => _fixedBaseStats.Keys;
 
         public void Set(Stat s, long v) {
@@ -54,9 +67,9 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         public virtual StatSet StatSet {
             get {
                 if (_useClassBaseStats) {
-                    if (TryGetComponent(out _entityClass))
+                    if (_entityClass != null || TryGetComponent(out _entityClass))
                         return _entityClass.Class.StatSet;
-                    throw new Exception($"EntityClass component must be attached to the {gameObject.name} GameObject if _useFixedBaseStats is set false");
+                    throw new Exception($"EntityClass component must be attached to the {gameObject.name} GameObject if _useClassBaseStats is set true");
                 }
                 return fixedBaseStatsStatSet;
             }
@@ -187,7 +200,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         
         private void OnEnable() {
             _entityCore = GetComponent<EntityCore>();
-            _entityCore.Level.OnLevelUp += OnLevelUp;
+            EntityCore.Level.OnLevelUp += OnLevelUp;
 #if UNITY_EDITOR
             OnValidate();
 #endif
@@ -195,7 +208,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
 
 
         private void OnDisable() {
-            _entityCore.Level.OnLevelUp -= OnLevelUp;
+            EntityCore.Level.OnLevelUp -= OnLevelUp;
 #if UNITY_EDITOR
             OnValidate();
 #endif
@@ -203,9 +216,13 @@ namespace ElectricDrill.SimpleRpgCore.Stats
 
         private void OnValidate() {
             if (!_useClassBaseStats) {
-                InitializationUtils.RefreshInspectorReservedValues(ref _fixedBaseStats.inspectorReservedPairs, fixedBaseStatsStatSet?.Stats);
-                _fixedBaseStats.OnAfterDeserialize();
+                InitializeFixedBaseStats();
             }
+        }
+
+        internal void InitializeFixedBaseStats() {
+            InitializationUtils.RefreshInspectorReservedValues(ref _fixedBaseStats.inspectorReservedPairs, fixedBaseStatsStatSet?.Stats);
+            _fixedBaseStats.OnAfterDeserialize();
         }
         
 
@@ -224,11 +241,11 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
 #endif
         
-        private void InitializeFlatModifierStatsIfNull() {
+        internal void InitializeFlatModifierStatsIfNull() {
             _flatModifiersStats ??= new StatSetInstance(StatSet);
         }
         
-        private void InitializePercentageModifierStatsIfNull() {
+        internal void InitializePercentageModifierStatsIfNull() {
             _percentageModifiers ??= new StatSetInstance(StatSet);
         }
     }

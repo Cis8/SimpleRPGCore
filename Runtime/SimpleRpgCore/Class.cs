@@ -15,7 +15,7 @@ using Attribute = ElectricDrill.SimpleRpgCore.Attributes.Attribute;
 namespace ElectricDrill.SimpleRpgCore
 {
     [CreateAssetMenu(fileName = "New Class", menuName = "Simple RPG Core/Class")]
-    public class Class : ScriptableObject
+    public class Class : ScriptableObject, IStatSet
     {
         [SerializeField] protected GrowthFormula _maxHpGrowthFormula;
         
@@ -27,7 +27,7 @@ namespace ElectricDrill.SimpleRpgCore
         [SerializeField, HideInInspector] internal SerializableDictionary<Stat, GrowthFormula> _statGrowthFormulas = new();
         
         public AttributeSet AttributeSet { get => attributeSet; internal set => attributeSet = value; }
-        public StatSet StatSet { get => _statSet; internal set => _statSet = value; }
+        public virtual StatSet StatSet { get => _statSet; internal set => _statSet = value; }
 
         public long GetMaxHpAt(int level) {
             return _maxHpGrowthFormula.GetGrowthValue(level);
@@ -38,7 +38,7 @@ namespace ElectricDrill.SimpleRpgCore
             return attributeGrowthFormulas[attribute].GetGrowthValue(level);
         }
         
-        public long GetStatAt(Stat stat, int level) {
+        public virtual long GetStatAt(Stat stat, int level) {
             return _statGrowthFormulas.First(s => s.Key == stat).Value.GetGrowthValue(level);
         }
 

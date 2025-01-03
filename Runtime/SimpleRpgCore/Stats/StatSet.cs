@@ -17,7 +17,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             return _stats.First(s => s == stat);
         }
         
-        public bool Contains(Stat stat) {
+        public virtual bool Contains(Stat stat) {
             return _stats.Contains(stat);
         }
 

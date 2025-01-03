@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore.Events {
-    public abstract class GameEventGeneric2<T, U> : ScriptableObject
+    public abstract class GameEventGeneric2<T, U> : ScriptableObject, IRaisable<T, U>
     {
         // evaluate if this shall be changed to a fixed size array that is resized when needed
         /// <summary>
