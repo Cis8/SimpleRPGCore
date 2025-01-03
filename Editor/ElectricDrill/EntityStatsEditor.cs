@@ -16,7 +16,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
 
         void OnEnable()
         {
-            useClassBaseStats = serializedObject.FindProperty("_useClassBaseStats");
+            useClassBaseStats = serializedObject.FindProperty("useBaseStatsFromClass");
             fixedBaseStatsStatSet = serializedObject.FindProperty("fixedBaseStatsStatSet");
             fixedBaseStats = serializedObject.FindProperty("_fixedBaseStats");
             onStatChanged = serializedObject.FindProperty("_onStatChanged");
@@ -31,7 +31,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             // Draw the _useClassBaseStats property
             EditorGUILayout.PropertyField(useClassBaseStats);
 
-            // Conditionally hide fixedBaseStatsStatSet and _fixedBaseStats based on _useClassBaseStats
+            // Conditionally hide fixedBaseStatsStatSet and _fixedBaseStats based on useBaseStatsFromClass
             if (!useClassBaseStats.boolValue)
             {
                 EditorGUILayout.PropertyField(fixedBaseStatsStatSet);
@@ -47,11 +47,11 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                     .ToList();
                 foreach (var stat in nonNullKeys)
                 {
-                    long value = entityStats._fixedBaseStats[stat];
+                    long value = entityStats.FixedBaseStats[stat];
                     long newValue = EditorGUILayout.LongField(stat.name, value);
                     if (newValue != value)
                     {
-                        entityStats._fixedBaseStats[stat] = newValue;
+                        entityStats.FixedBaseStats[stat] = newValue;
                         EditorUtility.SetDirty(target);
                     }
                 }
