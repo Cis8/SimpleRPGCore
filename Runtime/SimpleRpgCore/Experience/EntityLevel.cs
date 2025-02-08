@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 namespace ElectricDrill.SimpleRpgCore
 {
     [Serializable]
-    public class EntityLevel
+    public class EntityLevel: ILevelable
     {
         // LEVEL FIELDS
         // even if the level could be retrieved from the experience, it is more efficient to have a dedicated field
@@ -31,7 +31,7 @@ namespace ElectricDrill.SimpleRpgCore
         // Code-wired Events
         private Action<int> _onLevelUpCode;
         public Action<int> OnLevelUp { get => _onLevelUpCode; set => _onLevelUpCode = value; }
-        public int Level {
+        public virtual int Level {
             get
             {
                 Assert.IsNotNull(_level);
@@ -57,7 +57,6 @@ namespace ElectricDrill.SimpleRpgCore
             _onLevelUpCode?.Invoke(_level);
         }
         
-        // generate docs
         /// <summary>
         /// Adds, to the current total experience, the amount of experience needed to reach the next level.
         /// </summary>
