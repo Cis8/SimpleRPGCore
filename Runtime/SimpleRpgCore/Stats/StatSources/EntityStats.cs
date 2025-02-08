@@ -97,13 +97,29 @@ namespace ElectricDrill.SimpleRpgCore.Stats
 
         // READ STATS
         public long GetBase(Stat stat) {
+            return GetBaseAt(stat, _entityCore.Level);
+        }
+
+        private long GetBaseAt(Stat stat, int level) {
             Assert.IsTrue(StatSet.Contains(stat), $"Stat {stat.name} is not in the {name}'s StatSet ({StatSet.name})");
             long baseValue;
             
-            baseValue = useBaseStatsFromClass ? _entityClass.Class.GetStatAt(stat, _entityCore.Level) : _fixedBaseStats[stat];
-            if (_entityCore.Attributes && _entityCore.Attributes.enabled)
-                baseValue += stat.AttributesScaling?.CalculateValue(_entityCore) ?? 0;
+            baseValue = GetRawBaseAt(stat, level);
+            baseValue += GetAttributesStatBonus(stat);
+            
             return stat.Clamp(baseValue);
+        }
+        
+        private long GetRawBaseAt(Stat stat, int level) {
+            Assert.IsTrue(StatSet.Contains(stat), $"Stat {stat.name} is not in the {name}'s StatSet ({StatSet.name})");
+            
+            return useBaseStatsFromClass ? _entityClass.Class.GetStatAt(stat, level) : _fixedBaseStats[stat];
+        }
+        
+        private long GetAttributesStatBonus(Stat stat) {
+            if (_entityCore.Attributes && _entityCore.Attributes.enabled)
+                return stat.AttributesScaling?.CalculateValue(_entityCore) ?? 0;
+            return 0;
         }
         
         public virtual long Get(Stat stat) {
@@ -172,7 +188,6 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         
         // EVENTS and EDITOR
         protected virtual void OnLevelUp(int level) {
-
         }
 
         private void CheckRaiseStatChanged(Stat stat, long oldValue, long newValue) {
