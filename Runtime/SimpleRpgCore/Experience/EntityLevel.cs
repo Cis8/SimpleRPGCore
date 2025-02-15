@@ -25,6 +25,11 @@ namespace ElectricDrill.SimpleRpgCore
         
         internal Stat ExperienceGainedModifierStat => experienceGainedModifierStat;
         
+        internal GrowthFormula ExperienceGrowthFormula {
+            get => _experienceGrowthFormula;
+            set => _experienceGrowthFormula = value;
+        }
+        
         // Editor-wired Events
         [SerializeField] private IntGameEvent _onLevelUpEditor;
         
