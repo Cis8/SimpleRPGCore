@@ -24,7 +24,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
 
         // Dynamic stats
-        protected IClass _entityClass;
+        protected IClassSource _entityClass;
 
         protected StatSetInstance _flatModifiersStats;
 
@@ -45,7 +45,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             internal set => _entityCore = value;
         }
 
-        public IClass EntityClass {
+        public IClassSource EntityClass {
             get => _entityClass;
             internal set => _entityClass = value;
         }
@@ -81,7 +81,6 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
 
         private void Awake() {
-            Assert.IsNotNull(_onStatChanged, $"{name}'s OnStatChanged must be set in the inspector");
             _entityCore = GetComponent<EntityCore>();
             _statToStatModifiers ??= new Dictionary<Stat, StatSetInstance>();
             InitializeFlatModifierStatsIfNull();
@@ -89,7 +88,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
         
         void Start() {
-            
+            Assert.IsNotNull(_onStatChanged, $"{name}'s OnStatChanged must be set in the inspector");
         }
 
         void Update() {

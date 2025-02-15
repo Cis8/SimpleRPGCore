@@ -1,6 +1,6 @@
 namespace ElectricDrill.SimpleRpgCore
 {
-    public interface IClass
+    public interface IClassSource
     {
         Class Class { get; }
     }

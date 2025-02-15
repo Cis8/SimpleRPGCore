@@ -5,18 +5,20 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace ElectricDrill.SimpleRpgCore {
-    public class EntityClass : MonoBehaviour, IClass
+    public class EntityClass : MonoBehaviour, IClassSource
     {
         [SerializeField] private Class _class;
         
-        public Class Class => _class;
+        public Class Class {
+            get => _class;
+            set => _class = value;
+        }
 
         private void Awake() {
-            Assert.IsNotNull(_class, $"Class of {gameObject.name} is missing");
         }
 
         void Start() {
-            
+            Assert.IsNotNull(_class, $"Class of {gameObject.name} is missing");
         }
 
         void Update() {
