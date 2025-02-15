@@ -19,9 +19,14 @@ namespace ElectricDrill.SimpleRpgCore
         // EVENTS
         [SerializeField] private EntityCoreGameEvent spawnedEntityEvent;
 
-        public virtual EntityLevel Level => _level;
+        public virtual EntityLevel Level { get => _level; internal set => _level = value; }
         public virtual EntityStats Stats => _stats ? _stats : GetComponent<EntityStats>();
         public virtual EntityAttributes Attributes => _attributes ? _attributes : GetComponent<EntityAttributes>();
+        
+        internal EntityCoreGameEvent SpawnedEntityEvent {
+            get => spawnedEntityEvent;
+            set => spawnedEntityEvent = value;
+        }
 
         protected virtual void Awake() {
         }

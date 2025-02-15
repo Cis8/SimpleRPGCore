@@ -11,7 +11,7 @@ namespace ElectricDrill.SimpleRpgCore {
         
         public Class Class {
             get => _class;
-            set => _class = value;
+            internal set => _class = value;
         }
 
         private void Awake() {
