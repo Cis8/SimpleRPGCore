@@ -7,7 +7,7 @@ MonoImporter:
   - fixedBaseStatsStatSet: {instanceID: 0}
   - _onStatChanged: {fileID: 11400000, guid: f18033d9ecd0b9549ac7f11bf3ddbe11, type: 2}
   executionOrder: 0
-  icon: {instanceID: 0}
+  icon: {fileID: 2800000, guid: a43417f914bb1da499a92edeadcd5e58, type: 3}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
