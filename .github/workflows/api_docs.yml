@@ -24,7 +24,6 @@ jobs:
         dotnet-version: 8.x
     - run: dotnet tool update -g docfx
     - run: docfx docs/docfx.json
-      continue-on-error: true
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
