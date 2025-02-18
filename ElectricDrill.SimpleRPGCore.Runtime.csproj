@@ -33,6 +33,9 @@
         <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
         <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <OutputPath>bin\Release\</OutputPath>
+    </PropertyGroup>
     <PropertyGroup>
         <NoConfig>true</NoConfig>
         <NoStdLib>true</NoStdLib>
