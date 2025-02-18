@@ -16,7 +16,7 @@ permissions:
 concurrency:
   group: "pages"
   cancel-in-progress: false
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,9 +30,9 @@ jobs:
     - run: dotnet tool update -g docfx
     - run: docfx docs/docfx.json
     - name: Upload artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v2
       with:
-        name: documentation
+        name: github-pages
         path: 'docs/_site'
 
   deploy:
@@ -45,9 +45,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Download artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v2
       with:
-        name: documentation
+        name: github-pages
         path: 'docs/_site'
     - name: Deploy to GitHub Pages
       id: deployment
