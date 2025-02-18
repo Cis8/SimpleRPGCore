@@ -28,6 +28,11 @@
         "exclude": [
           "_site/**"
         ]
+      },
+      {
+        "files": [
+          "api/toc.yml"
+        ]
       }
     ],
     "resource": [
