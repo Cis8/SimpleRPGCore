@@ -8,21 +8,3 @@ apiRules:
           uidRegex: ^UnityEngine
     - exclude:
           uidRegex: ^Microsoft
-    - exclude:
-          hasAttribute:
-              uid: System.ComponentModel.EditorBrowsableAttribute
-              ctorArguments:
-                  - System.ComponentModel.EditorBrowsableState.Never
-    - exclude:
-          type: Namespace
-          uidRegex: ^System\.
-    - exclude:
-          type: Member
-          attributes:
-              $ANY:
-                  uid: System.ObsoleteAttribute
-    - exclude:
-          type: Type
-          attributes:
-              $ANY:
-                  uid: System.ObsoleteAttribute
