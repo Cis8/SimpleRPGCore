@@ -4,7 +4,6 @@ using System.Linq;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore.Attributes
 {

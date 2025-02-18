@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore {
     [CreateAssetMenu(fileName = "New Growth Formula", menuName = "Simple RPG Core/Growth Formula")]

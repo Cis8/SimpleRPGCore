@@ -1,8 +1,7 @@
 using ElectricDrill.SimpleRpgCore.Utils;
+using UnityEngine.Assertions;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore.Attributes
 {

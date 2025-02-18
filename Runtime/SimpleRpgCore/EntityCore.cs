@@ -1,10 +1,8 @@
 using ElectricDrill.SimpleRpgCore.Attributes;
-using UnityEngine;
 using ElectricDrill.SimpleRpgCore.Events;
 using ElectricDrill.SimpleRpgCore.Stats;
-using log4net.Core;
 using UnityEngine.Assertions;
-
+using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore
 {

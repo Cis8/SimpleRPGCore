@@ -74,3 +74,4 @@ crashlytics-build.properties
 # Docfx
 /docs/_site
 /docs/api
+/bin/Release/netstandard2.1.meta

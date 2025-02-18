@@ -1,0 +1,53 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../",
+          "files": [
+            "ElectricDrill.SimpleRPGCore.Runtime.csproj"
+          ],
+          "exclude": [
+            "Runtime/**/Tests/**",
+            "Runtime/**/*.Tests.cs",
+            "Runtime/**/*.Test.cs",
+            "Runtime/**/Test/**"
+          ]
+        }
+      ],
+      "dest": "api",
+      "filter": "filterConfig.yml"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+      "modern",
+      "template"
+    ],
+    "globalMetadata": {
+      "_appName": "SimpleRPGCoreAPI",
+      "_appTitle": "SimpleRPGCoreAPI",
+      "_enableSearch": true,
+      "pdf": true
+    }
+  }
+}
