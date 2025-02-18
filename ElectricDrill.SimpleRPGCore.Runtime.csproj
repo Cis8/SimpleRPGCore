@@ -3,6 +3,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <AssemblyName>SimpleRPGCore</AssemblyName>
         <RootNamespace>ElectricDrill.SimpleRpgCore</RootNamespace>
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Runtime\**\*.cs" />
