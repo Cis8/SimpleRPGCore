@@ -3,9 +3,13 @@
     {
       "src": [
         {
-          "src": "../Runtime",
-          "files": [
-            "/**/**.cs"
+          "src": [
+          {
+              "src": "../Runtime",
+              "files": [
+                "**/*.cs"
+              ]
+            }
           ],
           "exclude": [
             "Runtime/**/Tests/**",
