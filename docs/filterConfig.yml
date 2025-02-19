@@ -1,2 +1,10 @@
 ### YamlMime:ManagedReference
 apiRules:
+    - exclude:
+          uidRegex: ^NUnit
+    - exclude:
+          uidRegex: ^System
+    - exclude:
+          uidRegex: ^UnityEngine
+    - exclude:
+          uidRegex: ^Microsoft
