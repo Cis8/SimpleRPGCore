@@ -49,10 +49,11 @@
             }
         ],
         "resource": [
-            {
-                "files": [
-                ]
-            }
+          {
+            "files": [
+              "images/**"
+            ]
+          }
         ],
         "sitemap": {
             "baseUrl": "https://normanderwan.github.io/DocFxForUnity",
