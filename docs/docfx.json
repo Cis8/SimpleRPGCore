@@ -16,7 +16,10 @@
             "globalNamespaceId": "Global",
             "filter": "filterConfig.yml",
             "dest": "api",
-            "allowCompilationErrors": true
+            "allowCompilationErrors": true,
+            "properties": {
+                "ProduceReferenceAssembly": true
+            }
         }
     ],
     "build": {
