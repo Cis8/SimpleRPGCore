@@ -1,0 +1,229 @@
+### YamlMime:TableOfContent
+items:
+- uid: ElectricDrill
+  name: ElectricDrill
+  type: Namespace
+  items:
+  - uid: ElectricDrill.StatChangeInfo
+    name: StatChangeInfo
+    type: Struct
+- uid: ElectricDrill.SimpleRpgCore
+  name: ElectricDrill.SimpleRpgCore
+  type: Namespace
+  items:
+  - uid: ElectricDrill.SimpleRpgCore.BoundedValue
+    name: BoundedValue
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Class
+    name: Class
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.EntityClass
+    name: EntityClass
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.EntityCore
+    name: EntityCore
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.EntityLevel
+    name: EntityLevel
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.ExpSource
+    name: ExpSource
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.GrowthFormula
+    name: GrowthFormula
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.IAttributes
+    name: IAttributes
+    type: Interface
+  - uid: ElectricDrill.SimpleRpgCore.IClassSource
+    name: IClassSource
+    type: Interface
+  - uid: ElectricDrill.SimpleRpgCore.IExpSource
+    name: IExpSource
+    type: Interface
+  - uid: ElectricDrill.SimpleRpgCore.ILevel
+    name: ILevel
+    type: Interface
+  - uid: ElectricDrill.SimpleRpgCore.ILevelable
+    name: ILevelable
+    type: Interface
+  - uid: ElectricDrill.SimpleRpgCore.IStatSet
+    name: IStatSet
+    type: Interface
+- uid: ElectricDrill.SimpleRpgCore.Attributes
+  name: ElectricDrill.SimpleRpgCore.Attributes
+  type: Namespace
+  items:
+  - uid: ElectricDrill.SimpleRpgCore.Attributes.Attribute
+    name: Attribute
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Attributes.AttributePointsTracker
+    name: AttributePointsTracker
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Attributes.AttributeSet
+    name: AttributeSet
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Attributes.AttributeSetInstance
+    name: AttributeSetInstance
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Attributes.AttributeSetInstanceExtensions
+    name: AttributeSetInstanceExtensions
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes
+    name: EntityAttributes
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Attributes.IAttributeContainer
+    name: IAttributeContainer
+    type: Interface
+- uid: ElectricDrill.SimpleRpgCore.Events
+  name: ElectricDrill.SimpleRpgCore.Events
+  type: Namespace
+  items:
+  - uid: ElectricDrill.SimpleRpgCore.Events.EntityCoreGameEvent
+    name: EntityCoreGameEvent
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.EntityCoreGameEventListener
+    name: EntityCoreGameEventListener
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEvent
+    name: GameEvent
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventGenerator
+    name: GameEventGenerator
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventGenerator.EventParameter
+    name: GameEventGenerator.EventParameter
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventGenerator.EventParameter.NativeType
+    name: GameEventGenerator.EventParameter.NativeType
+    type: Enum
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventGenerator.EventParameter.ParameterType
+    name: GameEventGenerator.EventParameter.ParameterType
+    type: Enum
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventGenerator.GameEventDefinition
+    name: GameEventGenerator.GameEventDefinition
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventGeneric1`1
+    name: GameEventGeneric1<T>
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventGeneric2`2
+    name: GameEventGeneric2<T, U>
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventGeneric3`3
+    name: GameEventGeneric3<T, U, W>
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventGeneric4`4
+    name: GameEventGeneric4<T, U, W, K>
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventListener
+    name: GameEventListener
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventListenerGeneric1`1
+    name: GameEventListenerGeneric1<T>
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventListenerGeneric2`2
+    name: GameEventListenerGeneric2<T, U>
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventListenerGeneric3`3
+    name: GameEventListenerGeneric3<T, U, W>
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.GameEventListenerGeneric4`4
+    name: GameEventListenerGeneric4<T, U, W, K>
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.IRaisable`1
+    name: IRaisable<T>
+    type: Interface
+  - uid: ElectricDrill.SimpleRpgCore.Events.IRaisable`2
+    name: IRaisable<T, U>
+    type: Interface
+  - uid: ElectricDrill.SimpleRpgCore.Events.IRaisable`3
+    name: IRaisable<T, U, V>
+    type: Interface
+  - uid: ElectricDrill.SimpleRpgCore.Events.IRaisable`4
+    name: IRaisable<T, U, V, W>
+    type: Interface
+  - uid: ElectricDrill.SimpleRpgCore.Events.IntGameEvent
+    name: IntGameEvent
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.IntGameEventListener
+    name: IntGameEventListener
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.StatChangedGameEvent
+    name: StatChangedGameEvent
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Events.StatChangedGameEventListener
+    name: StatChangedGameEventListener
+    type: Class
+- uid: ElectricDrill.SimpleRpgCore.Scaling
+  name: ElectricDrill.SimpleRpgCore.Scaling
+  type: Namespace
+  items:
+  - uid: ElectricDrill.SimpleRpgCore.Scaling.AttributesScalingComponent
+    name: AttributesScalingComponent
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Scaling.ScalingComponent
+    name: ScalingComponent
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Scaling.ScalingFormula
+    name: ScalingFormula
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Scaling.SoSetScalingComponentBase`2
+    name: SoSetScalingComponentBase<SetType, KeyType>
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Scaling.StatsScalingComponent
+    name: StatsScalingComponent
+    type: Class
+- uid: ElectricDrill.SimpleRpgCore.Stats
+  name: ElectricDrill.SimpleRpgCore.Stats
+  type: Namespace
+  items:
+  - uid: ElectricDrill.SimpleRpgCore.Stats.EntityStats
+    name: EntityStats
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Stats.IStatContainer
+    name: IStatContainer
+    type: Interface
+  - uid: ElectricDrill.SimpleRpgCore.Stats.Stat
+    name: Stat
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Stats.StatSet
+    name: StatSet
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Stats.StatSetInstance
+    name: StatSetInstance
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Stats.StatToStatModifier
+    name: StatToStatModifier
+    type: Class
+- uid: ElectricDrill.SimpleRpgCore.Utils
+  name: ElectricDrill.SimpleRpgCore.Utils
+  type: Namespace
+  items:
+  - uid: ElectricDrill.SimpleRpgCore.Utils.InitializationUtils
+    name: InitializationUtils
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Utils.IntRef
+    name: IntRef
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Utils.IntVar
+    name: IntVar
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Utils.LongRef
+    name: LongRef
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Utils.LongVar
+    name: LongVar
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Utils.Percentage
+    name: Percentage
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Utils.SerKeyValPair`2
+    name: SerKeyValPair<T, U>
+    type: Struct
+  - uid: ElectricDrill.SimpleRpgCore.Utils.SerializableDictionary`2
+    name: SerializableDictionary<TKey, TValue>
+    type: Class
+  - uid: ElectricDrill.SimpleRpgCore.Utils.SerializableHashSet`1
+    name: SerializableHashSet<T>
+    type: Class
+memberLayout: SamePage

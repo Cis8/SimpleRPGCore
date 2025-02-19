@@ -1,0 +1,556 @@
+### YamlMime:ManagedReference
+items:
+- uid: ElectricDrill.SimpleRpgCore.Class
+  commentId: T:ElectricDrill.SimpleRpgCore.Class
+  id: Class
+  parent: ElectricDrill.SimpleRpgCore
+  children:
+  - ElectricDrill.SimpleRpgCore.Class.AttributeSet
+  - ElectricDrill.SimpleRpgCore.Class.GetAttributeAt(ElectricDrill.SimpleRpgCore.Attributes.Attribute,System.Int32)
+  - ElectricDrill.SimpleRpgCore.Class.GetMaxHpAt(System.Int32)
+  - ElectricDrill.SimpleRpgCore.Class.GetStatAt(ElectricDrill.SimpleRpgCore.Stats.Stat,System.Int32)
+  - ElectricDrill.SimpleRpgCore.Class.StatSet
+  - ElectricDrill.SimpleRpgCore.Class._maxHpGrowthFormula
+  - ElectricDrill.SimpleRpgCore.Class._statSet
+  - ElectricDrill.SimpleRpgCore.Class.attributeSet
+  langs:
+  - csharp
+  - vb
+  name: Class
+  nameWithType: Class
+  fullName: ElectricDrill.SimpleRpgCore.Class
+  type: Class
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Class.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: Class
+    path: ../Runtime/SimpleRpgCore/Class.cs
+    startLine: 13
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  syntax:
+    content: >-
+      [CreateAssetMenu(fileName = "New Class", menuName = "Simple RPG Core/Class")]
+
+      public class Class : ScriptableObject, IStatSet
+    content.vb: >-
+      <CreateAssetMenu(fileName:="New Class", menuName:="Simple RPG Core/Class")>
+
+      Public Class [Class] Inherits ScriptableObject Implements IStatSet
+  inheritance:
+  - System.Object
+  - UnityEngine.Object
+  - UnityEngine.ScriptableObject
+  implements:
+  - ElectricDrill.SimpleRpgCore.IStatSet
+  attributes:
+  - type: UnityEngine.CreateAssetMenuAttribute
+    ctor: UnityEngine.CreateAssetMenuAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: fileName
+      type: System.String
+      value: New Class
+    - name: menuName
+      type: System.String
+      value: Simple RPG Core/Class
+- uid: ElectricDrill.SimpleRpgCore.Class._maxHpGrowthFormula
+  commentId: F:ElectricDrill.SimpleRpgCore.Class._maxHpGrowthFormula
+  id: _maxHpGrowthFormula
+  parent: ElectricDrill.SimpleRpgCore.Class
+  langs:
+  - csharp
+  - vb
+  name: _maxHpGrowthFormula
+  nameWithType: Class._maxHpGrowthFormula
+  fullName: ElectricDrill.SimpleRpgCore.Class._maxHpGrowthFormula
+  type: Field
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Class.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: _maxHpGrowthFormula
+    path: ../Runtime/SimpleRpgCore/Class.cs
+    startLine: 16
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  syntax:
+    content: >-
+      [SerializeField]
+
+      protected GrowthFormula _maxHpGrowthFormula
+    return:
+      type: ElectricDrill.SimpleRpgCore.GrowthFormula
+    content.vb: >-
+      <SerializeField>
+
+      Protected _maxHpGrowthFormula As GrowthFormula
+  attributes:
+  - type: UnityEngine.SerializeField
+    ctor: UnityEngine.SerializeField.#ctor
+    arguments: []
+- uid: ElectricDrill.SimpleRpgCore.Class.attributeSet
+  commentId: F:ElectricDrill.SimpleRpgCore.Class.attributeSet
+  id: attributeSet
+  parent: ElectricDrill.SimpleRpgCore.Class
+  langs:
+  - csharp
+  - vb
+  name: attributeSet
+  nameWithType: Class.attributeSet
+  fullName: ElectricDrill.SimpleRpgCore.Class.attributeSet
+  type: Field
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Class.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: attributeSet
+    path: ../Runtime/SimpleRpgCore/Class.cs
+    startLine: 17
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  syntax:
+    content: >-
+      [SerializeField]
+
+      protected AttributeSet attributeSet
+    return:
+      type: ElectricDrill.SimpleRpgCore.Attributes.AttributeSet
+    content.vb: >-
+      <SerializeField>
+
+      Protected attributeSet As AttributeSet
+  attributes:
+  - type: UnityEngine.SerializeField
+    ctor: UnityEngine.SerializeField.#ctor
+    arguments: []
+- uid: ElectricDrill.SimpleRpgCore.Class._statSet
+  commentId: F:ElectricDrill.SimpleRpgCore.Class._statSet
+  id: _statSet
+  parent: ElectricDrill.SimpleRpgCore.Class
+  langs:
+  - csharp
+  - vb
+  name: _statSet
+  nameWithType: Class._statSet
+  fullName: ElectricDrill.SimpleRpgCore.Class._statSet
+  type: Field
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Class.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: _statSet
+    path: ../Runtime/SimpleRpgCore/Class.cs
+    startLine: 18
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  syntax:
+    content: >-
+      [SerializeField]
+
+      protected StatSet _statSet
+    return:
+      type: ElectricDrill.SimpleRpgCore.Stats.StatSet
+    content.vb: >-
+      <SerializeField>
+
+      Protected _statSet As StatSet
+  attributes:
+  - type: UnityEngine.SerializeField
+    ctor: UnityEngine.SerializeField.#ctor
+    arguments: []
+- uid: ElectricDrill.SimpleRpgCore.Class.AttributeSet
+  commentId: P:ElectricDrill.SimpleRpgCore.Class.AttributeSet
+  id: AttributeSet
+  parent: ElectricDrill.SimpleRpgCore.Class
+  langs:
+  - csharp
+  - vb
+  name: AttributeSet
+  nameWithType: Class.AttributeSet
+  fullName: ElectricDrill.SimpleRpgCore.Class.AttributeSet
+  type: Property
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Class.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: AttributeSet
+    path: ../Runtime/SimpleRpgCore/Class.cs
+    startLine: 26
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  syntax:
+    content: public AttributeSet AttributeSet { get; }
+    parameters: []
+    return:
+      type: ElectricDrill.SimpleRpgCore.Attributes.AttributeSet
+    content.vb: Public Property AttributeSet As AttributeSet
+  overload: ElectricDrill.SimpleRpgCore.Class.AttributeSet*
+- uid: ElectricDrill.SimpleRpgCore.Class.StatSet
+  commentId: P:ElectricDrill.SimpleRpgCore.Class.StatSet
+  id: StatSet
+  parent: ElectricDrill.SimpleRpgCore.Class
+  langs:
+  - csharp
+  - vb
+  name: StatSet
+  nameWithType: Class.StatSet
+  fullName: ElectricDrill.SimpleRpgCore.Class.StatSet
+  type: Property
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Class.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: StatSet
+    path: ../Runtime/SimpleRpgCore/Class.cs
+    startLine: 27
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  example: []
+  syntax:
+    content: public virtual StatSet StatSet { get; }
+    parameters: []
+    return:
+      type: ElectricDrill.SimpleRpgCore.Stats.StatSet
+    content.vb: Public Overridable Property StatSet As StatSet
+  overload: ElectricDrill.SimpleRpgCore.Class.StatSet*
+  implements:
+  - ElectricDrill.SimpleRpgCore.IStatSet.StatSet
+- uid: ElectricDrill.SimpleRpgCore.Class.GetMaxHpAt(System.Int32)
+  commentId: M:ElectricDrill.SimpleRpgCore.Class.GetMaxHpAt(System.Int32)
+  id: GetMaxHpAt(System.Int32)
+  parent: ElectricDrill.SimpleRpgCore.Class
+  langs:
+  - csharp
+  - vb
+  name: GetMaxHpAt(int)
+  nameWithType: Class.GetMaxHpAt(int)
+  fullName: ElectricDrill.SimpleRpgCore.Class.GetMaxHpAt(int)
+  type: Method
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Class.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: GetMaxHpAt
+    path: ../Runtime/SimpleRpgCore/Class.cs
+    startLine: 29
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  syntax:
+    content: public long GetMaxHpAt(int level)
+    parameters:
+    - id: level
+      type: System.Int32
+    return:
+      type: System.Int64
+    content.vb: Public Function GetMaxHpAt(level As Integer) As Long
+  overload: ElectricDrill.SimpleRpgCore.Class.GetMaxHpAt*
+  nameWithType.vb: Class.GetMaxHpAt(Integer)
+  fullName.vb: ElectricDrill.SimpleRpgCore.Class.GetMaxHpAt(Integer)
+  name.vb: GetMaxHpAt(Integer)
+- uid: ElectricDrill.SimpleRpgCore.Class.GetAttributeAt(ElectricDrill.SimpleRpgCore.Attributes.Attribute,System.Int32)
+  commentId: M:ElectricDrill.SimpleRpgCore.Class.GetAttributeAt(ElectricDrill.SimpleRpgCore.Attributes.Attribute,System.Int32)
+  id: GetAttributeAt(ElectricDrill.SimpleRpgCore.Attributes.Attribute,System.Int32)
+  parent: ElectricDrill.SimpleRpgCore.Class
+  langs:
+  - csharp
+  - vb
+  name: GetAttributeAt(Attribute, int)
+  nameWithType: Class.GetAttributeAt(Attribute, int)
+  fullName: ElectricDrill.SimpleRpgCore.Class.GetAttributeAt(ElectricDrill.SimpleRpgCore.Attributes.Attribute, int)
+  type: Method
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Class.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: GetAttributeAt
+    path: ../Runtime/SimpleRpgCore/Class.cs
+    startLine: 34
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  syntax:
+    content: public long GetAttributeAt(Attribute attribute, int level)
+    parameters:
+    - id: attribute
+      type: ElectricDrill.SimpleRpgCore.Attributes.Attribute
+    - id: level
+      type: System.Int32
+    return:
+      type: System.Int64
+    content.vb: Public Function GetAttributeAt(attribute As Attribute, level As Integer) As Long
+  overload: ElectricDrill.SimpleRpgCore.Class.GetAttributeAt*
+  nameWithType.vb: Class.GetAttributeAt(Attribute, Integer)
+  fullName.vb: ElectricDrill.SimpleRpgCore.Class.GetAttributeAt(ElectricDrill.SimpleRpgCore.Attributes.Attribute, Integer)
+  name.vb: GetAttributeAt(Attribute, Integer)
+- uid: ElectricDrill.SimpleRpgCore.Class.GetStatAt(ElectricDrill.SimpleRpgCore.Stats.Stat,System.Int32)
+  commentId: M:ElectricDrill.SimpleRpgCore.Class.GetStatAt(ElectricDrill.SimpleRpgCore.Stats.Stat,System.Int32)
+  id: GetStatAt(ElectricDrill.SimpleRpgCore.Stats.Stat,System.Int32)
+  parent: ElectricDrill.SimpleRpgCore.Class
+  langs:
+  - csharp
+  - vb
+  name: GetStatAt(Stat, int)
+  nameWithType: Class.GetStatAt(Stat, int)
+  fullName: ElectricDrill.SimpleRpgCore.Class.GetStatAt(ElectricDrill.SimpleRpgCore.Stats.Stat, int)
+  type: Method
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Class.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: GetStatAt
+    path: ../Runtime/SimpleRpgCore/Class.cs
+    startLine: 39
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  syntax:
+    content: public virtual long GetStatAt(Stat stat, int level)
+    parameters:
+    - id: stat
+      type: ElectricDrill.SimpleRpgCore.Stats.Stat
+    - id: level
+      type: System.Int32
+    return:
+      type: System.Int64
+    content.vb: Public Overridable Function GetStatAt(stat As Stat, level As Integer) As Long
+  overload: ElectricDrill.SimpleRpgCore.Class.GetStatAt*
+  nameWithType.vb: Class.GetStatAt(Stat, Integer)
+  fullName.vb: ElectricDrill.SimpleRpgCore.Class.GetStatAt(ElectricDrill.SimpleRpgCore.Stats.Stat, Integer)
+  name.vb: GetStatAt(Stat, Integer)
+references:
+- uid: ElectricDrill.SimpleRpgCore
+  commentId: N:ElectricDrill.SimpleRpgCore
+  href: ElectricDrill.html
+  name: ElectricDrill.SimpleRpgCore
+  nameWithType: ElectricDrill.SimpleRpgCore
+  fullName: ElectricDrill.SimpleRpgCore
+  spec.csharp:
+  - uid: ElectricDrill
+    name: ElectricDrill
+    href: ElectricDrill.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore
+    name: SimpleRpgCore
+    href: ElectricDrill.SimpleRpgCore.html
+  spec.vb:
+  - uid: ElectricDrill
+    name: ElectricDrill
+    href: ElectricDrill.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore
+    name: SimpleRpgCore
+    href: ElectricDrill.SimpleRpgCore.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: UnityEngine.Object
+  commentId: T:UnityEngine.Object
+  parent: UnityEngine
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: UnityEngine.Object
+- uid: UnityEngine.ScriptableObject
+  commentId: T:UnityEngine.ScriptableObject
+  parent: UnityEngine
+  isExternal: true
+  name: ScriptableObject
+  nameWithType: ScriptableObject
+  fullName: UnityEngine.ScriptableObject
+- uid: ElectricDrill.SimpleRpgCore.IStatSet
+  commentId: T:ElectricDrill.SimpleRpgCore.IStatSet
+  parent: ElectricDrill.SimpleRpgCore
+  href: ElectricDrill.SimpleRpgCore.IStatSet.html
+  name: IStatSet
+  nameWithType: IStatSet
+  fullName: ElectricDrill.SimpleRpgCore.IStatSet
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: UnityEngine
+  commentId: N:UnityEngine
+  isExternal: true
+  name: UnityEngine
+  nameWithType: UnityEngine
+  fullName: UnityEngine
+- uid: ElectricDrill.SimpleRpgCore.GrowthFormula
+  commentId: T:ElectricDrill.SimpleRpgCore.GrowthFormula
+  parent: ElectricDrill.SimpleRpgCore
+  href: ElectricDrill.SimpleRpgCore.GrowthFormula.html
+  name: GrowthFormula
+  nameWithType: GrowthFormula
+  fullName: ElectricDrill.SimpleRpgCore.GrowthFormula
+- uid: ElectricDrill.SimpleRpgCore.Attributes.AttributeSet
+  commentId: T:ElectricDrill.SimpleRpgCore.Attributes.AttributeSet
+  parent: ElectricDrill.SimpleRpgCore.Attributes
+  href: ElectricDrill.SimpleRpgCore.Attributes.AttributeSet.html
+  name: AttributeSet
+  nameWithType: AttributeSet
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.AttributeSet
+- uid: ElectricDrill.SimpleRpgCore.Attributes
+  commentId: N:ElectricDrill.SimpleRpgCore.Attributes
+  href: ElectricDrill.html
+  name: ElectricDrill.SimpleRpgCore.Attributes
+  nameWithType: ElectricDrill.SimpleRpgCore.Attributes
+  fullName: ElectricDrill.SimpleRpgCore.Attributes
+  spec.csharp:
+  - uid: ElectricDrill
+    name: ElectricDrill
+    href: ElectricDrill.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore
+    name: SimpleRpgCore
+    href: ElectricDrill.SimpleRpgCore.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore.Attributes
+    name: Attributes
+    href: ElectricDrill.SimpleRpgCore.Attributes.html
+  spec.vb:
+  - uid: ElectricDrill
+    name: ElectricDrill
+    href: ElectricDrill.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore
+    name: SimpleRpgCore
+    href: ElectricDrill.SimpleRpgCore.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore.Attributes
+    name: Attributes
+    href: ElectricDrill.SimpleRpgCore.Attributes.html
+- uid: ElectricDrill.SimpleRpgCore.Stats.StatSet
+  commentId: T:ElectricDrill.SimpleRpgCore.Stats.StatSet
+  parent: ElectricDrill.SimpleRpgCore.Stats
+  href: ElectricDrill.SimpleRpgCore.Stats.StatSet.html
+  name: StatSet
+  nameWithType: StatSet
+  fullName: ElectricDrill.SimpleRpgCore.Stats.StatSet
+- uid: ElectricDrill.SimpleRpgCore.Stats
+  commentId: N:ElectricDrill.SimpleRpgCore.Stats
+  href: ElectricDrill.html
+  name: ElectricDrill.SimpleRpgCore.Stats
+  nameWithType: ElectricDrill.SimpleRpgCore.Stats
+  fullName: ElectricDrill.SimpleRpgCore.Stats
+  spec.csharp:
+  - uid: ElectricDrill
+    name: ElectricDrill
+    href: ElectricDrill.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore
+    name: SimpleRpgCore
+    href: ElectricDrill.SimpleRpgCore.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore.Stats
+    name: Stats
+    href: ElectricDrill.SimpleRpgCore.Stats.html
+  spec.vb:
+  - uid: ElectricDrill
+    name: ElectricDrill
+    href: ElectricDrill.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore
+    name: SimpleRpgCore
+    href: ElectricDrill.SimpleRpgCore.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore.Stats
+    name: Stats
+    href: ElectricDrill.SimpleRpgCore.Stats.html
+- uid: ElectricDrill.SimpleRpgCore.Class.AttributeSet*
+  commentId: Overload:ElectricDrill.SimpleRpgCore.Class.AttributeSet
+  href: ElectricDrill.SimpleRpgCore.Class.html#ElectricDrill_SimpleRpgCore_Class_AttributeSet
+  name: AttributeSet
+  nameWithType: Class.AttributeSet
+  fullName: ElectricDrill.SimpleRpgCore.Class.AttributeSet
+- uid: ElectricDrill.SimpleRpgCore.Class.StatSet*
+  commentId: Overload:ElectricDrill.SimpleRpgCore.Class.StatSet
+  href: ElectricDrill.SimpleRpgCore.Class.html#ElectricDrill_SimpleRpgCore_Class_StatSet
+  name: StatSet
+  nameWithType: Class.StatSet
+  fullName: ElectricDrill.SimpleRpgCore.Class.StatSet
+- uid: ElectricDrill.SimpleRpgCore.IStatSet.StatSet
+  commentId: P:ElectricDrill.SimpleRpgCore.IStatSet.StatSet
+  parent: ElectricDrill.SimpleRpgCore.IStatSet
+  href: ElectricDrill.SimpleRpgCore.IStatSet.html#ElectricDrill_SimpleRpgCore_IStatSet_StatSet
+  name: StatSet
+  nameWithType: IStatSet.StatSet
+  fullName: ElectricDrill.SimpleRpgCore.IStatSet.StatSet
+- uid: ElectricDrill.SimpleRpgCore.Class.GetMaxHpAt*
+  commentId: Overload:ElectricDrill.SimpleRpgCore.Class.GetMaxHpAt
+  href: ElectricDrill.SimpleRpgCore.Class.html#ElectricDrill_SimpleRpgCore_Class_GetMaxHpAt_System_Int32_
+  name: GetMaxHpAt
+  nameWithType: Class.GetMaxHpAt
+  fullName: ElectricDrill.SimpleRpgCore.Class.GetMaxHpAt
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Int64
+  commentId: T:System.Int64
+  parent: System
+  isExternal: true
+  name: long
+  nameWithType: long
+  fullName: long
+  nameWithType.vb: Long
+  fullName.vb: Long
+  name.vb: Long
+- uid: ElectricDrill.SimpleRpgCore.Class.GetAttributeAt*
+  commentId: Overload:ElectricDrill.SimpleRpgCore.Class.GetAttributeAt
+  href: ElectricDrill.SimpleRpgCore.Class.html#ElectricDrill_SimpleRpgCore_Class_GetAttributeAt_ElectricDrill_SimpleRpgCore_Attributes_Attribute_System_Int32_
+  name: GetAttributeAt
+  nameWithType: Class.GetAttributeAt
+  fullName: ElectricDrill.SimpleRpgCore.Class.GetAttributeAt
+- uid: ElectricDrill.SimpleRpgCore.Attributes.Attribute
+  commentId: T:ElectricDrill.SimpleRpgCore.Attributes.Attribute
+  parent: ElectricDrill.SimpleRpgCore.Attributes
+  href: ElectricDrill.SimpleRpgCore.Attributes.Attribute.html
+  name: Attribute
+  nameWithType: Attribute
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.Attribute
+- uid: ElectricDrill.SimpleRpgCore.Class.GetStatAt*
+  commentId: Overload:ElectricDrill.SimpleRpgCore.Class.GetStatAt
+  href: ElectricDrill.SimpleRpgCore.Class.html#ElectricDrill_SimpleRpgCore_Class_GetStatAt_ElectricDrill_SimpleRpgCore_Stats_Stat_System_Int32_
+  name: GetStatAt
+  nameWithType: Class.GetStatAt
+  fullName: ElectricDrill.SimpleRpgCore.Class.GetStatAt
+- uid: ElectricDrill.SimpleRpgCore.Stats.Stat
+  commentId: T:ElectricDrill.SimpleRpgCore.Stats.Stat
+  parent: ElectricDrill.SimpleRpgCore.Stats
+  href: ElectricDrill.SimpleRpgCore.Stats.Stat.html
+  name: Stat
+  nameWithType: Stat
+  fullName: ElectricDrill.SimpleRpgCore.Stats.Stat

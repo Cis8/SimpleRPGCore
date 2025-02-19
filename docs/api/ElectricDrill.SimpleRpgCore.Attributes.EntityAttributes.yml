@@ -1,0 +1,269 @@
+### YamlMime:ManagedReference
+items:
+- uid: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes
+  commentId: T:ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes
+  id: EntityAttributes
+  parent: ElectricDrill.SimpleRpgCore.Attributes
+  children:
+  - ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttrPointsTracker
+  - ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttributeSet
+  - ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.Get(ElectricDrill.SimpleRpgCore.Attributes.Attribute)
+  langs:
+  - csharp
+  - vb
+  name: EntityAttributes
+  nameWithType: EntityAttributes
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes
+  type: Class
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Attributes/EntityAttributes.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: EntityAttributes
+    path: ../Runtime/SimpleRpgCore/Attributes/EntityAttributes.cs
+    startLine: 7
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore.Attributes
+  syntax:
+    content: >-
+      [RequireComponent(typeof(EntityCore))]
+
+      public class EntityAttributes : MonoBehaviour
+    content.vb: >-
+      <RequireComponent(GetType(EntityCore))>
+
+      Public Class EntityAttributes Inherits MonoBehaviour
+  inheritance:
+  - System.Object
+  - UnityEngine.Object
+  - UnityEngine.Component
+  - UnityEngine.Behaviour
+  - UnityEngine.MonoBehaviour
+  attributes:
+  - type: UnityEngine.RequireComponent
+    ctor: UnityEngine.RequireComponent.#ctor(System.Type)
+    arguments:
+    - type: System.Type
+      value: ElectricDrill.SimpleRpgCore.EntityCore
+- uid: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttrPointsTracker
+  commentId: P:ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttrPointsTracker
+  id: AttrPointsTracker
+  parent: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes
+  langs:
+  - csharp
+  - vb
+  name: AttrPointsTracker
+  nameWithType: EntityAttributes.AttrPointsTracker
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttrPointsTracker
+  type: Property
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Attributes/EntityAttributes.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: AttrPointsTracker
+    path: ../Runtime/SimpleRpgCore/Attributes/EntityAttributes.cs
+    startLine: 33
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore.Attributes
+  syntax:
+    content: public AttributePointsTracker AttrPointsTracker { get; }
+    parameters: []
+    return:
+      type: ElectricDrill.SimpleRpgCore.Attributes.AttributePointsTracker
+    content.vb: Public ReadOnly Property AttrPointsTracker As AttributePointsTracker
+  overload: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttrPointsTracker*
+- uid: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttributeSet
+  commentId: P:ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttributeSet
+  id: AttributeSet
+  parent: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes
+  langs:
+  - csharp
+  - vb
+  name: AttributeSet
+  nameWithType: EntityAttributes.AttributeSet
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttributeSet
+  type: Property
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Attributes/EntityAttributes.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: AttributeSet
+    path: ../Runtime/SimpleRpgCore/Attributes/EntityAttributes.cs
+    startLine: 35
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore.Attributes
+  syntax:
+    content: public AttributeSet AttributeSet { get; }
+    parameters: []
+    return:
+      type: ElectricDrill.SimpleRpgCore.Attributes.AttributeSet
+    content.vb: Public ReadOnly Property AttributeSet As AttributeSet
+  overload: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttributeSet*
+- uid: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.Get(ElectricDrill.SimpleRpgCore.Attributes.Attribute)
+  commentId: M:ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.Get(ElectricDrill.SimpleRpgCore.Attributes.Attribute)
+  id: Get(ElectricDrill.SimpleRpgCore.Attributes.Attribute)
+  parent: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes
+  langs:
+  - csharp
+  - vb
+  name: Get(Attribute)
+  nameWithType: EntityAttributes.Get(Attribute)
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.Get(ElectricDrill.SimpleRpgCore.Attributes.Attribute)
+  type: Method
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/Attributes/EntityAttributes.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: Get
+    path: ../Runtime/SimpleRpgCore/Attributes/EntityAttributes.cs
+    startLine: 65
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore.Attributes
+  syntax:
+    content: public long Get(Attribute attribute)
+    parameters:
+    - id: attribute
+      type: ElectricDrill.SimpleRpgCore.Attributes.Attribute
+    return:
+      type: System.Int64
+    content.vb: Public Function [Get](attribute As Attribute) As Long
+  overload: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.Get*
+references:
+- uid: ElectricDrill.SimpleRpgCore.Attributes
+  commentId: N:ElectricDrill.SimpleRpgCore.Attributes
+  href: ElectricDrill.html
+  name: ElectricDrill.SimpleRpgCore.Attributes
+  nameWithType: ElectricDrill.SimpleRpgCore.Attributes
+  fullName: ElectricDrill.SimpleRpgCore.Attributes
+  spec.csharp:
+  - uid: ElectricDrill
+    name: ElectricDrill
+    href: ElectricDrill.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore
+    name: SimpleRpgCore
+    href: ElectricDrill.SimpleRpgCore.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore.Attributes
+    name: Attributes
+    href: ElectricDrill.SimpleRpgCore.Attributes.html
+  spec.vb:
+  - uid: ElectricDrill
+    name: ElectricDrill
+    href: ElectricDrill.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore
+    name: SimpleRpgCore
+    href: ElectricDrill.SimpleRpgCore.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore.Attributes
+    name: Attributes
+    href: ElectricDrill.SimpleRpgCore.Attributes.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: UnityEngine.Object
+  commentId: T:UnityEngine.Object
+  parent: UnityEngine
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: UnityEngine.Object
+- uid: UnityEngine.Component
+  commentId: T:UnityEngine.Component
+  parent: UnityEngine
+  isExternal: true
+  name: Component
+  nameWithType: Component
+  fullName: UnityEngine.Component
+- uid: UnityEngine.Behaviour
+  commentId: T:UnityEngine.Behaviour
+  parent: UnityEngine
+  isExternal: true
+  name: Behaviour
+  nameWithType: Behaviour
+  fullName: UnityEngine.Behaviour
+- uid: UnityEngine.MonoBehaviour
+  commentId: T:UnityEngine.MonoBehaviour
+  parent: UnityEngine
+  isExternal: true
+  name: MonoBehaviour
+  nameWithType: MonoBehaviour
+  fullName: UnityEngine.MonoBehaviour
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: UnityEngine
+  commentId: N:UnityEngine
+  isExternal: true
+  name: UnityEngine
+  nameWithType: UnityEngine
+  fullName: UnityEngine
+- uid: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttrPointsTracker*
+  commentId: Overload:ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttrPointsTracker
+  href: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.html#ElectricDrill_SimpleRpgCore_Attributes_EntityAttributes_AttrPointsTracker
+  name: AttrPointsTracker
+  nameWithType: EntityAttributes.AttrPointsTracker
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttrPointsTracker
+- uid: ElectricDrill.SimpleRpgCore.Attributes.AttributePointsTracker
+  commentId: T:ElectricDrill.SimpleRpgCore.Attributes.AttributePointsTracker
+  parent: ElectricDrill.SimpleRpgCore.Attributes
+  href: ElectricDrill.SimpleRpgCore.Attributes.AttributePointsTracker.html
+  name: AttributePointsTracker
+  nameWithType: AttributePointsTracker
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.AttributePointsTracker
+- uid: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttributeSet*
+  commentId: Overload:ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttributeSet
+  href: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.html#ElectricDrill_SimpleRpgCore_Attributes_EntityAttributes_AttributeSet
+  name: AttributeSet
+  nameWithType: EntityAttributes.AttributeSet
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.AttributeSet
+- uid: ElectricDrill.SimpleRpgCore.Attributes.AttributeSet
+  commentId: T:ElectricDrill.SimpleRpgCore.Attributes.AttributeSet
+  parent: ElectricDrill.SimpleRpgCore.Attributes
+  href: ElectricDrill.SimpleRpgCore.Attributes.AttributeSet.html
+  name: AttributeSet
+  nameWithType: AttributeSet
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.AttributeSet
+- uid: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.Get*
+  commentId: Overload:ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.Get
+  href: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.html#ElectricDrill_SimpleRpgCore_Attributes_EntityAttributes_Get_ElectricDrill_SimpleRpgCore_Attributes_Attribute_
+  name: Get
+  nameWithType: EntityAttributes.Get
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.EntityAttributes.Get
+- uid: ElectricDrill.SimpleRpgCore.Attributes.Attribute
+  commentId: T:ElectricDrill.SimpleRpgCore.Attributes.Attribute
+  parent: ElectricDrill.SimpleRpgCore.Attributes
+  href: ElectricDrill.SimpleRpgCore.Attributes.Attribute.html
+  name: Attribute
+  nameWithType: Attribute
+  fullName: ElectricDrill.SimpleRpgCore.Attributes.Attribute
+- uid: System.Int64
+  commentId: T:System.Int64
+  parent: System
+  isExternal: true
+  name: long
+  nameWithType: long
+  fullName: long
+  nameWithType.vb: Long
+  fullName.vb: Long
+  name.vb: Long

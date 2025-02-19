@@ -1,0 +1,226 @@
+### YamlMime:ManagedReference
+items:
+- uid: ElectricDrill.SimpleRpgCore.GrowthFormula
+  commentId: T:ElectricDrill.SimpleRpgCore.GrowthFormula
+  id: GrowthFormula
+  parent: ElectricDrill.SimpleRpgCore
+  children:
+  - ElectricDrill.SimpleRpgCore.GrowthFormula.GetGrowthValue(System.Int32)
+  - ElectricDrill.SimpleRpgCore.GrowthFormula.GrowthFoValues
+  langs:
+  - csharp
+  - vb
+  name: GrowthFormula
+  nameWithType: GrowthFormula
+  fullName: ElectricDrill.SimpleRpgCore.GrowthFormula
+  type: Class
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/GrowthFormula.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: GrowthFormula
+    path: ../Runtime/SimpleRpgCore/GrowthFormula.cs
+    startLine: 9
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  syntax:
+    content: >-
+      [CreateAssetMenu(fileName = "New Growth Formula", menuName = "Simple RPG Core/Growth Formula")]
+
+      public class GrowthFormula : ScriptableObject
+    content.vb: >-
+      <CreateAssetMenu(fileName:="New Growth Formula", menuName:="Simple RPG Core/Growth Formula")>
+
+      Public Class GrowthFormula Inherits ScriptableObject
+  inheritance:
+  - System.Object
+  - UnityEngine.Object
+  - UnityEngine.ScriptableObject
+  attributes:
+  - type: UnityEngine.CreateAssetMenuAttribute
+    ctor: UnityEngine.CreateAssetMenuAttribute.#ctor
+    arguments: []
+    namedArguments:
+    - name: fileName
+      type: System.String
+      value: New Growth Formula
+    - name: menuName
+      type: System.String
+      value: Simple RPG Core/Growth Formula
+- uid: ElectricDrill.SimpleRpgCore.GrowthFormula.GrowthFoValues
+  commentId: P:ElectricDrill.SimpleRpgCore.GrowthFormula.GrowthFoValues
+  id: GrowthFoValues
+  parent: ElectricDrill.SimpleRpgCore.GrowthFormula
+  langs:
+  - csharp
+  - vb
+  name: GrowthFoValues
+  nameWithType: GrowthFormula.GrowthFoValues
+  fullName: ElectricDrill.SimpleRpgCore.GrowthFormula.GrowthFoValues
+  type: Property
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/GrowthFormula.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: GrowthFoValues
+    path: ../Runtime/SimpleRpgCore/GrowthFormula.cs
+    startLine: 17
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  syntax:
+    content: public double[] GrowthFoValues { get; }
+    parameters: []
+    return:
+      type: System.Double[]
+    content.vb: Public ReadOnly Property GrowthFoValues As Double()
+  overload: ElectricDrill.SimpleRpgCore.GrowthFormula.GrowthFoValues*
+- uid: ElectricDrill.SimpleRpgCore.GrowthFormula.GetGrowthValue(System.Int32)
+  commentId: M:ElectricDrill.SimpleRpgCore.GrowthFormula.GetGrowthValue(System.Int32)
+  id: GetGrowthValue(System.Int32)
+  parent: ElectricDrill.SimpleRpgCore.GrowthFormula
+  langs:
+  - csharp
+  - vb
+  name: GetGrowthValue(int)
+  nameWithType: GrowthFormula.GetGrowthValue(int)
+  fullName: ElectricDrill.SimpleRpgCore.GrowthFormula.GetGrowthValue(int)
+  type: Method
+  source:
+    remote:
+      path: Runtime/SimpleRpgCore/GrowthFormula.cs
+      branch: main
+      repo: https://github.com/Cis8/SimpleRPGCore
+    id: GetGrowthValue
+    path: ../Runtime/SimpleRpgCore/GrowthFormula.cs
+    startLine: 19
+  assemblies:
+  - ElectricDrill.SimpleRPGCore.Runtime
+  namespace: ElectricDrill.SimpleRpgCore
+  syntax:
+    content: public long GetGrowthValue(int level)
+    parameters:
+    - id: level
+      type: System.Int32
+    return:
+      type: System.Int64
+    content.vb: Public Function GetGrowthValue(level As Integer) As Long
+  overload: ElectricDrill.SimpleRpgCore.GrowthFormula.GetGrowthValue*
+  nameWithType.vb: GrowthFormula.GetGrowthValue(Integer)
+  fullName.vb: ElectricDrill.SimpleRpgCore.GrowthFormula.GetGrowthValue(Integer)
+  name.vb: GetGrowthValue(Integer)
+references:
+- uid: ElectricDrill.SimpleRpgCore
+  commentId: N:ElectricDrill.SimpleRpgCore
+  href: ElectricDrill.html
+  name: ElectricDrill.SimpleRpgCore
+  nameWithType: ElectricDrill.SimpleRpgCore
+  fullName: ElectricDrill.SimpleRpgCore
+  spec.csharp:
+  - uid: ElectricDrill
+    name: ElectricDrill
+    href: ElectricDrill.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore
+    name: SimpleRpgCore
+    href: ElectricDrill.SimpleRpgCore.html
+  spec.vb:
+  - uid: ElectricDrill
+    name: ElectricDrill
+    href: ElectricDrill.html
+  - name: .
+  - uid: ElectricDrill.SimpleRpgCore
+    name: SimpleRpgCore
+    href: ElectricDrill.SimpleRpgCore.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: UnityEngine.Object
+  commentId: T:UnityEngine.Object
+  parent: UnityEngine
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: UnityEngine.Object
+- uid: UnityEngine.ScriptableObject
+  commentId: T:UnityEngine.ScriptableObject
+  parent: UnityEngine
+  isExternal: true
+  name: ScriptableObject
+  nameWithType: ScriptableObject
+  fullName: UnityEngine.ScriptableObject
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: UnityEngine
+  commentId: N:UnityEngine
+  isExternal: true
+  name: UnityEngine
+  nameWithType: UnityEngine
+  fullName: UnityEngine
+- uid: ElectricDrill.SimpleRpgCore.GrowthFormula.GrowthFoValues*
+  commentId: Overload:ElectricDrill.SimpleRpgCore.GrowthFormula.GrowthFoValues
+  href: ElectricDrill.SimpleRpgCore.GrowthFormula.html#ElectricDrill_SimpleRpgCore_GrowthFormula_GrowthFoValues
+  name: GrowthFoValues
+  nameWithType: GrowthFormula.GrowthFoValues
+  fullName: ElectricDrill.SimpleRpgCore.GrowthFormula.GrowthFoValues
+- uid: System.Double[]
+  isExternal: true
+  name: double[]
+  nameWithType: double[]
+  fullName: double[]
+  nameWithType.vb: Double()
+  fullName.vb: Double()
+  name.vb: Double()
+  spec.csharp:
+  - uid: System.Double
+    name: double
+    isExternal: true
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: System.Double
+    name: Double
+    isExternal: true
+  - name: (
+  - name: )
+- uid: ElectricDrill.SimpleRpgCore.GrowthFormula.GetGrowthValue*
+  commentId: Overload:ElectricDrill.SimpleRpgCore.GrowthFormula.GetGrowthValue
+  href: ElectricDrill.SimpleRpgCore.GrowthFormula.html#ElectricDrill_SimpleRpgCore_GrowthFormula_GetGrowthValue_System_Int32_
+  name: GetGrowthValue
+  nameWithType: GrowthFormula.GetGrowthValue
+  fullName: ElectricDrill.SimpleRpgCore.GrowthFormula.GetGrowthValue
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Int64
+  commentId: T:System.Int64
+  parent: System
+  isExternal: true
+  name: long
+  nameWithType: long
+  fullName: long
+  nameWithType.vb: Long
+  fullName.vb: Long
+  name.vb: Long
