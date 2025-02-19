@@ -3,9 +3,9 @@
     {
       "src": [
         {
-          "src": "../",
+          "src": "../Runtime",
           "files": [
-            "Runtime/**/**.cs"
+            "/**/**.cs"
           ],
           "exclude": [
             "Runtime/**/Tests/**",
