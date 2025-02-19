@@ -1,15 +1,11 @@
 {
-  "metadata": [
+    "metadata": [
     {
       "src": [
         {
-          "src": [
-          {
-              "src": "../Runtime",
-              "files": [
-                "**/*.cs"
-              ]
-            }
+          "src": "../Runtime",
+          "files": [
+            "**/*.cs"
           ],
           "exclude": [
             "Runtime/**/Tests/**",
