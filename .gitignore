@@ -72,8 +72,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Docfx
-/docs/_site
-/docs/api
-/bin/Release/netstandard2.1.meta
-
-!ElectricDrill.SimpleRPGCore.Runtime.csproj
+/bin/Release/**
+/bin/Release/**.meta

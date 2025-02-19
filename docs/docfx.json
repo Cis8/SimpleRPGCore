@@ -3,9 +3,9 @@
         {
             "src": [
                 {
-                    "src": "..",
+                    "src": "../../..",
                     "files": [
-                        "Runtime/**/*.cs"
+                        "ElectricDrill.SimpleRPGCore.Runtime.csproj"
                     ],
                     "exclude": [
                         "Editor/**",
