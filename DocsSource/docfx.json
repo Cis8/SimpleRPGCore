@@ -1,0 +1,64 @@
+{
+    "metadata": [
+        {
+            "src": [
+                {
+                    "src": "../../..",
+                    "files": [
+                        "ElectricDrill.SimpleRPGCore.Runtime.csproj"
+                    ],
+                    "exclude": [
+                        "Editor/**",
+                        "bin/**"
+                    ]
+                }
+            ],
+            "globalNamespaceId": "Global",
+            "filter": "filterConfig.yml",
+            "dest": "api",
+            "allowCompilationErrors": true,
+            "properties": {
+                "ProduceReferenceAssembly": "true"
+            }
+        }
+    ],
+    "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      },
+      {
+        "files": [
+          "api/toc.yml"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "../docs",
+    "template": [
+      "default",
+      "modern",
+      "template"
+    ],
+    "globalMetadata": {
+      "_appName": "SimpleRPGCoreAPI",
+      "_appTitle": "SimpleRPGCoreAPI",
+      "_enableSearch": true,
+      "pdf": true
+    },
+    "xref": [
+      "https://normanderwan.github.io/UnityXrefMaps/xrefmap.yml"
+    ]
+  }
+}
