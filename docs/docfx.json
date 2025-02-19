@@ -5,7 +5,7 @@
         {
           "src": "../",
           "files": [
-            "ElectricDrill.SimpleRPGCore.Runtime.csproj"
+            "Runtime/**/**.cs"
           ],
           "exclude": [
             "Runtime/**/Tests/**",
@@ -52,6 +52,9 @@
       "_appTitle": "SimpleRPGCoreAPI",
       "_enableSearch": true,
       "pdf": true
-    }
+    },
+    "xref": [
+      "https://normanderwan.github.io/UnityXrefMaps/xrefmap.yml"
+    ]
   }
 }
