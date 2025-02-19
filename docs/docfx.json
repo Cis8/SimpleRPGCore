@@ -18,7 +18,7 @@
             "dest": "api",
             "allowCompilationErrors": true,
             "properties": {
-                "ProduceReferenceAssembly": true
+                "ProduceReferenceAssembly": "true"
             }
         }
     ],
