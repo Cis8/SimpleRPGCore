@@ -14,7 +14,7 @@ namespace ElectricDrill.SimpleRpgCore
     {
         // LEVEL FIELDS
         // even if the level could be retrieved from the experience, it is more efficient to have a dedicated field
-        [SerializeField, HideInInspector] private IntRef _level = 1; // Add message that tells the user to not manually change the value of this IntVar
+        [SerializeField, HideInInspector] private IntRef _level = 1; // TODO Add message that tells the user to not manually change the value of this IntVar
         [SerializeField] private IntRef _maxLevel = 100;
         
         // EXPERIENCE FIELDS
