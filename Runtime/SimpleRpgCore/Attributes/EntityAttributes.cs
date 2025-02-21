@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics.CodeAnalysis;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine.Assertions;
 using UnityEditor;
@@ -18,6 +20,10 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
         
         // dynamic attributes
         private EntityClass _entityClass;
+        
+        protected AttributeSetInstance _flatModifiers;
+        
+        protected AttributeSetInstance _percentageModifiers;
         
         // Fixed base attributes
         [SerializeField, HideInInspector] private AttributeSet fixedBaseAttributeSet;
@@ -60,22 +66,66 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
             }
         }
 
+        protected AttributeSetInstance FlatModifiers {
+            get {
+                InitializeAttributeFlatModifiersIfNull();
+                return FlatModifiers;
+            }
+        }
+        
+        protected AttributeSetInstance PercentageModifiers {
+            get {
+                InitializeAttributePercentageModifiersIfNull();
+                return PercentageModifiers;
+            }
+        }
+
         private void Awake() {
+            InitializeAttributeFlatModifiersIfNull();
+            InitializeAttributePercentageModifiersIfNull();
         }
 
         public long Get(Attribute attribute) {
             Assert.IsTrue(AttributeSet.Contains(attribute), $"Attribute {attribute} is not in the {name}'s AttributeSet ({AttributeSet.name})");
-            long finalValue = 0;
-            if (useClassBaseAttributes) {
-                finalValue += _entityClass.Class.GetAttributeAt(attribute, EntityCore.Level);
-            }
-            else {
-                finalValue += fixedBaseAttributes[attribute];
-            }
-            // Add spent points
-            finalValue += attrPointsTracker.GetSpentOn(attribute);
+            return attribute.Clamp(CalculateFinalAttribute(attribute));
+        }
+        
+        private long CalculateFinalAttribute(Attribute attribute) {
+            var attrValue = GetBase(attribute) + FlatModifiers[attribute];
 
-            return finalValue;
+            if (PercentageModifiers.Contains(attribute)) {
+                // apply percentage modifiers
+                var percentageModifier = (long)Math.Round(attrValue * PercentageModifiers.GetAsPercentage(attribute));
+                attrValue += percentageModifier;
+            }
+            
+            // Add spent points
+            attrValue += attrPointsTracker.GetSpentOn(attribute);
+            
+            return attrValue;
+        }
+        
+        public void AddFlatModifier(Attribute attribute, long value) {
+            FlatModifiers.AddValue(attribute, value);
+        }
+        
+        public void AddPercentageModifier(Attribute attribute, Percentage value) {
+            PercentageModifiers.AddValue(attribute, (long)value);
+        }
+        
+        public long GetBase(Attribute attribute) {
+            return GetBaseAt(attribute, EntityCore.Level);
+        }
+
+        private long GetBaseAt(Attribute attribute, int level) {
+            Assert.IsTrue(AttributeSet.Contains(attribute), $"Attribute {attribute.name} is not in the {name}'s AttributeSet ({AttributeSet.name})");
+            long baseValue = GetRawBaseAt(attribute, level);
+            return attribute.Clamp(baseValue);
+        }
+        
+        private long GetRawBaseAt(Attribute attribute, int level) {
+            Assert.IsTrue(AttributeSet.Contains(attribute), $"Attribute {attribute.name} is not in the {name}'s AttributeSet ({AttributeSet.name})");            
+            return useClassBaseAttributes ? _entityClass.Class.GetAttributeAt(attribute, level) : fixedBaseAttributes[attribute];
         }
 
         // EVENTS and EDITOR
@@ -133,5 +183,13 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
             }
         }
 #endif
+        
+        internal void InitializeAttributeFlatModifiersIfNull() {
+            _flatModifiers ??= new AttributeSetInstance(AttributeSet);
+        }
+        
+        internal void InitializeAttributePercentageModifiersIfNull() {
+            _percentageModifiers ??= new AttributeSetInstance(AttributeSet);
+        }
     }
 }
