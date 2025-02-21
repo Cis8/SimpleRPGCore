@@ -35,7 +35,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         // Dynamic stats
         protected IClassSource _entityClass;
 
-        protected StatSetInstance _flatModifiersStats;
+        protected StatSetInstance _flatModifiers;
 
         // the key is the target stat, the value contains all the percentages of the source stats to be summed up
         internal Dictionary<Stat, StatSetInstance> _statToStatModifiers;
@@ -110,8 +110,8 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         private void Awake() {
             _entityCore = GetComponent<EntityCore>();
             _statToStatModifiers ??= new Dictionary<Stat, StatSetInstance>();
-            InitializeFlatModifierStatsIfNull();
-            InitializePercentageModifierStatsIfNull();
+            InitializeStatFlatModifiersIfNull();
+            InitializePercentageStatModifiersIfNull();
         }
         
         private void Start() {
@@ -190,7 +190,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             return statValue;
 
             long CalculateFlatStat(Stat flatStat) {
-                return GetBase(flatStat) + _flatModifiersStats[flatStat];
+                return GetBase(flatStat) + _flatModifiers[flatStat];
             }
         }
 
@@ -204,7 +204,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             var dependentStats = GetDependentStats(stat);
             var oldDependentValues = dependentStats.ToDictionary(dependentStat => dependentStat, Get);
 
-            _flatModifiersStats.AddValue(stat, value);
+            _flatModifiers.AddValue(stat, value);
             long newValue = Get(stat);
             CheckRaiseStatChanged(stat, oldValue, newValue);
 
@@ -321,11 +321,11 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
 #endif
         
-        internal void InitializeFlatModifierStatsIfNull() {
-            _flatModifiersStats ??= new StatSetInstance(StatSet);
+        internal void InitializeStatFlatModifiersIfNull() {
+            _flatModifiers ??= new StatSetInstance(StatSet);
         }
         
-        internal void InitializePercentageModifierStatsIfNull() {
+        internal void InitializePercentageStatModifiersIfNull() {
             _percentageModifiers ??= new StatSetInstance(StatSet);
         }
     }
