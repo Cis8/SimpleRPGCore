@@ -6,7 +6,7 @@ MonoImporter:
   defaultReferences:
   - spawnedEntityEvent: {fileID: 11400000, guid: ac4bd35e6138757008e416d86b3e2c9e, type: 2}
   executionOrder: 0
-  icon: {fileID: 2800000, guid: 2b94422a0a80a244199bc46218de3dc4, type: 3}
+  icon: {fileID: 2800000, guid: 50c0276156b266848a918646fce0a503, type: 3}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
