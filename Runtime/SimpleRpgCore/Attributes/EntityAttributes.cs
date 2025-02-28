@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using ElectricDrill.SimpleRPGCore.SimpleRpgCore.Utils;
 using ElectricDrill.SimpleRpgCore.Utils;
 using UnityEngine.Assertions;
 using UnityEditor;
@@ -21,14 +22,19 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
         // dynamic attributes
         private EntityClass _entityClass;
         
-        protected AttributeSetInstance _flatModifiers;
+        private AttributeSetInstance _flatModifiers;
         
-        protected AttributeSetInstance _percentageModifiers;
+        private AttributeSetInstance _percentageModifiers;
         
         // Fixed base attributes
         [SerializeField, HideInInspector] private AttributeSet fixedBaseAttributeSet;
         [SerializeField, HideInInspector] internal SerializableDictionary<Attribute, long> fixedBaseAttributes;
         
+        // Cache
+        private Cache<Attribute, long> _attributesCache = new();
+
+        public Cache<Attribute, long> AttributesCache => _attributesCache;
+
         private EntityCore EntityCore {
             get {
                 if (!_entityCore) {
@@ -69,14 +75,14 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
         protected AttributeSetInstance FlatModifiers {
             get {
                 InitializeAttributeFlatModifiersIfNull();
-                return FlatModifiers;
+                return _flatModifiers;
             }
         }
         
         protected AttributeSetInstance PercentageModifiers {
             get {
                 InitializeAttributePercentageModifiersIfNull();
-                return PercentageModifiers;
+                return _percentageModifiers;
             }
         }
 
@@ -87,7 +93,14 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
 
         public long Get(Attribute attribute) {
             Assert.IsTrue(AttributeSet.Contains(attribute), $"Attribute {attribute} is not in the {name}'s AttributeSet ({AttributeSet.name})");
-            return attribute.Clamp(CalculateFinalAttribute(attribute));
+            if (AttributesCache.TryGet(attribute, out var value)) {
+                return value;
+            }
+            else {
+                var finalValue = attribute.Clamp(CalculateFinalAttribute(attribute));
+                AttributesCache[attribute] = finalValue;
+                return finalValue;
+            }
         }
         
         private long CalculateFinalAttribute(Attribute attribute) {
@@ -107,10 +120,12 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
         
         public void AddFlatModifier(Attribute attribute, long value) {
             FlatModifiers.AddValue(attribute, value);
+            AttributesCache.Invalidate(attribute);
         }
         
         public void AddPercentageModifier(Attribute attribute, Percentage value) {
             PercentageModifiers.AddValue(attribute, (long)value);
+            AttributesCache.Invalidate(attribute);
         }
         
         public long GetBase(Attribute attribute) {
@@ -130,6 +145,7 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
 
         // EVENTS and EDITOR
         private void OnLevelUp(int _) {
+            AttributesCache.InvalidateAll();
             attrPointsTracker.AddPoints(attrPointsPerLevel);
         }
         
@@ -151,11 +167,15 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
                     AttributeSet?.Attributes);
                 attrPointsTracker.SpentAttributePoints.OnAfterDeserialize();
             }
+            
+            AttributesCache.InvalidateAll();
 #endif
         }
 
         private void OnEnable() {
             EntityCore.Level.OnLevelUp += OnLevelUp;
+            // this is required as the entity may have levelled up while being disabled
+            AttributesCache.InvalidateAll();
 #if UNITY_EDITOR
             OnValidate();
             Selection.selectionChanged += OnSelectionChanged;
@@ -164,6 +184,7 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
         
         private void OnDisable() {
             EntityCore.Level.OnLevelUp -= OnLevelUp;
+            AttributesCache.InvalidateAll();
 #if UNITY_EDITOR
             OnValidate();
             Selection.selectionChanged -= OnSelectionChanged;

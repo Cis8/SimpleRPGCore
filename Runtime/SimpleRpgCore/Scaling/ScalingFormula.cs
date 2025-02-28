@@ -17,7 +17,7 @@ namespace ElectricDrill.SimpleRpgCore.Scaling {
         [SerializeField] private List<ScalingComponent> selfScalingComponents;
         [SerializeField] private List<ScalingComponent> targetScalingComponents;
         
-        // though for being updated at runtime, these lists are not serialized. The Reset method should be called to
+        // thought for being updated at runtime, these lists are not serialized. The Reset method should be called to
         // erase the temporary scaling components
         private readonly List<ScalingComponent> _tmpSelfScalingComponents = new();
         private readonly List<ScalingComponent> _tmpTargetScalingComponents = new();
