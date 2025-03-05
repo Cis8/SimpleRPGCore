@@ -17,5 +17,17 @@
   "author": {
     "name": "Emanuele Cisotto",
     "email": "ema.cis8@gmail.com"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Example scene and instances",
+      "description": "A simple example of how to use Simple RPG Core",
+      "path": "Samples~/Examples"
+    },
+    {
+      "displayName": "Utils",
+      "description": "A pre-built set of instances that can be used in your project",
+      "path": "Samples~/Utils"
+    }
+  ]
 }
