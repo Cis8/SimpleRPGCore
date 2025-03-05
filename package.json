@@ -16,8 +16,9 @@
   ],
   "author": {
     "name": "Emanuele Cisotto",
-    "email": "ema.cis8@gmail.com"
+    "email": "electricdrill.info@gmail.com"
   },
+  "documentationUrl": "https://electricdrill.github.io/SimpleRPGCoreDocs/MD/introduction.html",
   "samples": [
     {
       "displayName": "Example scene and instances",
