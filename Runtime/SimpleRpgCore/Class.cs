@@ -44,25 +44,30 @@ namespace ElectricDrill.SimpleRpgCore
         
         private void OnValidate()
         {
-            Assert.IsNotNull(StatSet, $"StatSet of class {name} is null");
+            if (StatSet == null)
+                Debug.LogWarning("StatSet of class is null");
             UpdateGrowthFormulas(_statSet?.Stats, _statGrowthFormulas);
             UpdateGrowthFormulas(attributeSet?.Attributes, attributeGrowthFormulas);
         }
 
         private void UpdateGrowthFormulas<T>(IEnumerable<T> items, SerializableDictionary<T, GrowthFormula> formulas) where T : ScriptableObject
         {
-            if (items == null) 
+            if (items == null)
             {
                 formulas.Clear();
                 return;
             }
 
-            formulas = items
+            var updated = items
                 .Where(item => item != null)
                 .ToDictionary(
                     item => item,
                     item => formulas.TryGetValue(item, out var formula) ? formula : null
                 );
+
+            formulas.Clear();
+            foreach (var kvp in updated)
+                formulas[kvp.Key] = kvp.Value;
         }
 
 #if UNITY_EDITOR
