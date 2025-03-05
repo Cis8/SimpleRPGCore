@@ -74,3 +74,6 @@ crashlytics-build.properties
 # Docfx
 /bin/Release/**
 /bin/Release/**.meta
+
+# Exclude Samples~ .meta files
+/Samples~/**/.meta
