@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c820331e2a8b04cbad8ddeb7085809, type: 3}
   m_Name: Player Max Hp
   m_EditorClassIdentifier: 
-  _value: 121
+  _value: 100

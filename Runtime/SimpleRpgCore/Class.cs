@@ -44,6 +44,7 @@ namespace ElectricDrill.SimpleRpgCore
         
         private void OnValidate()
         {
+            Assert.IsNotNull(StatSet, $"StatSet of class {name} is null");
             UpdateGrowthFormulas(_statSet?.Stats, _statGrowthFormulas);
             UpdateGrowthFormulas(attributeSet?.Attributes, attributeGrowthFormulas);
         }
