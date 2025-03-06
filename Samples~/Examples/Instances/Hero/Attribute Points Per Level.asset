@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d7ba7adf1d3534b94b00b87bdc9b8b, type: 3}
   m_Name: Attribute Points Per Level
   m_EditorClassIdentifier: 
-  _value: 0
+  _value: 1

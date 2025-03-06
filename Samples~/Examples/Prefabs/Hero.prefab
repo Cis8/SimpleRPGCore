@@ -198,13 +198,25 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 69d2330a3b566624d8471ff5beabdb46, type: 2}
   attrPointsTracker:
-    total: 1
-    available: 1
+    total: 0
+    available: 0
     spentAttributePoints:
-      inspectorReservedPairs: []
+      inspectorReservedPairs:
+      - Key: {fileID: 11400000, guid: 3dbafc258e0a2e8438147feb0df6c527, type: 2}
+        Value: 0
+      - Key: {fileID: 11400000, guid: 058ab5cbb79308246a07bf5278d71b4e, type: 2}
+        Value: 0
+      - Key: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
+        Value: 0
       missingKeyPair: 0
   useClassBaseAttributes: 0
-  fixedBaseAttributeSet: {fileID: 0}
+  fixedBaseAttributeSet: {fileID: 11400000, guid: ba36ff71ad300284b913e7fa6e917084, type: 2}
   fixedBaseAttributes:
-    inspectorReservedPairs: []
+    inspectorReservedPairs:
+    - Key: {fileID: 11400000, guid: 3dbafc258e0a2e8438147feb0df6c527, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: 058ab5cbb79308246a07bf5278d71b4e, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
+      Value: 0
     missingKeyPair: 0
