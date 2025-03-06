@@ -47,6 +47,8 @@ namespace ElectricDrill.SimpleRpgCore
             {
                 Assert.IsTrue(value >= 1, $"Level must be greater than or equal to 1, was {value}");
                 Assert.IsTrue(value <= _maxLevel, $"Level must be less than or equal to the max level, was {value}");
+                _onLevelUpCode?.Invoke(value);
+                _onLevelUpEditor?.Raise(value);
                 _level.Value = value;
             }
         }
