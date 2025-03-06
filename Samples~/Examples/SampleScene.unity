@@ -770,6 +770,42 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: useClassBaseAttributes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: attrPointsTracker.total
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: attrPointsTracker.available
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: attrPointsPerLevel.UseConstant
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: attrPointsTracker.spentAttributePoints.inspectorReservedPairs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: attrPointsTracker.spentAttributePoints.inspectorReservedPairs.Array.data[0].Key
+      value: 
+      objectReference: {fileID: 11400000, guid: 3dbafc258e0a2e8438147feb0df6c527, type: 2}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: attrPointsTracker.spentAttributePoints.inspectorReservedPairs.Array.data[1].Key
+      value: 
+      objectReference: {fileID: 11400000, guid: 058ab5cbb79308246a07bf5278d71b4e, type: 2}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: attrPointsTracker.spentAttributePoints.inspectorReservedPairs.Array.data[2].Key
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: attrPointsTracker.spentAttributePoints.inspectorReservedPairs.Array.data[0].Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2818951134667393855, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -822,6 +858,10 @@ PrefabInstance:
       propertyPath: _level._onLevelUpEditor
       value: 
       objectReference: {fileID: 11400000, guid: 5b01fa8a1be53394c92a17b2e61e0dfa, type: 2}
+    - target: {fileID: 8670220506483404636, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: _level._level.ConstantValue
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
