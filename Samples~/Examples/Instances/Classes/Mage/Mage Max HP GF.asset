@@ -10,42 +10,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c8f691ef14c11b4a88b4f8921236cff, type: 3}
-  m_Name: Warr Physical Attack GF
+  m_Name: Mage Max HP GF
   m_EditorClassIdentifier: 
   maxLevel: {fileID: 11400000, guid: 4847a9947bf555e44ac442cec90dd517, type: 2}
   useConstantAtLvl1: 1
-  constantAtLvl1: 12
+  constantAtLvl1: 60
   levelToGrowthFormulas:
   - fromLevel: 2
-    growthFormula: PRV + 1.7
+    growthFormula: PRV + LVL * 0.6
   growthFoValues:
-  - 12
-  - 13.7
-  - 15.4
-  - 17.1
-  - 18.8
-  - 20.5
-  - 22.2
-  - 23.9
-  - 25.6
-  - 27.3
-  - 29
-  - 30.7
-  - 32.4
-  - 34.1
-  - 35.8
-  - 37.5
-  - 39.2
-  - 40.9
-  - 42.6
-  - 44.3
-  - 46
-  - 47.7
-  - 49.4
-  - 51.1
-  - 52.8
-  - 54.5
-  - 56.2
-  - 57.9
-  - 59.6
-  - 61.3
+  - 60
+  - 61.2
+  - 63
+  - 65.4
+  - 68.4
+  - 72
+  - 76.2
+  - 81
+  - 86.4
+  - 92.4
+  - 99
+  - 106.2
+  - 114
+  - 122.4
+  - 131.4
+  - 141
+  - 151.2
+  - 162
+  - 173.4
+  - 185.4
+  - 198
+  - 211.2
+  - 225
+  - 239.4
+  - 254.4
+  - 270
+  - 286.2
+  - 303
+  - 320.4
+  - 338.4

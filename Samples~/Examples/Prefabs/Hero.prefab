@@ -94,8 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2818951134667393855}
   - component: {fileID: 8670220506483404636}
-  - component: {fileID: 7408265270689454483}
   - component: {fileID: 7029690866317216375}
+  - component: {fileID: 7408265270689454483}
+  - component: {fileID: 1187093878296667405}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -149,6 +150,19 @@ MonoBehaviour:
     experienceGainedModifierStat: {fileID: 0}
     _onLevelUpEditor: {fileID: 0}
   spawnedEntityEvent: {fileID: 11400000, guid: ac4bd35e6138757008e416d86b3e2c9e, type: 2}
+--- !u!114 &7029690866317216375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5109753818745965210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c03871a68bb2a134fa2d05191b5635a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _class: {fileID: 0}
 --- !u!114 &7408265270689454483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +181,7 @@ MonoBehaviour:
     inspectorReservedPairs: []
     missingKeyPair: 0
   _onStatChanged: {fileID: 11400000, guid: f18033d9ecd0b9549ac7f11bf3ddbe11, type: 2}
---- !u!114 &7029690866317216375
+--- !u!114 &1187093878296667405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,7 +190,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 5109753818745965210}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c03871a68bb2a134fa2d05191b5635a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 70e0ec9b1b4b4c4d955bd902274685c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _class: {fileID: 0}
+  attrPointsPerLevel:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 69d2330a3b566624d8471ff5beabdb46, type: 2}
+  attrPointsTracker:
+    total: 1
+    available: 1
+    spentAttributePoints:
+      inspectorReservedPairs: []
+      missingKeyPair: 0
+  useClassBaseAttributes: 0
+  fixedBaseAttributeSet: {fileID: 0}
+  fixedBaseAttributes:
+    inspectorReservedPairs: []
+    missingKeyPair: 0

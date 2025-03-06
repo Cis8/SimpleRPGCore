@@ -12,11 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7acf63962105414baff9b28b479fe8d, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
-  _maxHpGrowthFormula: {fileID: 0}
-  attributeSet: {fileID: 0}
+  _maxHpGrowthFormula: {fileID: 11400000, guid: 567a990073d10454cadf1d5fc19d3578, type: 2}
+  attributeSet: {fileID: 11400000, guid: ba36ff71ad300284b913e7fa6e917084, type: 2}
   _statSet: {fileID: 11400000, guid: 2258bcf72906c37418b96a9355d90566, type: 2}
   attributeGrowthFormulas:
-    inspectorReservedPairs: []
+    inspectorReservedPairs:
+    - Key: {fileID: 11400000, guid: 3dbafc258e0a2e8438147feb0df6c527, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 058ab5cbb79308246a07bf5278d71b4e, type: 2}
+      Value: {fileID: 0}
+    - Key: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
+      Value: {fileID: 0}
     missingKeyPair: 0
   _statGrowthFormulas:
     inspectorReservedPairs:

@@ -10,42 +10,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c8f691ef14c11b4a88b4f8921236cff, type: 3}
-  m_Name: Warr Physical Attack GF
+  m_Name: Rogue Max HP GF
   m_EditorClassIdentifier: 
   maxLevel: {fileID: 11400000, guid: 4847a9947bf555e44ac442cec90dd517, type: 2}
   useConstantAtLvl1: 1
-  constantAtLvl1: 12
+  constantAtLvl1: 60
   levelToGrowthFormulas:
   - fromLevel: 2
-    growthFormula: PRV + 1.7
+    growthFormula: PRV + LVL * 0.8
   growthFoValues:
-  - 12
-  - 13.7
-  - 15.4
-  - 17.1
-  - 18.8
-  - 20.5
-  - 22.2
-  - 23.9
-  - 25.6
-  - 27.3
-  - 29
-  - 30.7
-  - 32.4
-  - 34.1
-  - 35.8
-  - 37.5
-  - 39.2
-  - 40.9
-  - 42.6
-  - 44.3
-  - 46
-  - 47.7
-  - 49.4
-  - 51.1
-  - 52.8
-  - 54.5
-  - 56.2
-  - 57.9
-  - 59.6
-  - 61.3
+  - 60
+  - 61.6
+  - 64
+  - 67.2
+  - 71.2
+  - 76
+  - 81.6
+  - 88
+  - 95.2
+  - 103.2
+  - 112
+  - 121.6
+  - 132
+  - 143.2
+  - 155.2
+  - 168
+  - 181.6
+  - 196
+  - 211.2
+  - 227.2
+  - 244
+  - 261.6
+  - 280
+  - 299.2
+  - 319.2
+  - 340
+  - 361.6
+  - 384
+  - 407.2
+  - 431.2

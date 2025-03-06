@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7acf63962105414baff9b28b479fe8d, type: 3}
-  m_Name: Mage
+  m_Name: Rogue
   m_EditorClassIdentifier: 
-  _maxHpGrowthFormula: {fileID: 11400000, guid: c5ebe749699b75044adc0751b1686360, type: 2}
+  _maxHpGrowthFormula: {fileID: 11400000, guid: 94ef0391efb7c6a4c827f9564e716d58, type: 2}
   attributeSet: {fileID: 11400000, guid: ba36ff71ad300284b913e7fa6e917084, type: 2}
   _statSet: {fileID: 11400000, guid: 2258bcf72906c37418b96a9355d90566, type: 2}
   attributeGrowthFormulas:
     inspectorReservedPairs:
     - Key: {fileID: 11400000, guid: 3dbafc258e0a2e8438147feb0df6c527, type: 2}
-      Value: {fileID: 11400000, guid: 3ee55c55575b48e41af701a7f54f72cf, type: 2}
+      Value: {fileID: 0}
     - Key: {fileID: 11400000, guid: 058ab5cbb79308246a07bf5278d71b4e, type: 2}
-      Value: {fileID: 11400000, guid: 23df07a0bb374f04fb1b70decec2dad5, type: 2}
+      Value: {fileID: 0}
     - Key: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
-      Value: {fileID: 11400000, guid: 311994fb3b2a04c42b405af3fc11c086, type: 2}
+      Value: {fileID: 0}
     missingKeyPair: 0
   _statGrowthFormulas:
     inspectorReservedPairs:
     - Key: {fileID: 11400000, guid: eea6a7fabb930d744996c838dcd627c0, type: 2}
-      Value: {fileID: 11400000, guid: 854c6c1b42a945e4a99d686c33eba95a, type: 2}
+      Value: {fileID: 11400000, guid: 5ded8c3694bbf33469ccf096f8a9a8e7, type: 2}
     - Key: {fileID: 11400000, guid: 78c5a1e09904c5e4181be0ec785407a7, type: 2}
-      Value: {fileID: 11400000, guid: 572c8039c7d81a6458fba12edf9549a9, type: 2}
+      Value: {fileID: 11400000, guid: 5cc463e5791580a47a566ad880deb636, type: 2}
     - Key: {fileID: 11400000, guid: a45eeee8fe40cb741abb9788db936b49, type: 2}
-      Value: {fileID: 11400000, guid: 572c8039c7d81a6458fba12edf9549a9, type: 2}
+      Value: {fileID: 11400000, guid: 8afc8aa30ab6afd419c09de9afda9e43, type: 2}
     missingKeyPair: 0
