@@ -1,3 +1,4 @@
+using System;
 using ElectricDrill.SimpleRpgCore.Attributes;
 using ElectricDrill.SimpleRpgCore.Events;
 using ElectricDrill.SimpleRpgCore.Stats;
@@ -45,6 +46,13 @@ namespace ElectricDrill.SimpleRpgCore
         }
 
         protected virtual void Update() {
+        }
+
+        private void OnValidate() {
+            // this is required so that if the level is updated, also the spendable attribute points are updated
+            if (TryGetComponent(out EntityAttributes attributes)) {
+                attributes.OnValidate();
+            }
         }
     }
 }
