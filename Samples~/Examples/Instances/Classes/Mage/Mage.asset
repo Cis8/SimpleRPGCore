@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7acf63962105414baff9b28b479fe8d, type: 3}
-  m_Name: Warrior
+  m_Name: Mage
   m_EditorClassIdentifier: 
   _maxHpGrowthFormula: {fileID: 0}
   attributeSet: {fileID: 0}
@@ -19,5 +19,11 @@ MonoBehaviour:
     inspectorReservedPairs: []
     missingKeyPair: 0
   _statGrowthFormulas:
-    inspectorReservedPairs: []
+    inspectorReservedPairs:
+    - Key: {fileID: 11400000, guid: eea6a7fabb930d744996c838dcd627c0, type: 2}
+      Value: {fileID: 11400000, guid: 854c6c1b42a945e4a99d686c33eba95a, type: 2}
+    - Key: {fileID: 11400000, guid: 78c5a1e09904c5e4181be0ec785407a7, type: 2}
+      Value: {fileID: 11400000, guid: 572c8039c7d81a6458fba12edf9549a9, type: 2}
+    - Key: {fileID: 11400000, guid: a45eeee8fe40cb741abb9788db936b49, type: 2}
+      Value: {fileID: 11400000, guid: 572c8039c7d81a6458fba12edf9549a9, type: 2}
     missingKeyPair: 0
