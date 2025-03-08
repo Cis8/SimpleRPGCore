@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c8f691ef14c11b4a88b4f8921236cff, type: 3}
-  m_Name: Mage Magic Power GF
+  m_Name: Mage Magical Power GF
   m_EditorClassIdentifier: 
   maxLevel: {fileID: 11400000, guid: 4847a9947bf555e44ac442cec90dd517, type: 2}
   useConstantAtLvl1: 1

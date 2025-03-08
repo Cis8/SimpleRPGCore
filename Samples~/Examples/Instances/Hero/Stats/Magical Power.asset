@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 875e0abf1aa6bdb44bdc526a468cca93, type: 3}
-  m_Name: Magic Power
+  m_Name: Magical Power
   m_EditorClassIdentifier: 
   hasMaxValue: 0
   maxValue: 0
   hasMinValue: 1
   minValue: 0
-  attributesScaling: {fileID: 0}
+  attributesScaling: {fileID: 11400000, guid: 21600a2929883fb47b992e6359465021, type: 2}

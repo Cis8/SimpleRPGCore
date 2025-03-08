@@ -16,4 +16,4 @@ MonoBehaviour:
   maxValue: 0
   hasMinValue: 1
   minValue: 0
-  attributesScaling: {fileID: 0}
+  attributesScaling: {fileID: 11400000, guid: a77485e96bfd1af41b6dfd9b804ba309, type: 2}
