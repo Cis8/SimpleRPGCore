@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using ElectricDrill.SimpleRpgCore.Attributes;
+using UnityEditor;
 using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore.Scaling
 {
-    [CreateAssetMenu(fileName = "New Attributes Scaling Component", menuName = "Simple RPG Core/Scaling/Attributes Component")]
     public class AttributesScalingComponent : SoSetScalingComponentBase<AttributeSet, Attribute>
     {
         protected override AttributeSet GetEntitySet(EntityCore entity) => entity.Attributes.AttributeSet;
@@ -31,5 +31,15 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
             }
         }
 #endif
+    }
+    
+    public static class AttributeScalingComponentMenuItems
+    {
+        [MenuItem("Assets/Create/Simple RPG Core/Scaling/Attribute Scaling Component %&A", false, 1)]
+        public static void CreateAttributeScalingComponent()
+        {
+            var asset = ScriptableObject.CreateInstance<AttributesScalingComponent>();
+            ProjectWindowUtil.CreateAsset(asset, "New Attribute Scaling Component.asset");
+        }
     }
 }

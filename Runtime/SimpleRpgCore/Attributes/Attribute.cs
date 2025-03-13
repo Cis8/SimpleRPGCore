@@ -1,10 +1,10 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 
 namespace ElectricDrill.SimpleRpgCore.Attributes
 {
-    [CreateAssetMenu(fileName = "New Attribute", menuName = "Simple RPG Core/Attribute")]
     [Serializable]
     public class Attribute : BoundedValue
     {
@@ -15,5 +15,15 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
             OnAttributeDeleted?.Invoke(attribute);
         }
 #endif
+    }
+    
+    public static class AttributeMenuItems
+    {
+        [MenuItem("Assets/Create/Simple RPG Core/Attribute _A", false, 0)]
+        public static void CreateAttribute()
+        {
+            var asset = ScriptableObject.CreateInstance<Attribute>();
+            ProjectWindowUtil.CreateAsset(asset, "New Attribute.asset");
+        }
     }
 }

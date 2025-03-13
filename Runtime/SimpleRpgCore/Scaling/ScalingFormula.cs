@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace ElectricDrill.SimpleRpgCore.Scaling {
-    [CreateAssetMenu(fileName = "New Scaling Formula", menuName = "Simple RPG Core/Scaling/Scaling Formula")]
     public class ScalingFormula : ScriptableObject
     {
         [SerializeField] private bool useScalingBaseValue;
@@ -73,6 +73,16 @@ namespace ElectricDrill.SimpleRpgCore.Scaling {
         private long CalculateTargetScalingComponents(EntityCore target) {
             return targetScalingComponents.Sum(component => component.CalculateValue(target)) +
                    _tmpTargetScalingComponents.Sum(component => component.CalculateValue(target));
+        }
+    }
+    
+    public static class ScalingFormulaMenuItems
+    {
+        [MenuItem("Assets/Create/Simple RPG Core/Scaling/Scaling Formula #S", false, 0)]
+        public static void CreateScalingFormula()
+        {
+            var asset = ScriptableObject.CreateInstance<ScalingFormula>();
+            ProjectWindowUtil.CreateAsset(asset, "New Scaling Formula.asset");
         }
     }
 }

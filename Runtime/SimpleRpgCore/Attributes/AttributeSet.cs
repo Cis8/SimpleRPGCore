@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using ElectricDrill.SimpleRpgCore.Stats;
 using ElectricDrill.SimpleRpgCore.Utils;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore.Attributes
 {
-    [CreateAssetMenu(fileName = "New Attribute Set", menuName = "Simple RPG Core/Attribute Set")]
     public class AttributeSet : ScriptableObject, IAttributeContainer
     {
         [SerializeField] private SerializableHashSet<Attribute> _attributes = new();
@@ -41,5 +41,15 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
             }
         }
 #endif
+    }
+    
+    public static class AttributeSetMenuItems
+    {
+        [MenuItem("Assets/Create/Simple RPG Core/Attribute Set &A", false, 1)]
+        public static void CreateAttributeSet()
+        {
+            var asset = ScriptableObject.CreateInstance<AttributeSet>();
+            ProjectWindowUtil.CreateAsset(asset, "New Attribute Set.asset");
+        }
     }
 }

@@ -1,12 +1,12 @@
 using System;
 using ElectricDrill.SimpleRpgCore.Scaling;
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace ElectricDrill.SimpleRpgCore.Stats
 {
-    [CreateAssetMenu(fileName = "New Stat", menuName = "Simple RPG Core/Stat")]
     public class Stat : BoundedValue
     {
         [SerializeField] [CanBeNull] private AttributesScalingComponent attributesScaling;
@@ -49,5 +49,15 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             OnStatDeleted?.Invoke(stat);
         }
 #endif
+    }
+    
+    public static class StatMenuItems
+    {
+        [MenuItem("Assets/Create/Simple RPG Core/Stat _S", false, 2)]
+        public static void CreateStat()
+        {
+            var asset = ScriptableObject.CreateInstance<Stat>();
+            ProjectWindowUtil.CreateAsset(asset, "New Stat.asset");
+        }
     }
 }

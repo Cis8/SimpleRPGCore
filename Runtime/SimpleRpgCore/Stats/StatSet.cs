@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ElectricDrill.SimpleRpgCore.Utils;
+using UnityEditor;
 using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore.Stats
 {
-    [CreateAssetMenu(fileName = "New StatSet", menuName = "Simple RPG Core/Stat Set")]
     public class StatSet : ScriptableObject, IStatContainer
     {
         [SerializeField] internal SerializableHashSet<Stat> _stats = new();
@@ -40,5 +40,15 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             }
         }
 #endif
+    }
+    
+    public static class StatSetMenuItems
+    {
+        [MenuItem("Assets/Create/Simple RPG Core/Stat Set &S", false, 3)]
+        public static void CreateStatSet()
+        {
+            var asset = ScriptableObject.CreateInstance<StatSet>();
+            ProjectWindowUtil.CreateAsset(asset, "New Stat Set.asset");
+        }
     }
 }

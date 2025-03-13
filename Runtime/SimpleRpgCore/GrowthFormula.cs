@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace ElectricDrill.SimpleRpgCore {
-    [CreateAssetMenu(fileName = "New Growth Formula", menuName = "Simple RPG Core/Growth Formula")]
     public class GrowthFormula : ScriptableObject
     {
         [SerializeField] internal IntVar maxLevel;
@@ -127,5 +126,15 @@ namespace ElectricDrill.SimpleRpgCore {
             }
         }
     #endif
+    }
+    
+    public static class GrowthFormulaMenuItems
+    {
+        [MenuItem("Assets/Create/Simple RPG Core/Growth Formula _G", false, 6)]
+        public static void CreateGrowthFormula()
+        {
+            var asset = ScriptableObject.CreateInstance<GrowthFormula>();
+            ProjectWindowUtil.CreateAsset(asset, "New Growth Formula.asset");
+        }
     }
 }

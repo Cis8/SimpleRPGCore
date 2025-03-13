@@ -11,7 +11,6 @@ using Attribute = ElectricDrill.SimpleRpgCore.Attributes.Attribute;
 
 namespace ElectricDrill.SimpleRpgCore
 {
-    [CreateAssetMenu(fileName = "New Class", menuName = "Simple RPG Core/Class")]
     public class Class : ScriptableObject, IStatSet
     {
         [SerializeField] protected GrowthFormula _maxHpGrowthFormula;
@@ -94,5 +93,15 @@ namespace ElectricDrill.SimpleRpgCore
             if (Selection.activeObject == this) OnValidate();
         }
 #endif
+    }
+    
+    public static class ClassMenuItems
+    {
+        [MenuItem("Assets/Create/Simple RPG Core/Class _C", false, 5)]
+        public static void CreateClass()
+        {
+            var asset = ScriptableObject.CreateInstance<Class>();
+            ProjectWindowUtil.CreateAsset(asset, "New Class.asset");
+        }
     }
 }

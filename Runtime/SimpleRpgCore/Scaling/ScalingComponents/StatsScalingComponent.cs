@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using ElectricDrill.SimpleRpgCore.Stats;
+using UnityEditor;
 using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore.Scaling
 {
-    [CreateAssetMenu(fileName = "New Stats Scaling Component", menuName = "Simple RPG Core/Scaling/Stats Component")]
     public class StatsScalingComponent : SoSetScalingComponentBase<StatSet, Stat>
     {
         protected override StatSet GetEntitySet(EntityCore entity) => entity.Stats.StatSet;
@@ -30,5 +30,15 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
             }
         }
 #endif
+    }
+    
+    public static class StatScalingComponentMenuItems
+    {
+        [MenuItem("Assets/Create/Simple RPG Core/Scaling/Stat Scaling Component %&S", false, 2)]
+        public static void CreateStatScalingComponent()
+        {
+            var asset = ScriptableObject.CreateInstance<StatsScalingComponent>();
+            ProjectWindowUtil.CreateAsset(asset, "New Stat Scaling Component.asset");
+        }
     }
 }
