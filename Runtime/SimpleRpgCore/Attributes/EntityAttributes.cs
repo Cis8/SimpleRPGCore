@@ -152,7 +152,7 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
         internal void OnValidate() {
 #if UNITY_EDITOR
             // -1 since we want to add them starting from level 2
-            attrPointsTracker.Init(attrPointsPerLevel * GetComponent<EntityCore>().Level - 1);
+            attrPointsTracker.Init(attrPointsPerLevel * (GetComponent<EntityCore>().Level - 1));
             attrPointsTracker.Validate();
             
             lock (fixedBaseAttributes) {
