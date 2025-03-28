@@ -67,7 +67,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             
             // Check if useClassBaseAttributes is true
             SerializedProperty useClassBaseAttributesProp = serializedObject.FindProperty("useClassBaseAttributes");
-            EditorGUILayout.PropertyField(useClassBaseAttributesProp, new GUIContent("Use Class' Base Attributes"));
+            EditorGUILayout.PropertyField(useClassBaseAttributesProp, new GUIContent("Use Class Base Attributes"));
             if (useClassBaseAttributesProp.boolValue == false)
             {
                 // FIXED BASE ATTRIBUTES

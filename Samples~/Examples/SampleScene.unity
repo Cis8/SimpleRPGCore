@@ -132,6 +132,8 @@ GameObject:
   m_Component:
   - component: {fileID: 160504563}
   - component: {fileID: 160504564}
+  - component: {fileID: 160504566}
+  - component: {fileID: 160504567}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Untagged
@@ -206,6 +208,75 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &160504566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160504562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f37772fc10564479c048779944d172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level:
+    _level:
+      UseConstant: 1
+      ConstantValue: 1
+      Variable: {fileID: 0}
+    _maxLevel:
+      UseConstant: 1
+      ConstantValue: 100
+      Variable: {fileID: 0}
+    _experienceGrowthFormula: {fileID: 0}
+    currentTotalExperience:
+      isReadOnly: 1
+      UseConstant: 1
+      ConstantValue: 0
+      Variable: {fileID: 0}
+    experienceGainedModifierStat: {fileID: 0}
+    _onLevelUpEditor: {fileID: 0}
+  spawnedEntityEvent: {fileID: 11400000, guid: ac4bd35e6138757008e416d86b3e2c9e, type: 2}
+--- !u!114 &160504567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160504562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e0ec9b1b4b4c4d955bd902274685c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attrPointsPerLevel:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  attrPointsTracker:
+    total: 0
+    available: 0
+    spentAttributePoints:
+      inspectorReservedPairs:
+      - Key: {fileID: 11400000, guid: 3dbafc258e0a2e8438147feb0df6c527, type: 2}
+        Value: 0
+      - Key: {fileID: 11400000, guid: 058ab5cbb79308246a07bf5278d71b4e, type: 2}
+        Value: 0
+      - Key: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
+        Value: 0
+      missingKeyPair: 0
+  useClassBaseAttributes: 0
+  fixedBaseAttributeSet: {fileID: 11400000, guid: ba36ff71ad300284b913e7fa6e917084, type: 2}
+  fixedBaseAttributes:
+    inspectorReservedPairs:
+    - Key: {fileID: 11400000, guid: 3dbafc258e0a2e8438147feb0df6c527, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: 058ab5cbb79308246a07bf5278d71b4e, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
+      Value: 0
+    missingKeyPair: 0
 --- !u!1 &247449969
 GameObject:
   m_ObjectHideFlags: 0
