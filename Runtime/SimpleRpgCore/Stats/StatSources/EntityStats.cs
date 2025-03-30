@@ -88,6 +88,12 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         
         internal Dictionary<Stat, long>.KeyCollection FixedBaseStatsKeys => _fixedBaseStats.Keys;
 
+        private StatSetInstance FlatModifiers => _flatModifiers ??= new StatSetInstance(StatSet);
+        
+        private StatSetInstance PercentageModifiers => _percentageModifiers ??= new StatSetInstance(StatSet);
+        
+        private Dictionary<Stat, StatSetInstance> StatToStatModifiers => _statToStatModifiers ??= new Dictionary<Stat, StatSetInstance>();
+
         /// <summary>
         /// Sets the value of a fixed base stat.
         /// </summary>
@@ -135,7 +141,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         /// <param name="stat">The stat to get the base value of.</param>
         /// <returns>The base value of the stat. The value is clamped to the stat's min and max values.</returns>
         public long GetBase(Stat stat) {
-            return GetBaseAt(stat, _entityCore.Level);
+            return GetBaseAt(stat, EntityCore.Level);
         }
 
         private long GetBaseAt(Stat stat, int level) {
@@ -155,8 +161,8 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
         
         private long GetAttributesStatBonus(Stat stat) {
-            if (_entityCore.Attributes && _entityCore.Attributes.enabled)
-                return stat.AttributesScaling?.CalculateValue(_entityCore) ?? 0;
+            if (EntityCore.Attributes && EntityCore.Attributes.enabled)
+                return stat.AttributesScaling?.CalculateValue(EntityCore) ?? 0;
             return 0;
         }
         
@@ -178,25 +184,25 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         private long CalculateFinalStat(Stat stat) {
             var statValue = CalculateFlatStat(stat);
             
-            if (_statToStatModifiers.ContainsKey(stat)) {
+            if (StatToStatModifiers.ContainsKey(stat)) {
                 // apply stat to stat modifiers
-                var statToStatModification = _statToStatModifiers[stat].Select(kv => {
+                var statToStatModification = StatToStatModifiers[stat].Select(kv => {
                     Percentage sourceStatPerc = kv.Value;
                     return sourceStatPerc == 0 ? 0 : (long)Math.Round(CalculateFlatStat(kv.Key) * sourceStatPerc);
                 }).Sum();
                 statValue += statToStatModification;
             }
 
-            if (_percentageModifiers.Contains(stat)) {
+            if (PercentageModifiers.Contains(stat)) {
                 // apply percentage modifiers
-                var percentageModifier = (long)Math.Round(statValue * _percentageModifiers.GetAsPercentage(stat));
+                var percentageModifier = (long)Math.Round(statValue * PercentageModifiers.GetAsPercentage(stat));
                 statValue += percentageModifier;
             }
             
             return statValue;
 
             long CalculateFlatStat(Stat flatStat) {
-                return GetBase(flatStat) + _flatModifiers[flatStat];
+                return GetBase(flatStat) + FlatModifiers[flatStat];
             }
         }
 
@@ -210,7 +216,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             var dependentStats = GetDependentStats(stat);
             var oldDependentValues = dependentStats.ToDictionary(dependentStat => dependentStat, Get);
 
-            _flatModifiers.AddValue(stat, value);
+            FlatModifiers.AddValue(stat, value);
             long newValue = Get(stat);
             CheckRaiseStatChanged(stat, oldValue, newValue);
 
@@ -229,11 +235,11 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         /// <param name="source">The source stat.</param>
         /// <param name="percentage">The <see cref="Percentage"/> of the source stat to add to the target stat.</param>
         public void AddStatToStatModifer(Stat target, Stat source, Percentage percentage) {
-            if (!_statToStatModifiers.ContainsKey(target)) {
-                _statToStatModifiers.Add(target, new StatSetInstance(StatSet));
+            if (!StatToStatModifiers.ContainsKey(target)) {
+                StatToStatModifiers.Add(target, new StatSetInstance(StatSet));
             }
             long oldValue = Get(target);
-            _statToStatModifiers[target].AddValue(source, (long)percentage);
+            StatToStatModifiers[target].AddValue(source, (long)percentage);
             long newValue = Get(target);
             CheckRaiseStatChanged(target, oldValue, newValue);
         }
@@ -246,7 +252,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         /// <param name="value">The value of the percentage modifier.</param>
         public void AddPercentageModifier(Stat stat, Percentage value) {
             long oldValue = Get(stat);
-            _percentageModifiers.AddValue(stat, (long)value);
+            PercentageModifiers.AddValue(stat, (long)value);
             long newValue = Get(stat);
             CheckRaiseStatChanged(stat, oldValue, newValue);   
         }
@@ -268,7 +274,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         private List<Stat> GetDependentStats(Stat stat) {
             var dependentStats = new List<Stat>();
 
-            if (_statToStatModifiers.TryGetValue(stat, out var statSetInstanceForStat)) {
+            if (StatToStatModifiers.TryGetValue(stat, out var statSetInstanceForStat)) {
                 foreach (var kvp in statSetInstanceForStat) {
                     if (kvp.Value != 0) {
                         dependentStats.Add(kvp.Key);
@@ -288,7 +294,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
         
         private void OnEnable() {
-            _entityCore = GetComponent<EntityCore>();
+            EntityCore = GetComponent<EntityCore>();
             EntityCore.Level.OnLevelUp += OnLevelUp;
 #if UNITY_EDITOR
             OnValidate();
@@ -326,13 +332,5 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             }
         }
 #endif
-        
-        internal void InitializeStatFlatModifiersIfNull() {
-            _flatModifiers ??= new StatSetInstance(StatSet);
-        }
-        
-        internal void InitializePercentageStatModifiersIfNull() {
-            _percentageModifiers ??= new StatSetInstance(StatSet);
-        }
     }
 }
