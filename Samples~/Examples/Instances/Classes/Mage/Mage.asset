@@ -23,6 +23,8 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 23df07a0bb374f04fb1b70decec2dad5, type: 2}
     - Key: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
       Value: {fileID: 11400000, guid: 311994fb3b2a04c42b405af3fc11c086, type: 2}
+    - Key: {fileID: 11400000, guid: 35507f0c3658e6c4092ffecb0ae42a3f, type: 2}
+      Value: {fileID: 11400000, guid: 27ea73eae0d3e5e4291834ddd3199f4a, type: 2}
     missingKeyPair: 0
   _statGrowthFormulas:
     inspectorReservedPairs:
@@ -32,4 +34,6 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 572c8039c7d81a6458fba12edf9549a9, type: 2}
     - Key: {fileID: 11400000, guid: a45eeee8fe40cb741abb9788db936b49, type: 2}
       Value: {fileID: 11400000, guid: 572c8039c7d81a6458fba12edf9549a9, type: 2}
+    - Key: {fileID: 11400000, guid: 903624dab7dc3934aa3c0fa07825bfc3, type: 2}
+      Value: {fileID: 11400000, guid: 0400e15582973904896f8fbc6407c71d, type: 2}
     missingKeyPair: 0

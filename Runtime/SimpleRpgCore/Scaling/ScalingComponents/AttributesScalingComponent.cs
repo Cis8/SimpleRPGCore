@@ -8,9 +8,9 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
 {
     public class AttributesScalingComponent : SoSetScalingComponentBase<AttributeSet, Attribute>
     {
-        protected override AttributeSet GetEntitySet(EntityCore entity) => entity.Attributes.AttributeSet;
+        protected override AttributeSet GetEntitySet(IEntityCore entity) => entity.Attributes.AttributeSet;
 
-        protected override long GetEntityValue(EntityCore entity, Attribute key) => entity.Attributes.Get(key);
+        protected override long GetEntityValue(IEntityCore entity, Attribute key) => entity.Attributes.Get(key);
         
         protected override IEnumerable<Attribute> GetSetItems() => _set.Attributes;
         

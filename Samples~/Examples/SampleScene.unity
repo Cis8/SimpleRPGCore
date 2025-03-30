@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 160504564}
   - component: {fileID: 160504566}
   - component: {fileID: 160504567}
+  - component: {fileID: 160504568}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Untagged
@@ -265,6 +266,8 @@ MonoBehaviour:
         Value: 0
       - Key: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
         Value: 0
+      - Key: {fileID: 11400000, guid: 35507f0c3658e6c4092ffecb0ae42a3f, type: 2}
+        Value: 0
       missingKeyPair: 0
   useClassBaseAttributes: 0
   fixedBaseAttributeSet: {fileID: 11400000, guid: ba36ff71ad300284b913e7fa6e917084, type: 2}
@@ -276,7 +279,35 @@ MonoBehaviour:
       Value: 0
     - Key: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
       Value: 0
+    - Key: {fileID: 11400000, guid: 35507f0c3658e6c4092ffecb0ae42a3f, type: 2}
+      Value: 0
     missingKeyPair: 0
+--- !u!114 &160504568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160504562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74063aca2af3e749bb9ad891cf6fa2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useBaseStatsFromClass: 0
+  fixedBaseStatsStatSet: {fileID: 11400000, guid: 2258bcf72906c37418b96a9355d90566, type: 2}
+  _fixedBaseStats:
+    inspectorReservedPairs:
+    - Key: {fileID: 11400000, guid: eea6a7fabb930d744996c838dcd627c0, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: 78c5a1e09904c5e4181be0ec785407a7, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: a45eeee8fe40cb741abb9788db936b49, type: 2}
+      Value: 0
+    - Key: {fileID: 11400000, guid: 903624dab7dc3934aa3c0fa07825bfc3, type: 2}
+      Value: 0
+    missingKeyPair: 0
+  _onStatChanged: {fileID: 11400000, guid: f18033d9ecd0b9549ac7f11bf3ddbe11, type: 2}
 --- !u!1 &247449969
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,6 +730,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2818951134667393855, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
   m_PrefabInstance: {fileID: 3937047464629925469}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1730397364 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7408265270689454483, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+  m_PrefabInstance: {fileID: 3937047464629925469}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74063aca2af3e749bb9ad891cf6fa2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1730397367 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8670220506483404636, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+  m_PrefabInstance: {fileID: 3937047464629925469}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f37772fc10564479c048779944d172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1984116647
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,8 +911,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: fixedBaseAttributes.inspectorReservedPairs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: fixedBaseAttributes.inspectorReservedPairs.Array.data[3].Key
+      value: 
+      objectReference: {fileID: 11400000, guid: 35507f0c3658e6c4092ffecb0ae42a3f, type: 2}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
       propertyPath: attrPointsTracker.spentAttributePoints.inspectorReservedPairs.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
       propertyPath: attrPointsTracker.spentAttributePoints.inspectorReservedPairs.Array.data[0].Key
@@ -873,6 +934,10 @@ PrefabInstance:
       propertyPath: attrPointsTracker.spentAttributePoints.inspectorReservedPairs.Array.data[2].Key
       value: 
       objectReference: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
+    - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: attrPointsTracker.spentAttributePoints.inspectorReservedPairs.Array.data[3].Key
+      value: 
+      objectReference: {fileID: 11400000, guid: 35507f0c3658e6c4092ffecb0ae42a3f, type: 2}
     - target: {fileID: 1187093878296667405, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
       propertyPath: attrPointsTracker.spentAttributePoints.inspectorReservedPairs.Array.data[0].Value
       value: 0
@@ -925,6 +990,10 @@ PrefabInstance:
       propertyPath: _class
       value: 
       objectReference: {fileID: 11400000, guid: 50c59d3a12b545f4e955a76fa1d8880a, type: 2}
+    - target: {fileID: 7408265270689454483, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
+      propertyPath: useBaseStatsFromClass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8670220506483404636, guid: e9e3dd622efc82d4782c585513d685b1, type: 3}
       propertyPath: _level._onLevelUpEditor
       value: 
@@ -1194,6 +1263,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HeroPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5981704092095980253, guid: 19c769419a7cf1144b60fc204f0c0670, type: 3}
+      propertyPath: entityCore
+      value: 
+      objectReference: {fileID: 1730397367}
+    - target: {fileID: 5981704092095980253, guid: 19c769419a7cf1144b60fc204f0c0670, type: 3}
+      propertyPath: readerType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6348064548012496903, guid: 19c769419a7cf1144b60fc204f0c0670, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.3038025
@@ -1254,6 +1331,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -0.3038025
       objectReference: {fileID: 0}
+    - target: {fileID: 9176336018590795326, guid: 19c769419a7cf1144b60fc204f0c0670, type: 3}
+      propertyPath: entityCore
+      value: 
+      objectReference: {fileID: 1730397367}
+    - target: {fileID: 9176336018590795326, guid: 19c769419a7cf1144b60fc204f0c0670, type: 3}
+      propertyPath: entityStats
+      value: 
+      objectReference: {fileID: 1730397364}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

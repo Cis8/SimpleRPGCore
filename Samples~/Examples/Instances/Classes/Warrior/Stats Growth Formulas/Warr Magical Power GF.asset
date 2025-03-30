@@ -17,7 +17,7 @@ MonoBehaviour:
   constantAtLvl1: 0
   levelToGrowthFormulas:
   - fromLevel: 1
-    growthFormula: 
+    growthFormula: 0
   growthFoValues:
   - 0
   - 0

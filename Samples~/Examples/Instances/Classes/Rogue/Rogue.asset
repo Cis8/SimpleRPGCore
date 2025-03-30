@@ -18,11 +18,13 @@ MonoBehaviour:
   attributeGrowthFormulas:
     inspectorReservedPairs:
     - Key: {fileID: 11400000, guid: 3dbafc258e0a2e8438147feb0df6c527, type: 2}
-      Value: {fileID: 0}
+      Value: {fileID: 11400000, guid: 36a68eeef3e625641830baadf158f2ec, type: 2}
     - Key: {fileID: 11400000, guid: 058ab5cbb79308246a07bf5278d71b4e, type: 2}
-      Value: {fileID: 0}
+      Value: {fileID: 11400000, guid: 58e55731e463d0f458543f8867b8b3c1, type: 2}
     - Key: {fileID: 11400000, guid: 6ad8d2dbbe6bdf047b28df6b1d101832, type: 2}
-      Value: {fileID: 0}
+      Value: {fileID: 11400000, guid: 47e6d6bb9d1f969418da0e0559c9dd6e, type: 2}
+    - Key: {fileID: 11400000, guid: 35507f0c3658e6c4092ffecb0ae42a3f, type: 2}
+      Value: {fileID: 11400000, guid: 051f03f1e89a3e24f9d6270ab7c207c4, type: 2}
     missingKeyPair: 0
   _statGrowthFormulas:
     inspectorReservedPairs:
@@ -32,4 +34,6 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 5cc463e5791580a47a566ad880deb636, type: 2}
     - Key: {fileID: 11400000, guid: a45eeee8fe40cb741abb9788db936b49, type: 2}
       Value: {fileID: 11400000, guid: 8afc8aa30ab6afd419c09de9afda9e43, type: 2}
+    - Key: {fileID: 11400000, guid: 903624dab7dc3934aa3c0fa07825bfc3, type: 2}
+      Value: {fileID: 11400000, guid: eaa00df7f180b63439dcd1940379c6d1, type: 2}
     missingKeyPair: 0
