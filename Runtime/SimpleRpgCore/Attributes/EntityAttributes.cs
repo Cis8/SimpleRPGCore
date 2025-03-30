@@ -77,23 +77,12 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
             }
         }
 
-        protected AttributeSetInstance FlatModifiers {
-            get {
-                InitializeAttributeFlatModifiersIfNull();
-                return _flatModifiers;
-            }
-        }
+        protected AttributeSetInstance FlatModifiers => _flatModifiers ??= new AttributeSetInstance(AttributeSet);
         
-        protected AttributeSetInstance PercentageModifiers {
-            get {
-                InitializeAttributePercentageModifiersIfNull();
-                return _percentageModifiers;
-            }
-        }
+        protected AttributeSetInstance PercentageModifiers => _percentageModifiers ??= new AttributeSetInstance(AttributeSet);
 
         private void Awake() {
-            InitializeAttributeFlatModifiersIfNull();
-            InitializeAttributePercentageModifiersIfNull();
+
         }
 
         public long Get(Attribute attribute) {
@@ -210,13 +199,5 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
             }
         }
 #endif
-        
-        internal void InitializeAttributeFlatModifiersIfNull() {
-            _flatModifiers ??= new AttributeSetInstance(AttributeSet);
-        }
-        
-        internal void InitializeAttributePercentageModifiersIfNull() {
-            _percentageModifiers ??= new AttributeSetInstance(AttributeSet);
-        }
     }
 }
