@@ -14,17 +14,17 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
         
         [SerializeField, HideInInspector] internal SerializableDictionary<KeyType, double> _scalingAttributeValues = new();
 
-        public override long CalculateValue(EntityCore entity) {
+        public override long CalculateValue(IEntityCore entity) {
             Assert.IsNotNull(_set, $"StatSet of {name} is missing");
-            Assert.AreEqual(_set, GetEntitySet(entity), $"{typeof(SetType)} of {name} of {GetType()} ({_set.name}) does not match {entity.name}'s Set ({GetEntitySet(entity).name})");
+            Assert.AreEqual(_set, GetEntitySet(entity), $"{typeof(SetType)} of {name} of {GetType()} ({_set.name}) does not match {entity.Name}'s Set ({GetEntitySet(entity).name})");
             return _scalingAttributeValues.Sum(attributeMapping => {
                 var value = GetEntityValue(entity, attributeMapping.Key);
                 return (long) Math.Round(value * attributeMapping.Value);
             });
         }
 
-        protected abstract SetType GetEntitySet(EntityCore entity);
-        protected abstract long GetEntityValue(EntityCore entity, KeyType key);
+        protected abstract SetType GetEntitySet(IEntityCore entity);
+        protected abstract long GetEntityValue(IEntityCore entity, KeyType key);
 
         protected virtual void OnValidate() {
             if (_set != null) {

@@ -8,9 +8,9 @@ namespace ElectricDrill.SimpleRpgCore.Scaling
 {
     public class StatsScalingComponent : SoSetScalingComponentBase<StatSet, Stat>
     {
-        protected override StatSet GetEntitySet(EntityCore entity) => entity.Stats.StatSet;
+        protected override StatSet GetEntitySet(IEntityCore entity) => entity.Stats.StatSet;
 
-        protected override long GetEntityValue(EntityCore entity, Stat key) => entity.Stats.Get(key);
+        protected override long GetEntityValue(IEntityCore entity, Stat key) => entity.Stats.Get(key);
         protected override IEnumerable<Stat> GetSetItems() => _set.Stats;
         
 #if UNITY_EDITOR

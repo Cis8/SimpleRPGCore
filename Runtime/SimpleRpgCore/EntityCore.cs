@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore
 {
-    public class EntityCore : MonoBehaviour, ILevel, IAttributes
+    public class EntityCore : MonoBehaviour, IEntityCore, ILevel, IAttributes
     {
         [SerializeField] private EntityLevel _level;
         
@@ -21,7 +21,9 @@ namespace ElectricDrill.SimpleRpgCore
         public virtual EntityLevel Level { get => _level; internal set => _level = value; }
         public virtual EntityStats Stats => _stats ? _stats : GetComponent<EntityStats>();
         public virtual EntityAttributes Attributes => _attributes ? _attributes : GetComponent<EntityAttributes>();
-        
+
+        public string Name => name;
+
         internal EntityCoreGameEvent SpawnedEntityEvent {
             get => spawnedEntityEvent;
             set => spawnedEntityEvent = value;

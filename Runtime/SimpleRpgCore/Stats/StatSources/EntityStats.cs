@@ -21,7 +21,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
     [RequireComponent(typeof(EntityCore))]
     public class EntityStats : MonoBehaviour, IStatSet
     {
-        private EntityCore _entityCore;
+        private IEntityCore _entityCore;
 
         [SerializeField, HideInInspector] private bool useBaseStatsFromClass = true;
         /// <summary>
@@ -50,10 +50,18 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         [SerializeField, HideInInspector] private StatChangedGameEvent _onStatChanged;
 
         /// <summary>
-        /// The conveniently cached <see cref="EntityCore"/> component of the entity.
+        /// The entity core associated with this stats component.
         /// </summary>
-        public EntityCore EntityCore {
-            get => _entityCore;
+        public IEntityCore EntityCore {
+            get {
+                if (_entityCore != null)
+                    return _entityCore;
+                
+                if (TryGetComponent<IEntityCore>(out var component))
+                    return _entityCore = component;
+                
+                throw new Exception($"IEntityCore component must be attached to the {gameObject.name} GameObject");
+            }
             internal set => _entityCore = value;
         }
 
@@ -108,10 +116,8 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
 
         private void Awake() {
-            _entityCore = GetComponent<EntityCore>();
-            _statToStatModifiers ??= new Dictionary<Stat, StatSetInstance>();
-            InitializeStatFlatModifiersIfNull();
-            InitializePercentageStatModifiersIfNull();
+            if (_entityCore == null)
+                _entityCore = GetComponent<IEntityCore>();
         }
         
         private void Start() {
