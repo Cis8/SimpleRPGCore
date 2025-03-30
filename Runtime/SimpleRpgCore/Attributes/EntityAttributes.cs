@@ -43,7 +43,12 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
                 return _entityCore;
             }
         }
-        public AttributePointsTracker AttrPointsTracker => attrPointsTracker;
+        internal AttributePointsTracker AttrPointsTracker => attrPointsTracker;
+        
+        public void SpendOn(Attribute attribute, int amount) {
+            attrPointsTracker.SpendOn(attribute, amount);
+            AttributesCache.Invalidate(attribute);
+        }
         
         public AttributeSet AttributeSet {
             get {

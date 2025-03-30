@@ -58,7 +58,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                 if (newSpentPoints != spentPoints)
                 {
                     Undo.RecordObject(entityAttributes, "Modify Spent Attribute Points");
-                    tracker.SpendOn(attribute, (int)(newSpentPoints - spentPoints));
+                    entityAttributes.SpendOn(attribute, (int)(newSpentPoints - spentPoints));
                 }
                 EditorGUILayout.EndHorizontal();
             }
