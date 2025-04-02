@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ElectricDrill.SimpleRpgCore
 {
-    public class EntityCore : MonoBehaviour, IEntityCore, ILevel, IAttributes
+    public class EntityCore : MonoBehaviour, ILevel, IAttributes
     {
         [SerializeField] private EntityLevel _level;
         

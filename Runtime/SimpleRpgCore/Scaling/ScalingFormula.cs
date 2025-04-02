@@ -26,26 +26,26 @@ namespace ElectricDrill.SimpleRpgCore.Scaling {
         public List<ScalingComponent> TmpTargetScalingComponents => _tmpTargetScalingComponents;
 
 
-        public long CalculateValue(IEntityCore self) {
+        public long CalculateValue(EntityCore self) {
             Assert.IsTrue(targetScalingComponents.Count == 0, "This formula requires a target entity to calculate the value");
             return CalculateBaseValue() +
                    CalculateSelfScalingComponents(self);
         }
         
-        public long CalculateValue(IEntityCore self, int level) {
+        public long CalculateValue(EntityCore self, int level) {
             Assert.IsTrue(targetScalingComponents.Count == 0, "This formula requires a target entity to calculate the value");
             Assert.IsTrue(useScalingBaseValue, "This formula does not require a level to calculate the value");
             return CalculateBaseValue(level) +
                    CalculateSelfScalingComponents(self);
         }
         
-        public long CalculateValue(IEntityCore self, IEntityCore target) {
+        public long CalculateValue(EntityCore self, EntityCore target) {
             return CalculateBaseValue() +
                    CalculateSelfScalingComponents(self) +
                    CalculateTargetScalingComponents(target);
         }
         
-        public long CalculateValue(IEntityCore self, IEntityCore target, int level) {
+        public long CalculateValue(EntityCore self, EntityCore target, int level) {
             Assert.IsTrue(useScalingBaseValue, "This formula does not require a level to calculate the value");
             return CalculateBaseValue(level) +
                    CalculateSelfScalingComponents(self) +
@@ -65,12 +65,12 @@ namespace ElectricDrill.SimpleRpgCore.Scaling {
             return useScalingBaseValue ? scalingBaseValue.GetGrowthValue(level) : fixedBaseValue;
         }
         
-        private long CalculateSelfScalingComponents(IEntityCore self) {
+        private long CalculateSelfScalingComponents(EntityCore self) {
             return selfScalingComponents.Sum(component => component.CalculateValue(self)) +
                    _tmpSelfScalingComponents.Sum(component => component.CalculateValue(self));
         }
         
-        private long CalculateTargetScalingComponents(IEntityCore target) {
+        private long CalculateTargetScalingComponents(EntityCore target) {
             return targetScalingComponents.Sum(component => component.CalculateValue(target)) +
                    _tmpTargetScalingComponents.Sum(component => component.CalculateValue(target));
         }

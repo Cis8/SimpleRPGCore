@@ -21,7 +21,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
     [RequireComponent(typeof(EntityCore))]
     public class EntityStats : MonoBehaviour, IStatSet
     {
-        private IEntityCore _entityCore;
+        private EntityCore _entityCore;
 
         [SerializeField, HideInInspector] private bool useBaseStatsFromClass = true;
         /// <summary>
@@ -52,12 +52,12 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         /// <summary>
         /// The entity core associated with this stats component.
         /// </summary>
-        public IEntityCore EntityCore {
+        public EntityCore EntityCore {
             get {
                 if (_entityCore != null)
                     return _entityCore;
                 
-                if (TryGetComponent<IEntityCore>(out var component))
+                if (TryGetComponent<EntityCore>(out var component))
                     return _entityCore = component;
                 
                 throw new Exception($"IEntityCore component must be attached to the {gameObject.name} GameObject");
@@ -122,8 +122,8 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
 
         private void Awake() {
-            if (_entityCore == null)
-                _entityCore = GetComponent<IEntityCore>();
+            if (!EntityCore && TryGetComponent<EntityCore>(out var comp))
+                EntityCore = comp;
         }
         
         private void Start() {
@@ -294,8 +294,10 @@ namespace ElectricDrill.SimpleRpgCore.Stats
         }
         
         private void OnEnable() {
-            EntityCore = GetComponent<EntityCore>();
-            EntityCore.Level.OnLevelUp += OnLevelUp;
+            if (!EntityCore && TryGetComponent<EntityCore>(out var comp)) {
+                EntityCore = comp;
+                EntityCore.Level.OnLevelUp += OnLevelUp;
+            }
 #if UNITY_EDITOR
             OnValidate();
 #endif
