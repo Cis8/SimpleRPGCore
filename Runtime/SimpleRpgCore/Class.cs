@@ -11,7 +11,7 @@ using Attribute = ElectricDrill.SimpleRpgCore.Attributes.Attribute;
 
 namespace ElectricDrill.SimpleRpgCore
 {
-    public class Class : ScriptableObject, IStatSet
+    public class Class : ScriptableObject, IStatSetSource
     {
         [SerializeField] protected GrowthFormula _maxHpGrowthFormula;
         [SerializeField] protected AttributeSet attributeSet;

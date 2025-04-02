@@ -19,7 +19,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
     /// When stats change because of a modifier of any kind, the assigned <see cref="StatChangedGameEvent"/> is raised.
     /// </summary>
     [RequireComponent(typeof(EntityCore))]
-    public class EntityStats : MonoBehaviour, IStatSet
+    public class EntityStats : MonoBehaviour, IStatSetSource
     {
         private EntityCore _entityCore;
 

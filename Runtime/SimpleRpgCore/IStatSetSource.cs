@@ -2,7 +2,7 @@ using ElectricDrill.SimpleRpgCore.Stats;
 
 namespace ElectricDrill.SimpleRpgCore
 {
-    public interface IStatSet
+    public interface IStatSetSource
     {
         StatSet StatSet { get; }
     }
