@@ -310,7 +310,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
 #endif
         }
 
-        private void OnValidate() {
+        internal void OnValidate() {
             if (!useBaseStatsFromClass) {
                 InitializeFixedBaseStats();
             }
@@ -320,19 +320,5 @@ namespace ElectricDrill.SimpleRpgCore.Stats
             InitializationUtils.RefreshInspectorReservedValues(ref _fixedBaseStats.inspectorReservedPairs, fixedBaseStatsStatSet?.Stats);
             _fixedBaseStats.OnAfterDeserialize();
         }
-        
-        // UTILS
-#if UNITY_EDITOR
-        static EntityStats()
-        {
-            Selection.selectionChanged += OnSelectionChanged;
-        }
-        
-        private static void OnSelectionChanged() {
-            if (Selection.activeObject is GameObject selectedObject && selectedObject.TryGetComponent<EntityStats>(out var entityStats)) {
-                entityStats.OnValidate();
-            }
-        }
-#endif
     }
 }

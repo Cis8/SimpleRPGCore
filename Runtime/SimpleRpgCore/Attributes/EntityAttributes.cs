@@ -173,7 +173,6 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
             AttributesCache.InvalidateAll();
 #if UNITY_EDITOR
             OnValidate();
-            Selection.selectionChanged += OnSelectionChanged;
 #endif
         }
         
@@ -182,22 +181,7 @@ namespace ElectricDrill.SimpleRpgCore.Attributes
             AttributesCache.InvalidateAll();
 #if UNITY_EDITOR
             OnValidate();
-            Selection.selectionChanged -= OnSelectionChanged;
 #endif
         }
-        
-        // UTILS
-#if UNITY_EDITOR
-        static EntityAttributes()
-        {
-            Selection.selectionChanged += OnSelectionChanged;
-        }
-        
-        private static void OnSelectionChanged() {
-            if (Selection.activeObject is GameObject selectedObject && selectedObject.TryGetComponent<EntityAttributes>(out var entityAttributes)) {
-                entityAttributes.OnValidate();
-            }
-        }
-#endif
     }
 }

@@ -105,5 +105,19 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                 EditorUtility.SetDirty(entityAttributes);
             }
         }
+        
+        // UTILS
+#if UNITY_EDITOR
+        static EntityAttributesEditor()
+        {
+            Selection.selectionChanged += OnSelectionChanged;
+        }
+        
+        private static void OnSelectionChanged() {
+            if (Selection.activeObject is GameObject selectedObject && selectedObject.TryGetComponent<EntityAttributes>(out var entityAttributes)) {
+                entityAttributes.OnValidate();
+            }
+        }
+#endif
     }
 }
