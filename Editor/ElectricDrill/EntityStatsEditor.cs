@@ -1,4 +1,5 @@
 using ElectricDrill.SimpleRpgCore.Stats;
+using static ElectricDrill.SimpleRpgCore.CstmEditor.InspectorTypography;
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
@@ -29,12 +30,16 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             DrawDefaultInspector();
 
             // Draw the _useClassBaseStats property
-            EditorGUILayout.PropertyField(useClassBaseStats);
-
+            RequiredProperty(useClassBaseStats,
+                "Use Base Stats From Class",
+                "If true, base stats are derived from the attached IClassSource component. If false, uses the fixedBaseStatsStatSet and fixedBaseStats values.");
+            
             // Conditionally hide fixedBaseStatsStatSet and _fixedBaseStats based on useBaseStatsFromClass
             if (!useClassBaseStats.boolValue)
             {
-                EditorGUILayout.PropertyField(fixedBaseStatsStatSet);
+                RequiredProperty(fixedBaseStatsStatSet,
+                    "Fixed Base Stats Set",
+                    "The StatSet that defines which stats can be modified in the Fixed Base Stats section below.");
 
                 // Draw _fixedBaseStats as editable long fields
                 EntityStats entityStats = (EntityStats)target;
@@ -60,7 +65,9 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             }
 
             // Draw the _onStatChanged property
-            EditorGUILayout.PropertyField(onStatChanged);
+            EditorGUILayout.PropertyField(onStatChanged, new GUIContent(
+                "On Stat Changed",
+                "Event raised when any stat value changes. Provides the old and new values of the changed stat."));
 
             serializedObject.ApplyModifiedProperties();
         }

@@ -8,6 +8,15 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
     [CustomEditor(typeof(EntityAttributes))]
     public class EntityAttributesEditor : Editor
     {
+        SerializedProperty useClassBaseAttributes;
+        SerializedProperty fixedBaseAttributeSet;
+
+        void OnEnable()
+        {
+            useClassBaseAttributes = serializedObject.FindProperty("useClassBaseAttributes");
+            fixedBaseAttributeSet = serializedObject.FindProperty("fixedBaseAttributeSet");
+        }
+
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
@@ -66,9 +75,11 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             EditorGUILayout.EndVertical();
             
             // Check if useClassBaseAttributes is true
-            SerializedProperty useClassBaseAttributesProp = serializedObject.FindProperty("useClassBaseAttributes");
-            EditorGUILayout.PropertyField(useClassBaseAttributesProp, new GUIContent("Use Class Base Attributes"));
-            if (useClassBaseAttributesProp.boolValue == false)
+            EditorGUILayout.PropertyField(useClassBaseAttributes, new GUIContent(
+                "Use Class Base Attributes",
+                "If true, base attributes are derived from the attached IClassSource component. If false, uses the fixedBaseAttributeSet and fixedBaseAttributes values."));
+
+            if (useClassBaseAttributes.boolValue == false)
             {
                 // FIXED BASE ATTRIBUTES
                 EditorGUILayout.BeginVertical("box");
@@ -76,8 +87,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
                 EditorGUI.indentLevel++;
 
                 // Draw fixedBaseAttributeAttrSet field with custom label
-                SerializedProperty fixedBaseAttributeSetProp = serializedObject.FindProperty("fixedBaseAttributeSet");
-                EditorGUILayout.PropertyField(fixedBaseAttributeSetProp, new GUIContent("Attributes Set"));
+                EditorGUILayout.PropertyField(fixedBaseAttributeSet, new GUIContent("Attributes Set"));
 
                 // Collect keys in a separate list
                 List<Attribute> fixedBaseKeys = new List<Attribute>(fixedBaseAttributes.Keys);

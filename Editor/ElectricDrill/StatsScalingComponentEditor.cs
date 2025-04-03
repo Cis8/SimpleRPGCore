@@ -11,15 +11,21 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
     {
         public override void OnInspectorGUI()
         {
-            // Draw the default inspector
-            DrawDefaultInspector();
-
             // Get the target object
             StatsScalingComponent component = (StatsScalingComponent)target;
+            
+            // Draw the script field as disabled
+            using (new EditorGUI.DisabledScope(true))
+            {
+                EditorGUILayout.ObjectField("Script", MonoScript.FromScriptableObject(component), typeof(MonoScript), false);
+            }
 
+            // Draw the required set field
+            SerializedProperty setProperty = serializedObject.FindProperty("_set");
+            InspectorTypography.RequiredProperty(setProperty, "Stat Set", "The stat set that defines which stats can be used to configure their scaling in this component");
             // Draw the custom inspector for the serializable dictionary
             EditorGUILayout.BeginVertical("box");
-            EditorGUILayout.LabelField("Scaling Attribute Values", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Scaling Stat Values", EditorStyles.boldLabel);
 
             // Iterate through the dictionary and draw each key-value pair
             var keys = new List<Stat>(component._scalingAttributeValues.Keys);
@@ -37,6 +43,7 @@ namespace ElectricDrill.SimpleRpgCore.CstmEditor
             EditorGUILayout.EndVertical();
 
             // Apply changes to the serialized object
+            serializedObject.ApplyModifiedProperties();
             if (GUI.changed)
             {
                 EditorUtility.SetDirty(target);

@@ -22,7 +22,7 @@ namespace ElectricDrill.SimpleRpgCore.Stats
     public class EntityStats : MonoBehaviour, IStatSetSource
     {
         private EntityCore _entityCore;
-
+        
         [SerializeField, HideInInspector] private bool useBaseStatsFromClass = true;
         /// <summary>
         /// Indicates whether to use base stats from the entity's class or the fixed base stats.

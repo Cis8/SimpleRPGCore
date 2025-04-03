@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ElectricDrill.SimpleRpgCore {
     public class EntityClass : MonoBehaviour, IClassSource
     {
-        [SerializeField] private Class _class;
+        [SerializeField, HideInInspector] private Class _class;
         
         public Class Class {
             get => _class;
